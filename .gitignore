@@ -56,7 +56,7 @@ local_settings.py
 *.pyc
 */static/
 */media/
-*db.sqlite
+*db.sqlite3
 /migrations/
 
 # Flask stuff:
