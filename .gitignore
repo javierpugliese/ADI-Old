@@ -57,6 +57,7 @@ local_settings.py
 */static/
 */media/
 *db.sqlite
+/migrations/
 
 # Flask stuff:
 instance/
