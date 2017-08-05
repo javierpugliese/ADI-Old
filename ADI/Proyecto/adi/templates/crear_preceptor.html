@@ -1,0 +1,81 @@
+<html>
+
+<head>
+	{% load static %}
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js">
+
+    </script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static "style.css" %}">
+<style>
+		body {
+		    margin: 0;
+		}
+
+		ul {
+		    list-style-type: none;
+		    margin: 0;
+		    padding: 0;
+		    width: 15%;
+		    background-color: #f1f1f1;
+		    position: fixed;
+		    height: 100%;
+		    overflow: auto;
+		}
+
+		li a {
+		    display: block;
+		    color: #000;
+		    padding: 8px 16px;
+		    text-decoration: none;
+		}
+
+		li a.active {
+		    background-color: #4CAF50;
+		    color: white;
+		}
+
+		li a:hover:not(.active) {
+		    background-color: #555;
+		    color: white;
+		}
+</style>
+</head>
+<body>
+
+<div style="margin-left:25%;padding:1px 16px;height:1000px;">
+	<div class="container">
+	    <div class="col s12">
+	      <div class="card green lighten-2 z-depth-5" >
+	        <div class="card-content black-text">
+	          <div <div style="color:#0000cc">
+	            <center><span class="card-title">Crear Preceptor</span></center>
+	          </div>
+	          <form action="{% url 'crear_preceptor' %}" method="POST">
+	  				{% csrf_token %}
+	  				    <div class="row">
+	  						    <div class="input-field col s12">
+	  							      &nbsp;&nbsp;&nbsp;
+	  							      <textarea name= 'nombre_usuario' placeholder="Nombre de usuario" class="materialize-textarea"  type="text" id="username"></textarea>
+												<textarea name= 'password' placeholder="contraseña"class="materialize-textarea"  type="text" id="password"></textarea>
+												<textarea name= 'nombre' placeholder="Nombre"class="materialize-textarea"  type="text" id="name"></textarea>
+												<textarea name= 'apellido' placeholder="Apellido" maxlength="8" class="materialize-textarea"  type="text" id="surname"></textarea>
+												<textarea name= 'dni' placeholder="Dni" maxlength="8" class="materialize-textarea"  type="text" id="dni"></textarea>
+	  						    </div>
+	  					  </div>
+	              &nbsp;&nbsp;&nbsp;
+	  					  <center>
+	  				<input class="waves-effect waves-light btn" type="submit" value="Crear">
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+</div>
+
+</body>
+</html>
