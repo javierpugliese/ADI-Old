@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html class="mdc-typography">
+  <head>
+		<meta charset="UTF-8">
+		<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <title>ADI - Principal</title>
+    <link rel="stylesheet" href="node_modules/material-components-web/dist/material-components-web.css">
+	</head>
+	<style>
+		html, body {
+    	height: 100%;
+		}
+		html {
+			display: table;
+			margin: auto;
+		}
+		body {
+			display: table-cell;
+			vertical-align: middle;
+		}
+</style>
+  <body style="background-color: whitesmoke">
+		<br>
+		<br>
+		<div class="mdc-card mdc-card--theme-dark" style="padding-right: 50px;padding-bottom: 22px;padding-left: 50px;">
+  		<div class="mdc-card mdc-card--theme-dark" style="padding-right: 50px;padding-bottom: 22px;padding-left: 50px;">
+				<section class="mdc-card__primary" style="text-align: center;">
+					<h2 class="mdc-typography--display1" style="color:#333638">Administración</h2>
+						<button class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple" style="background-color:#333638;color:white;">
+							Indentificarse
+						</button>
+				</section>
+			</div>
+			<div class="mdc-card mdc-card--theme-dark" style="padding-right: 50px;padding-bottom: 22px;padding-left: 50px;">
+				<section class="mdc-card__primary" style="text-align: center;">
+        <form method='POST' href="{% url 'login_p'  %}">
+          {% csrf_token %}
+          <h2 class="mdc-typography--display1" style="color:#333638">Preceptores</h2>
+						<button onclick="window.location.href='login.html'" class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple" style="background-color:#333638;color:white;">
+							Indentificarse
+						</button>
+        </form>
+					</form>
+				</section>
+			</div>
+			<div class="mdc-card mdc-card--theme-dark" style="padding-right: 50px;padding-bottom: 22px;padding-left: 50px;">
+				<section class="mdc-card__primary" style="text-align: center;">
+					<h2 class="mdc-typography--display1" style="color:#333638">Guardia</h2>
+						<button class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple" style="background-color:#333638;color:white;">
+							Indentificarse
+						</button>
+				</section>
+			</div>
+			<div class="mdc-card mdc-card--theme-dark" style="padding-right: 50px;padding-bottom: 22px;padding-left: 50px;">
+				<section class="mdc-card__primary" style="text-align: center;">
+					<h2 class="mdc-typography--display1" style="color:#333638">Alumnos</h2>
+						<button class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple" style="background-color:#333638;color:white;">
+							Indentificarse
+						</button>
+				</section>
+			</div>
+		</div>
+		<br>
+		<br>
+		<p style="text-align: center;font-size: 75%;">by Javier Pugliese</p>
+    <script src="node_modules/material-components-web/dist/material-components-web.js"></script>
+    <script>mdc.autoInit()</script>
+	</body>
+</html>
