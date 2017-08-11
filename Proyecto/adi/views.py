@@ -71,7 +71,6 @@ def crear_formulario3(request):
 def buscar_alumno(request):
     if request.method == 'POST':
         #Tomamos los valores ingresados en el template
-        print "LLEGUE"
         nombre = request.POST['nombre3']
         apellido = request.POST['apellido3']
         dni = request.POST['dni3']
@@ -80,9 +79,9 @@ def buscar_alumno(request):
         prec = Preceptor.objects.filter(nombre=nombre_preceptor2)
         #Corroboramos que los datos ingresados sean de un alumno
         global aux
-        aux = Alumno.objects.filter(nombre=nombre, apellido=apellido,dni=dni)
+        aux = Alumno.objects.filter(nombre=nombre, apellido=apellido,dni=dni, preceptor=prec)
         if aux:
-            print "Existe xd"
+            print "Existe"
         else:
             print "NO EXISTE"
     return HttpResponse('FUNCIONO')
@@ -130,6 +129,45 @@ def crear_preceptor(request):
         user.save()
     return render(request, 'index.html')
 
+def alumnos(request):
+   try:
+       alumnos = Alumno.objects.all()
+   except:
+       alumnos = None
+   return render(request,
+                 'F2_grupal.html',
+                 {'todos_los_alumnos':alumnos})
+
+""" Reloj
+<html>
+<head>
+<script>
+function startTime() {
+  var today = new Date();
+  var h = today.getHours();
+  var m = today.getMinutes();
+  var s = today.getSeconds();
+  m = checkTime(m);
+  s = checkTime(s);
+  document.getElementById('txt').innerHTML =
+  h + ":" + m + ":" + s;
+  var t = setTimeout(startTime, 500);
+}
+function checkTime(i) {
+  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+  return i;
+}
+</script>
+</head>
+
+<body onload="startTime()">
+
+<div id="txt"></div>
+
+</body>
+</html>
+"""
+
 # =========================================================================
 # Funciones de carga de template
 
@@ -156,5 +194,4 @@ def inicio(request):
 
 def f2(request):
     return render(request, "F2.html")
-
 # Create your views here.

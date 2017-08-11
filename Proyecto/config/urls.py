@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^crearf3/$', crear_formulario3, name="crear_formulario3"),
     url(r'^crearpr/$', crear_preceptor, name="crear_preceptor"),
     url(r'^crearal/$', crear_alumno, name="crear_alumno"),
+    url(r'^alumnos/$', alumnos, name="alumnos"),
     url(r'^modal/$', modificar_alumno, name="modificar_alumno"),
     url(r'^busal/$', buscar_alumno, name="buscar_alumno")
 ]

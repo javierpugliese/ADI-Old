@@ -27,9 +27,10 @@
 			});
 	</script>
 	</head>
-  <body style="background-color: whitesmoke">
+  <body style="background-color: whitesmoke" onload="startTime()">
 		<nav id="basic-tab-bar" class="mdc-tab-bar">
 			<a class="mdc-tab mdc-tab--active" href="/" id="main">Principal</a>
+      <span id="txt"></span>
 			<a class="mdc-tab" href="#Cargar_Alumno" id="cargar_alumno">Cargar alumno</a>
 			<a class="mdc-tab" href="#Modificar_Alumno" id="modificar_alumno">Modificar alumno</a>
 			<a class="mdc-tab" href="#AUTORIZACIÓN_PARA_RETIRO_ANTICIPADO_IMPREVISTO_POR_CAUSAS_INSTITUCIONALES" id="formulario2">Formulario 2</a>
@@ -42,4 +43,25 @@
     <script src="{% static 'node_modules/material-components-web/dist/material-components-web.js' %}"></script>
     <script>mdc.autoInit()</script>
 	</body>
+  <script>
+
+
+
+  function startTime() {
+    var today = new Date();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('txt').innerHTML =
+    h + ":" + m + ":" + s;
+    var t = setTimeout(startTime, 500);
+  }
+  function checkTime(i) {
+    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+  }
+
+  </script>
 </html>
