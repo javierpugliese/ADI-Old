@@ -1,50 +1,11 @@
-<!--
-<html>
-<head>
-	{% load static %}
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
-
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js">
-
-    </script>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="{% static "style.css" %}">
-</head>
-
-<body bgcolor="orange">
-
-	<br><br>
-        {% for alum in todos_los_alumnos %}
-					  <div class="container">
-		            <div class="col s6 div">
-		              <div class="card yellow lighten-2 z-depth-5" >
-		            	<div class="card-content black-text">
-		              	<center><span class="card-title">{{alum.nombre}}</span></center>
-		              	<div class="card-action green lighten-3 z-depth-2">
-                      <br>
-		              			<center><p>{{alum.dni}}</p></center>
-		              			<br>
-												&nbsp;&nbsp;&nbsp;
-			  								<center>
-											</div>
-		            	</div>
-		          	</div>
-		        	</div>
-	       	</div>
-      {% endfor %}
-    </body>
-
-</html>
--->
 <!DOCTYPE html>
 <html class="mdc-typography">
   {% load staticfiles %}
   <head>
 		<meta charset="UTF-8">
 		<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link type="text/css" href="css/ui-darkness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
     <title>F2</title>
     <link rel="stylesheet" href="{% static 'node_modules/material-components-web/dist/material-components-web.css' %}">
 	</head>
@@ -62,61 +23,60 @@
 		}
 </style>
   <body style="background-color: whitesmoke">
-		<div class="mdc-card">
-			<section class="mdc-card__primary">
-				<h1 class="mdc-card__title mdc-card__title--large">Alumnos presentes hoy</h1>
-				<h2 class="mdc-card__subtitle">Seleccione xd</h2>
-			</section>
-			<section class="mdc-card__supporting-text">
-        {% for alum in todos_los_alumnos %}
-          <div class="mdc-card">
-  					  <div class="container">
-  		            <div class="col s6 div">
-  		              <div class="card yellow lighten-2 z-depth-5" >
-  		            	<div class="card-content black-text">
-                      <br>
-  		              	<center><span class="card-title">{{alum.nombre}}</span></center>
-  		              	<div class="card-action green lighten-3 z-depth-2">
-                        <br>
-  		             			<center><p>{{alum.dni}}</p></center>
-  		            			<br>
-  											&nbsp;&nbsp;&nbsp;
-  			  							<center>
-  										</div>
-                      <div class="mdc-checkbox">
-          							<input type="checkbox"
-          										class="mdc-checkbox__native-control"/>
-          							<div class="mdc-checkbox__background">
-          								<svg class="mdc-checkbox__checkmark"
-          										viewBox="0 0 24 24">
-          									<path class="mdc-checkbox__checkmark__path"
-          												fill="none"
-          												stroke="white"
-          												d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
-          								</svg>
-          								<div class="mdc-checkbox__mixedmark"></div>
-          							</div>
-          						</div>
-  		          	</div>
-  		         	</div>
-  		        </div>
-  	       	</div>
-				   </div>
-          {% endfor %}
-			</section>
-		</div>
+    <select style="width: 280px" id="Mobility" name="Mobility">
+      <option selected="">Please Select</option>
+      <option>A</option>
+      <option>B</option>
+      <option>c</option>
+    </select>
+      <div class="mdc-card">
+  			<section class="mdc-card__primary">
+  				<h1 class="mdc-card__title mdc-card__title--large">Alumnos presentes: {{todos_los_alumnos|length}}</h1>
+  			</section>
+  			<section class="mdc-card__supporting-text">
+          <div id = "primero">
+            {% for alum in todos_los_alumnos %}
+              <form id="als">
+                <div class="mdc-card">
+        					  <div class="container">
+        		            <div class="col s6 div">
+                            <div class="card yellow lighten-2 z-depth-5" >
+            		            	<div class="card-content black-text">
+                                <br>
+            		              	<center><span class="card-title">{{alum.apellido|upper}} {{alum.nombre|upper}}</span></center>
+                                <div id="segundo">
+                                  <form id="hola">
+                                    <a onclick="volver('{% url 'volver' alum.dni %}', {{alum.dni}})" class="waves-effect waves-light btn green darken-4">Volver</a>
+                                  </form>
+                                </div>
+                              <div class="mdc-checkbox">
+                    						<input id="check" type="checkbox" class="mdc-checkbox__native-control" onclick="retirar('{% url 'retiro_grupal' alum.dni %}', {{alum.dni}})"/>
+                    						<div class="mdc-checkbox__background">
+                    							<svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                    								<path class="mdc-checkbox__checkmark__path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                    							</svg>
+                    							<div class="mdc-checkbox__mixedmark"></div>
+                    						</div>
+                  						</div>
+                              <div id="tercero">
+                                <input type="button" value="Confirmar" style="float: right;" onClick="updateDiv()" />
+                              </div>
+                        </div>
+        		         	</div>
+        		        </div>
+        	       	</div>
+      				   </div>
+               </form>
+              {% endfor %}
+  			</section>
+  		</div>
+    </div>
+    <br>
 		<br>
 		<br>
-		<button class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple" style="background-color:#333638;color:white;">
-						-->
-		</button>
 		<br>
-		<br>
-		<button class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple" style="background-color:#333638;color:white;">
-						<--
-		</button>
-		<br>
-		<br>
+
+    <!--
 
 		<div class="mdc-card">
 			<section class="mdc-card__primary">
@@ -133,7 +93,58 @@
 				</div>
 			</section>
 		</div>
+
+  -->
     <script src="{% static 'node_modules/material-components-web/dist/material-components-web.js' %}"></script>
     <script>mdc.autoInit()</script>
 	</body>
+  <script>
+
+  ocul()
+
+  function ocul(){
+    segundo.style.visibility="hidden"
+    tercero.style.visibility="hidden"
+  }
+
+  function updateDiv(){
+     $( "#primero" ).load(window.location.href + " #primero" );
+ }
+
+  function retirar(url, alum) {
+   //alert("soquetes");
+   $.ajax({
+     method: "POST",
+     url: url,
+     data: {
+       csrfmiddlewaretoken: '{{ csrf_token }}'
+     }
+   })
+     .done(function (msg) {
+       segundo.style.visibility="visible"
+       tercero.style.visibility="visible"
+       //alert("La cantidad de puaj es: " + msg);
+     });
+ };
+
+
+
+ function volver(url, alum) {
+  //alert("soquetes");
+  $.ajax({
+    method: "POST",
+    url: url,
+    data: {
+      csrfmiddlewaretoken: '{{ csrf_token }}'
+    }
+  })
+    .done(function (msg) {
+      alert("Cambiado")
+      document.getElementById("check").checked = false;
+      //alert("La cantidad de puaj es: " + msg);
+    });
+};
+
+  </script>
+
 </html>

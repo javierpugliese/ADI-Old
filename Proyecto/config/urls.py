@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^preceptor/$', preceptor, name="cambio"),
     url(r'^guardia/$', guardia, name="cambio2"),
     url(r'^alumno/$', alumno, name="cambio3"),
+    url(r'^picker/$', picker, name="picker"),
     url(r'^crearpreceptor/$', cpreceptor, name="cambio4"),
     url(r'^crearalumno/$', calumno, name="cambio5"),
     url(r'^cambiaralumno/$', chalumno, name="cambio6"),
@@ -22,5 +23,7 @@ urlpatterns = [
     url(r'^crearal/$', crear_alumno, name="crear_alumno"),
     url(r'^alumnos/$', alumnos, name="alumnos"),
     url(r'^modal/$', modificar_alumno, name="modificar_alumno"),
+    url(r'^retiro/(\d+)$', retiro_grupal, name="retiro_grupal"),
+    url(r'^volver/(\d+)$', volver, name="volver"),
     url(r'^busal/$', buscar_alumno, name="buscar_alumno")
 ]

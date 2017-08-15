@@ -13,11 +13,19 @@ class Padre_Tutor(models.Model):
     def __str__(self):
         return '{} '.format(self.nombre)
 
+class Curso(models.Model):
+    year = models.PositiveSmallIntegerField(default=1)
+    division = models.CharField(max_length=1)
+
+    def __str__(self):
+        return ' {} - {} '.format(self.year, self.division)
+
 class Preceptor(models.Model):
     nombre_usuario = models.CharField(max_length=20)
     nombre = models.CharField(max_length=20)
     apellido = models.CharField(max_length=20)
     dni = models.IntegerField(null=False)
+    curso = models.ForeignKey(Curso)
 
     def __str__(self):
         return '{} '.format(self.nombre)
@@ -26,7 +34,7 @@ class Alumno(models.Model):
     nombre = models.CharField(max_length=20)
     apellido = models.CharField(max_length=20)
     dni = models.IntegerField(primary_key=True)
-    preceptor = models.ForeignKey(Preceptor)
+    curso = models.ForeignKey(Curso)
     estado = models.CharField(max_length=8)
 
     def __str__(self):
@@ -53,4 +61,4 @@ class Formulario3(models.Model):
     fecha = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return 'F3 de {} '.format(self.alumno)
+        return 'F3 de {} '.format(self.alumno.nombre)

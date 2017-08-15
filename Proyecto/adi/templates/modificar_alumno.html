@@ -47,11 +47,6 @@
   						<label for="demo-input" class="mdc-textfield__label">D.N.I. del alumno</label>
   					</div>
   					<br>
-  					<div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-  						<input type="text" class="mdc-textfield__input" id="aux4" maxlength="20" name="nombre_pre3">
-  						<label for="demo-input" class="mdc-textfield__label">Nombre Preceptor</label>
-  					</div>
-  					<br>
   					<br>
   					<br>
             <a onclick="ver('{% url 'buscar_alumno' %}')" class="waves-effect waves-light btn green darken-4">Verificar</a>
@@ -105,7 +100,6 @@
       document.getElementById("aux1").value = "";
       document.getElementById("aux2").value = "";
       document.getElementById("aux3").value = "";
-      document.getElementById("aux4").value = "";
       document.getElementById("viejo_nombre").value = "";
       document.getElementById("viejo_apellido").value = "";
       document.getElementById("viejo_dni").value = "";
@@ -126,7 +120,6 @@
       v_nombre = parseInt(document.getElementById("aux1").value);
       v_apellido = parseInt(document.getElementById("aux2").value);
       v_dni = parseInt(document.getElementById("aux3").value);
-      v_prece = parseInt(document.getElementById("aux4").value);
       /*
       if (isNaN(n_nombre)!=true){
           errores = "Nombre es con letras no con números";

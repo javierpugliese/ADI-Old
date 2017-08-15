@@ -74,12 +74,9 @@ def buscar_alumno(request):
         nombre = request.POST['nombre3']
         apellido = request.POST['apellido3']
         dni = request.POST['dni3']
-        nombre_preceptor2 = request.POST['nombre_pre3']
-        #Verificamos que el preceptor ingresado exista
-        prec = Preceptor.objects.filter(nombre=nombre_preceptor2)
         #Corroboramos que los datos ingresados sean de un alumno
         global aux
-        aux = Alumno.objects.filter(nombre=nombre, apellido=apellido,dni=dni, preceptor=prec)
+        aux = Alumno.objects.filter(nombre=nombre, apellido=apellido,dni=dni)
         if aux:
             print "Existe"
         else:
@@ -101,15 +98,18 @@ def crear_alumno(request):
         nombre = request.POST['nombre']
         apellido = request.POST['apellido']
         dni = request.POST['dni']
-        nombre_preceptor = request.POST['nombre_pre']
-        #Buscamos el preceptor indicado para hacer la FK.
-        prec = Preceptor.objects.filter(nombre=nombre_preceptor)
-        if prec:
+        year = request.POST['year']
+        division = request.POST['division']
+        #Buscamos el curso indicado para hacer la FK.
+        print year
+
+        cur = Curso.objects.get(year=year, division=division)
+        if cur:
             #Guardamos al alumnno
-            al = Alumno(nombre=nombre, apellido=apellido, dni=dni, preceptor=prec)
+            al = Alumno(nombre=nombre, apellido=apellido, dni=dni, estado="Creado", curso=cur)
             al.save()
         else:
-            print "No existe ese preceptor"
+            print "No existe ese curso"
     return render(request, 'index.html')
 
 
@@ -120,23 +120,38 @@ def crear_preceptor(request):
         nombre = request.POST['nombre']
         apellido = request.POST['apellido']
         dni = request.POST['dni']
-        print "Hasta aca todo bien"
+        year = request.POST['year']
+        division = request.POST['division']
+        cur = Curso.objects.get(year=year, division=division)
         #Creamos al modelo Preceptor a partir de los datos ingresados, relacionando nombre_usuario con el User creado
-        preceptor = Preceptor(nombre_usuario=nombre_usuario,nombre=nombre, apellido=apellido, dni=dni)
+        preceptor = Preceptor(nombre_usuario=nombre_usuario,nombre=nombre, apellido=apellido, dni=dni, curso=cur)
         preceptor.save()
         #Creamos al usuario
-        user = User.objects.create_user(username=nombre_usuario,password=password)
+        user = User.objects.create_user(username=nombre_usuario, password=password)
         user.save()
     return render(request, 'index.html')
 
 def alumnos(request):
    try:
-       alumnos = Alumno.objects.all()
+       alumnos = Alumno.objects.filter(estado="Presente")
    except:
        alumnos = None
    return render(request,
                  'F2_grupal.html',
                  {'todos_los_alumnos':alumnos})
+
+def retiro_grupal(request, alum_t):
+    al = Alumno.objects.filter(dni=alum_t)
+    if request.method == 'POST':
+        al.update(estado="Retirado")
+    return HttpResponse('FUNCIONO')
+
+def volver(request, alum_t):
+    al = Alumno.objects.filter(dni=alum_t)
+    if request.method == 'POST':
+        al.update(estado="Presente")
+    return HttpResponse('FUNCIONO')
+
 
 """ Reloj
 <html>
@@ -188,6 +203,9 @@ def guardia(request):
 
 def alumno(request):
     return render(request, 'alumno.html')
+
+def picker(request):
+    return render(request, 'picker.html')
 
 def inicio(request):
   return render(request, 'index.html')
