@@ -1,54 +1,61 @@
-<!DOCTYPE html>
 <html>
-	<head>
-		<title>Login Preceptor</title>
-		<meta charset="UTF-8">
-		<style>
-			ul {
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
 
-			li {
-				display: inline;
-			}
-			.dropdown {
-				position: relative;
-				display: inline-block;
-			}
+<head>
+	{% load static %}
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js">
 
-			.dropdown-content {
-				display: none;
-				position: absolute;
-				background-color: #f9f9f9;
-				min-width: 160px;
-				box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-				padding: 12px 16px;
-				z-index: 1;
-				right: 0;
-			}
+    </script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
 
-			.dropdown:hover .dropdown-content {
-				display: block;
-			}
-		</style>
-	</head>
-	<body>
-		 <ul style="border-style: solid;border-width: 3px;">
-  	<li><a href="#">Guardia</a></li>
-		<div class="dropdown" style="float:right">
-					<span style="border-style: solid;border-width: 1px;">Iniciar sesión</span>
-					<div class="dropdown-content">
-						<form action="/action_page.php">
-								Usuario: <input type="text" name="user"><br>
-								Contraseña: <input type="text" name="password"><br>
-								<input type="submit" value="Submit">
-						</form>
-					</div>
-			</div>
-</ul>
+		<body bgcolor="orange">
+			<br><br>
+				<div id= "primero">
+					{% for f2 in todos_los_f2 %}
+		        <div class="container">
+			        <div class="col s1">
+			          <div class="card pink lighten-2 z-depth-5" >
+			            <div class="card-content black-text">
+			              <div class="card-action light-blue lighten-3 z-depth-2">
+											<p>{{f2.alumno.apellido|upper}} {{f2.alumno.nombre|title}} Hora: {{f2.fecha}}</p>
+			              </div>
+			          	</div>
+									<a onclick="aceptar('{% url 'aceptar' f2.id %}', {{f2.id}})" class="waves-effect waves-light btn green darken-4" href="#">
+	              		<i class="material-icons">thumb_up</i>
+	            			</a>
+			          	</div>
+			          		</div>
+								</div>
+		         	</div>
+		    		</div>
+		    	{% endfor %}
+				</div>
+			</body>
+		<script>
+
+		function updateDiv(){
+	     $( "#primero" ).load(window.location.href + " #primero" );
+	 }
+
+		function aceptar(url, tweet) {
+     $.ajax({
+       method: "POST",
+       url: url,
+       data: {
+         csrfmiddlewaretoken: '{{ csrf_token }}'
+       }
+     })
+       .done(function (msg) {
+				 updateDiv()
+       });
+   };
 
 
-	</body>
+		</script>
 </html>

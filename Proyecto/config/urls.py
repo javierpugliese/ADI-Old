@@ -21,9 +21,11 @@ urlpatterns = [
     url(r'^crearf3/$', crear_formulario3, name="crear_formulario3"),
     url(r'^crearpr/$', crear_preceptor, name="crear_preceptor"),
     url(r'^crearal/$', crear_alumno, name="crear_alumno"),
+    url(r'^guardia_f2/$', f2s, name="f2s"),
     url(r'^alumnos/$', alumnos, name="alumnos"),
     url(r'^modal/$', modificar_alumno, name="modificar_alumno"),
     url(r'^retiro/(\d+)$', retiro_grupal, name="retiro_grupal"),
+    url(r'^guardia_aceptar/(\d+)$', aceptar, name="aceptar"),
     url(r'^volver/(\d+)$', volver, name="volver"),
     url(r'^busal/$', buscar_alumno, name="buscar_alumno")
 ]

@@ -26,28 +26,17 @@ def crear_formulario2(request):
         nombre_alumno = request.POST['nombre']
         apellido_alumno = request.POST['apellido']
         dni_alumno = request.POST['dni']
-        nombre_preceptor = request.POST['nombre_preceptor']
+        nombre_usuario = request.POST['nombre_preceptor']
         ahorita = datetime.now()
+        prec = User.objects.get(username=nombre_usuario)
         #Verificamos que los datos existan.
-        preceptor = User.objects.get(username=nombre_preceptor)
-        bpn = Alumno.objects.filter(nombre=nombre_alumno)
-        bpa = Alumno.objects.filter(apellido=apellido_alumno)
-        bpd = Alumno.objects.filter(dni=dni_alumno)
-        if preceptor:
-            if bpn:
-                if bpa:
-                    if bpd:
-                        new_f2 = Formulario2(nombre_alumno=nombre_alumno, apellido_alumno=apellido_alumno, dni_alumno=dni_alumno, fecha=ahorita, preceptor=preceptor)
-                        new_f2.save()
-                        print "Creado"
-                    else:
-                        print "No existe un alumno con ese Dni"
-                else:
-                    print "No existe un alumno con ese apellido"
-            else:
-                print "No existe un alumno con ese nombre"
+        al = Alumno.objects.get(nombre=nombre_alumno, apellido=apellido_alumno, dni=dni_alumno)
+        if prec and al:
+            new_f2 = Formulario2(alumno=al, preceptor=prec, fecha=ahorita)
+            new_f2.save()
         else:
-            print "NO SE CREA EL FORMULARIO, NO EXISTE EL PRECEPTOR"
+            print "NONONO"
+        return redirect ('cambio')
     return HttpResponse('HOLA <b style="color: red">SOLO PODES ACCEDER POR POST</b>')
 
 def crear_formulario3(request):
@@ -101,8 +90,6 @@ def crear_alumno(request):
         year = request.POST['year']
         division = request.POST['division']
         #Buscamos el curso indicado para hacer la FK.
-        print year
-
         cur = Curso.objects.get(year=year, division=division)
         if cur:
             #Guardamos al alumnno
@@ -140,10 +127,32 @@ def alumnos(request):
                  'F2_grupal.html',
                  {'todos_los_alumnos':alumnos})
 
+def f2s(request):
+   try:
+       f2 = Formulario2.objects.all()
+   except:
+       f2 = None
+   return render(request,
+                 'guardia.html',
+                 {'todos_los_f2':f2})
+
 def retiro_grupal(request, alum_t):
     al = Alumno.objects.filter(dni=alum_t)
     if request.method == 'POST':
         al.update(estado="Retirado")
+    return HttpResponse('FUNCIONO')
+
+def aceptar(request, alum_t):
+    f2 = Formulario2.objects.get(id=alum_t)
+    if request.method == 'POST':
+        nom = f2.alumno.nombre
+        al = Alumno.objects.get(nombre=nom)
+        if al:
+            al.estado="Retirado"
+            al.save()
+            f2.delete()
+        else:
+            print "No hay"
     return HttpResponse('FUNCIONO')
 
 def volver(request, alum_t):
@@ -211,5 +220,5 @@ def inicio(request):
   return render(request, 'index.html')
 
 def f2(request):
-    return render(request, "F2.html")
+    return render(request, "F3.html")
 # Create your views here.
