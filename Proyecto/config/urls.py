@@ -6,8 +6,8 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', inicio),
-    url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name="login_p"),
+    #url(r'^$', inicio),
+    url(r'^$', auth_views.login, {'template_name': 'login.html'}, name="login_p"),
     url(r'^logout/$', auth_views.logout, {'template_name': 'logged_out.html'}, name="logout_p"),
     url(r'^preceptor/$', preceptor, name="cambio"),
     url(r'^guardia/$', guardia, name="cambio2"),
