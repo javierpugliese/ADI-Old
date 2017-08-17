@@ -129,7 +129,7 @@ def alumnos(request):
 
 def f2s(request):
    try:
-       f2 = Formulario2.objects.all()
+       f2 = Formulario2.objects.filter(estado="Presente")
    except:
        f2 = None
    return render(request,
@@ -150,7 +150,8 @@ def aceptar(request, alum_t):
         if al:
             al.estado="Retirado"
             al.save()
-            f2.delete()
+            f2.estado="Usado"
+            f2.save()
         else:
             print "No hay"
     return HttpResponse('FUNCIONO')

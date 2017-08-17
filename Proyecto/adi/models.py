@@ -49,14 +49,16 @@ class Formulario2(models.Model):
     preceptor = models.ForeignKey(settings.AUTH_USER_MODEL)
     alumno = models.ForeignKey(Alumno)
     fecha = models.DateTimeField(default=timezone.now)
+    estado = models.CharField(max_length=8)
 
     def __str__(self):
-        return 'F2 de {} '.format(self.alumno.nombre)
+        return 'F2 de {}'.format(self.alumno.nombre)
 
 class Formulario3(models.Model):
     preceptor = models.ForeignKey(settings.AUTH_USER_MODEL)
     alumno = models.ForeignKey(Alumno)
     fecha = models.DateTimeField(default=timezone.now)
+    estado = models.CharField(max_length=8)
 
     def __str__(self):
         return 'F3 de {} '.format(self.alumno.nombre)
