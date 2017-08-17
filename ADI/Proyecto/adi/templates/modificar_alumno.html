@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html class="mdc-typography">
+  <head>
+		<meta charset="UTF-8">
+		<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <title>Modificar alumno</title>
+    <link rel="stylesheet" href="node_modules/material-components-web/dist/material-components-web.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style>
+		html, body {
+    	height: 100%;
+		}
+		html {
+			display: table;
+			margin: auto;
+		}
+		body {
+			display: table-cell;
+			vertical-align: middle;
+		}
+</style>
+  </head>
+  <body style="background-color: whitesmoke">
+		<div class="mdc-card mdc-card--theme-dark" style="padding-right: 50px;padding-bottom: 22px;padding-left: 50px;">
+  		<section class="mdc-card__primary" style="text-align: center;">
+				<h2 class="mdc-typography--display1" style="color:#333638">Modificar alumno</h2>
+				<!--Estructura del formulario-->
+        <form id="hola">
+          {% csrf_token %}
+            <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+  						<input type="text" class="mdc-textfield__input" name="nombre3">
+  						<label for="demo-input" class="mdc-textfield__label">Nombre del alumno</label>
+  					</div>
+  					<br>
+  					<div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+  						<input type="text" class="mdc-textfield__input" name="apellido3">
+  						<label for="demo-input" class="mdc-textfield__label">Apellido del alumno</label>
+  					</div>
+  					<br>
+  					<div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+  						<input type="text" class="mdc-textfield__input" name="dni3">
+  						<label for="demo-input" class="mdc-textfield__label">D.N.I. del alumno</label>
+  					</div>
+  					<br>
+  					<div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+  						<input type="text" class="mdc-textfield__input" name="nombre_pre3">
+  						<label for="demo-input" class="mdc-textfield__label">Preceptor</label>
+  					</div>
+  					<br>
+  					<br>
+  					<br>
+            <a onclick="ver('{% url 'buscar_alumno' %}')" class="waves-effect waves-light btn green darken-4">Verificar</a>
+          </form>
+        </section>
+      </div>
+
+    <div id="segundo">
+      <form id = "chau">
+        {% csrf_token %}
+        <div class="mdc-card mdc-card--theme-dark" style="padding-right: 50px;padding-bottom: 22px;padding-left: 50px;">
+      		<section class="mdc-card__primary" style="text-align: center;">
+    				<h2 class="mdc-typography--display1" style="color:#333638">Nuevos Datos</h2>
+    					<div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+    						<input type="text" class="mdc-textfield__input" name="nombre4">
+    						<label for="demo-input" class="mdc-textfield__label" id="viejo_nombre">Nuevo Nombre</label>
+    					</div>
+    					<br>
+    					<div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+    						<input type="text" class="mdc-textfield__input" name="apellido4">
+    						<label for="demo-input" class="mdc-textfield__label"id="viejo_apellido">Nuevo Apellido<label>
+    					</div>
+    					<br>
+    					<div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+    						<input type="text" class="mdc-textfield__input" name="dni4">
+    						<label for="demo-input" class="mdc-textfield__label"id="viejo_dni">Nuevo DNI</label>
+    					</div>
+    					<br>
+    					<br>
+    					<br>
+              <a onclick="cam('{% url 'modificar_alumno' %}')" class="waves-effect waves-light btn green darken-4">Cambiar</a>
+            </form>
+            </section>
+          </div>
+        </div>
+    <script src="node_modules/material-components-web/dist/material-components-web.js"></script>
+
+    <script>mdc.autoInit()</script>
+	</body>
+  <script type="text/javascript">
+
+    ocul();
+
+    function ocul(){
+      segundo.style.visibility="hidden"
+    }
+
+
+    function ver(url){
+      $.ajax({
+       method: "POST",
+       url: url,
+       data: new FormData($("#hola")[0]),
+       processData: false,
+       contentType: false
+     })
+     .done(function(data){
+         alert("Funciona")
+         segundo.style.visibility="visible"
+
+     });
+    }
+
+    function cam(url){
+      $.ajax({
+       method: "POST",
+       url: url,
+       data: new FormData($("#chau")[0]),
+       processData: false,
+       contentType: false
+     })
+     .done(function(data){
+         alert("Lo logramos")
+     });
+    }
+
+  </script>
+
+</html>
