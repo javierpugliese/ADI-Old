@@ -20,6 +20,17 @@ class Curso(models.Model):
     def __str__(self):
         return ' {} - {} '.format(self.year, self.division)
 
+class Alumno(models.Model):
+    nombre = models.CharField(max_length=20)
+    apellido = models.CharField(max_length=20)
+    dni = models.IntegerField(primary_key=True)
+    curso = models.ForeignKey(Curso)
+    faltas = models.FloatField(null=False)
+    estado = models.CharField(max_length=8)
+
+    def __str__(self):
+        return '{} '.format(self.nombre)
+
 class Preceptor(models.Model):
     nombre_usuario = models.CharField(max_length=20)
     nombre = models.CharField(max_length=20)
@@ -30,15 +41,7 @@ class Preceptor(models.Model):
     def __str__(self):
         return '{} '.format(self.nombre)
 
-class Alumno(models.Model):
-    nombre = models.CharField(max_length=20)
-    apellido = models.CharField(max_length=20)
-    dni = models.IntegerField(primary_key=True)
-    curso = models.ForeignKey(Curso)
-    estado = models.CharField(max_length=8)
 
-    def __str__(self):
-        return '{} '.format(self.nombre)
 
 #    def count_like(self):
 #        return Like.objects.filter(tweet=self).count()

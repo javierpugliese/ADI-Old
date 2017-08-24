@@ -93,7 +93,7 @@ def crear_alumno(request):
         cur = Curso.objects.get(year=year, division=division)
         if cur:
             #Guardamos al alumnno
-            al = Alumno(nombre=nombre, apellido=apellido, dni=dni, estado="Creado", curso=cur)
+            al = Alumno(nombre=nombre, apellido=apellido, dni=dni, estado="Indefinido", curso=cur, faltas=0)
             al.save()
         else:
             print "No existe ese curso"
@@ -118,24 +118,6 @@ def crear_preceptor(request):
         user.save()
     return render(request, 'index.html')
 
-def alumnos(request):
-   try:
-       alumnos = Alumno.objects.filter(estado="Presente")
-   except:
-       alumnos = None
-   return render(request,
-                 'F2_grupal.html',
-                 {'todos_los_alumnos':alumnos})
-
-def f2s(request):
-   try:
-       f2 = Formulario2.objects.filter(estado="Presente")
-   except:
-       f2 = None
-   return render(request,
-                 'guardia.html',
-                 {'todos_los_f2':f2})
-
 def retiro_grupal(request, alum_t):
     al = Alumno.objects.filter(dni=alum_t)
     if request.method == 'POST':
@@ -154,6 +136,13 @@ def aceptar(request, alum_t):
             f2.save()
         else:
             print "No hay"
+    return HttpResponse('FUNCIONO')
+
+def presente(request, alum_id):
+    al = Alumno.objectos.get(dni=alum_id)
+    if request.method == 'POST':
+        al.estado="Presente"
+        al.save()
     return HttpResponse('FUNCIONO')
 
 def volver(request, alum_t):
@@ -222,4 +211,41 @@ def inicio(request):
 
 def f2(request):
     return render(request, "F3.html")
-# Create your views here.
+
+def alumnos(request):
+   try:
+       alumnos = Alumno.objects.filter(estado="Presente")
+   except:
+       alumnos = None
+   return render(request,
+                 'F2_grupal.html',
+                 {'todos_los_alumnos':alumnos})
+
+def formularios(request):
+    try:
+        forms2 = Formulario2.objects.all()
+        forms3 = Formulario3.objects.all()
+    except:
+        forms2 = None
+        forms3 = None
+    return render(request,'formularios.html',{'todos_los_f3':forms3},{'todos_los_f2':forms2})
+
+def mis_alumnos(request):
+    pepe = request.user
+    try:
+        prec = Preceptor.objects.get(nombre_usuario=pepe)
+        al = Alumno.objects.filter(curso=prec.curso, estado="Presente")
+    except:
+        al = None
+    return render(request,
+                 'mis_alumnos.html',
+                 {'todos_los_alumnos':al})
+
+def f2s(request):
+   try:
+       f2 = Formulario2.objects.filter(estado="Presente")
+   except:
+       f2 = None
+   return render(request,
+                 'guardia.html',
+                 {'todos_los_f2':f2})
