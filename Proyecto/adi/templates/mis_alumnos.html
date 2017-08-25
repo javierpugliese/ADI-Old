@@ -18,14 +18,14 @@
 			<br><br>
 				<div id= "primero">
 					{% for al in todos_los_alumnos %}
-					<!-- Ausentes -->
-						{% if al.estado == "Ausente" %}
+						<!-- Presentes -->
+						{% if al.estado == "Presente" %}
 							<div class="container">
 								<div class="col s1">
-									<div class="card red lighten-2 z-depth-5" >
+									<div class="card blue lighten-2 z-depth-5" >
 										<div class="card-content white-text">
 												<p>{{al.apellido|upper}} {{al.nombre|title}} Estado: {{al.estado}} Curso {{al.curso}}</p>
-												<a onclick="inf()" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
+												<a onclick="pres('{% url 'pepe' al.dni %}', {{al.dni}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
 													<i class="material-icons">info</i>
 												</a>
 										</div>
@@ -33,14 +33,14 @@
 								</div>
 							</div>
 						{% endif %}
-						<!-- Presentes -->
-						{% if al.estado == "Presente" %}
+						<!-- Ausentes -->
+						{% if al.estado == "Ausente" %}
 			        <div class="container">
 				        <div class="col s1">
-				          <div class="card blue lighten-2 z-depth-5" >
+				          <div class="card red lighten-2 z-depth-5" >
 				            <div class="card-content white-text">
 												<p>{{al.apellido|upper}} {{al.nombre|title}} Estado: {{al.estado}} Curso {{al.curso}}</p>
-                        <a onclick="inf()" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
+                        <a onclick="pres('{% url 'pepe' al.dni %}', {{al.dni}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
     		              		<i class="material-icons">info</i>
     		            		</a>
 				          	</div>
@@ -48,13 +48,14 @@
 				        </div>
 							</div>
 						{% endif %}
+						<!-- Retirados -->
 						{% if al.estado == "Retirado" %}
 							<div class="container">
 								<div class="col s1">
-									<div class="card red lighten-2 z-depth-5" >
-										<div class="card-content green-text">
+									<div class="card green lighten-2 z-depth-5" >
+										<div class="card-content white-text">
 												<p>{{al.apellido|upper}} {{al.nombre|title}} Estado: {{al.estado}} Curso {{al.curso}}</p>
-												<a onclick="inf()" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
+												<a onclick="pres('{% url 'pepe' al.dni %}', {{al.dni}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
 													<i class="material-icons">info</i>
 												</a>
 										</div>
@@ -65,23 +66,19 @@
 					{% endfor %}
 				</div>
 
-				<button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black">Open Modal</button>
-
-					<div id="id01" class="w3-modal">
-    				<div class="w3-modal-content">
-      				<header class="w3-container w3-teal">
-        				<span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-        				<h2>Modal Header</h2>
-      				</header>
-      				<div class="w3-container">
-        				<p id ="nada"></p>
-        				<p>Some text..</p>
-      				</div>
-      				<footer class="w3-container w3-teal">
-        				<p>Modal Footer</p>
-      				</footer>
-    					</div>
-  				</div>
+				<div id="id01" class="w3-modal">
+					<div class="w3-modal-content">
+						<header class="w3-container w3-teal">
+							<span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+							<h2>Datos:</h2>
+						</header>
+						<div class="w3-container">
+							<center><span id ="apellido">kjghkjghj</span></center>
+							<center><span id ="nombre">kjghkjghj</span></center>
+							<center><span id ="dni">kjghkjghj</span></center>
+							<center><span id ="estado">kjghkjghj</span></center>
+						</div>
+				</div>
 
 			</body>
 		<script type="text/javascript">
@@ -95,9 +92,12 @@
 				 csrfmiddlewaretoken: '{{ csrf_token }}'
 			 }
 		 })
-			 .done(function (msg) {
-				 alert("HOLA")
-				 //alert("La cantidad de puaj es: " + msg);
+			 .done(function (data) {
+				 document.getElementById('apellido').innerHTML=data.apellido;
+				 document.getElementById('nombre').innerHTML=data.nombre;
+				 document.getElementById('dni').innerHTML=data.dni;
+				 document.getElementById('estado').innerHTML=data.estado;
+				 document.getElementById('id01').style.display='block';
 			 });
 	 };
 

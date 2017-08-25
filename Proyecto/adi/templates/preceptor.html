@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-{% load static  %}
 <html class="mdc-typography">
+  {% load static  %}
   <head>
 		<meta charset="UTF-8">
 		<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
@@ -12,17 +12,11 @@
 	    		$('#formulario2').click(function(){
 	       		$("#contenido").load("F2.html");
 	    		});
-
 	    		$('#formulario3').click(function(){
 	       		$("#contenido").load("F3.html");
 	    		});
-
-	    		$('#modificar_alumno').click(function(){
-	       		$("#contenido").load("modificar_alumno.html");
-	    		});
-          
-					$('#cargar_alumno').click(function(){
-	       		$("#contenido").load("cargar_alumno.html");
+          $('#alumnos').click(function(){
+	       		$("#contenido").load("F2.html");
 	    		});
 			});
 	</script>
@@ -31,8 +25,7 @@
 		<nav id="basic-tab-bar" class="mdc-tab-bar">
 			<a class="mdc-tab mdc-tab--active" href="/" id="main">Principal</a>
       <span id="txt"></span>
-			<a class="mdc-tab" href="#Cargar_Alumno" id="cargar_alumno">Cargar alumno</a>
-			<a class="mdc-tab" href="#Modificar_Alumno" id="modificar_alumno">Modificar alumno</a>
+		  <a class="mdc-tab" href="#Nada" id="alumnos"> Alumnos </a>
 			<a class="mdc-tab" href="#AUTORIZACIÓN_PARA_RETIRO_ANTICIPADO_IMPREVISTO_POR_CAUSAS_INSTITUCIONALES" id="formulario2">Formulario 2</a>
 			<a class="mdc-tab" href="#AUTORIZACIÓN_PARA_RETIRO_ANTICIPADO_POR_RAZONES_PERSONALES" id="formulario3">Formulario 3</a>
       <!--<a class="mdc-tab" href="mis_Alumnos" id="mis_alumnos">Mis Alumnos</a>-->

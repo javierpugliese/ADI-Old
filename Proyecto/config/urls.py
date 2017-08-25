@@ -12,7 +12,6 @@ urlpatterns = [
     url(r'^preceptor/$', preceptor, name="cambio"),
     url(r'^guardia/$', guardia, name="cambio2"),
     url(r'^alumno/$', alumno, name="cambio3"),
-    url(r'^picker/$', picker, name="picker"),
     url(r'^crearpreceptor/$', cpreceptor, name="cambio4"),
     url(r'^crearalumno/$', calumno, name="cambio5"),
     url(r'^cambiaralumno/$', chalumno, name="cambio6"),
@@ -28,6 +27,9 @@ urlpatterns = [
     url(r'^presente/(\d+)$', presente, name="presente"),
     url(r'^retiro/(\d+)$', retiro_grupal, name="retiro_grupal"),
     url(r'^guardia_aceptar/(\d+)$', aceptar, name="aceptar"),
+    url(r'^pepe/(\d+)$', pepe, name="pepe"),
+    url(r'^datos_f2/(\d+)$', datos_f2, name="datos_f2"),
+    url(r'^datos_f3/(\d+)$', datos_f3, name="datos_f3"),
     url(r'^volver/(\d+)$', volver, name="volver"),
     url(r'^busal/$', buscar_alumno, name="buscar_alumno")
 ]

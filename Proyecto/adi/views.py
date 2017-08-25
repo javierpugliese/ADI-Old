@@ -15,6 +15,7 @@ from datetime import datetime, timedelta
 from django.utils import timezone
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.models import User
+from django.http import JsonResponse
 from .models import *
 
 
@@ -32,7 +33,7 @@ def crear_formulario2(request):
         #Verificamos que los datos existan.
         al = Alumno.objects.get(nombre=nombre_alumno, apellido=apellido_alumno, dni=dni_alumno)
         if prec and al:
-            new_f2 = Formulario2(alumno=al, preceptor=prec, fecha=ahorita)
+            new_f2 = Formulario2(alumno=al, preceptor=prec, fecha=ahorita, estado="Proceso")
             new_f2.save()
         else:
             print "NONONO"
@@ -151,6 +152,38 @@ def volver(request, alum_t):
         al.update(estado="Presente")
     return HttpResponse('FUNCIONO')
 
+def pepe(request, id_for):
+    print id_for;
+    al = Alumno.objects.get(dni=id_for)
+    data = {
+        'apellido':al.apellido,
+        'nombre':al.nombre,
+        'dni':al.dni,
+        'estado':al.estado
+    }
+    return JsonResponse(data, safe=False)
+
+def datos_f2(request, id_for):
+    print id_for;
+    formi = Formulario2.objects.get(id=id_for)
+    data = {
+        'preceptor':formi.preceptor.username,
+        'alumno':formi.alumno.nombre,
+        'fecha':formi.fecha,
+        'estado':formi.estado
+    }
+    return JsonResponse(data, safe=False)
+
+def datos_f3(request, id_for):
+    print id_for;
+    formi = Formulario3.objects.get(id=id_for)
+    data = {
+        'preceptor':formi.preceptor.username,
+        'alumno':formi.alumno.nombre,
+        'fecha':formi.fecha,
+        'estado':formi.estado
+    }
+    return JsonResponse(data, safe=False)
 
 """ Reloj
 <html>
@@ -210,7 +243,7 @@ def inicio(request):
   return render(request, 'index.html')
 
 def f2(request):
-    return render(request, "F3.html")
+    return render(request, "F2.html")
 
 def alumnos(request):
    try:
@@ -228,13 +261,13 @@ def formularios(request):
     except:
         forms2 = None
         forms3 = None
-    return render(request,'formularios.html',{'todos_los_f3':forms3},{'todos_los_f2':forms2})
+    return render(request,'formularios.html',{'todos_los_f3':forms3, 'todos_los_f2':forms2})
 
 def mis_alumnos(request):
     pepe = request.user
     try:
         prec = Preceptor.objects.get(nombre_usuario=pepe)
-        al = Alumno.objects.filter(curso=prec.curso, estado="Presente")
+        al = Alumno.objects.filter(curso=prec.curso).order_by('-apellido')
     except:
         al = None
     return render(request,
