@@ -125,19 +125,77 @@ def retiro_grupal(request, alum_t):
         al.update(estado="Retirado")
     return HttpResponse('FUNCIONO')
 
-def aceptar(request, alum_t):
+def aceptar_f2(request, alum_t):
     f2 = Formulario2.objects.get(id=alum_t)
-    if request.method == 'POST':
-        nom = f2.alumno.nombre
-        al = Alumno.objects.get(nombre=nom)
-        if al:
-            al.estado="Retirado"
-            al.save()
-            f2.estado="Usado"
-            f2.save()
-        else:
-            print "No hay"
-    return HttpResponse('FUNCIONO')
+    nom = f2.alumno.nombre
+    al = Alumno.objects.get(nombre=nom)
+    if al:
+        al.estado="Retirado"
+        al.save()
+        f2.estado="Finalizado"
+        f2.save()
+        data = {
+            'estado':"Operación realizada con éxito"
+        }
+    else:
+        data = {
+            'estado':"La operación falló"
+        }
+    return JsonResponse(data, safe=False)
+
+def aceptar_f3(request, alum_t):
+    f3 = Formulario3.objects.get(id=alum_t)
+    nom = f3.alumno.nombre
+    al = Alumno.objects.get(nombre=nom)
+    if al:
+        al.estado="Retirado"
+        al.save()
+        f3.estado="Finalizado"
+        f3.save()
+        data = {
+            'estado':"Operación realizada con éxito"
+        }
+    else:
+        data = {
+            'estado':"La operación falló"
+        }
+    return JsonResponse(data, safe=False)
+
+def rechazar_f2(request, alum_t):
+    f2 = Formulario2.objects.get(id=alum_t)
+    nom = f2.alumno.nombre
+    al = Alumno.objects.get(nombre=nom)
+    if al:
+        al.estado="Indefinido"
+        al.save()
+        f2.estado="Rechazado"
+        f2.save()
+        data = {
+            'estado':"Operación realizada con éxito"
+        }
+    else:
+        data = {
+            'estado':"La operación falló"
+        }
+    return JsonResponse(data, safe=False)
+
+def rechazar_f3(request, alum_t):
+    f3 = Formulario3.objects.get(id=alum_t)
+    nom = f3.alumno.nombre
+    al = Alumno.objects.get(nombre=nom)
+    if al:
+        al.estado="Indefinido"
+        al.save()
+        f3.estado="Rechazado"
+        f3.save()
+        data = {
+            'estado':"Operación realizada con éxito"
+        }
+    else:
+        data = {
+            'estado':"La operación falló"
+        }
+    return JsonResponse(data, safe=False)
 
 def presente(request, alum_id):
     al = Alumno.objectos.get(dni=alum_id)
@@ -152,7 +210,7 @@ def volver(request, alum_t):
         al.update(estado="Presente")
     return HttpResponse('FUNCIONO')
 
-def pepe(request, id_for):
+def datos_alumnos(request, id_for):
     print id_for;
     al = Alumno.objects.get(dni=id_for)
     data = {
@@ -256,8 +314,8 @@ def alumnos(request):
 
 def formularios(request):
     try:
-        forms2 = Formulario2.objects.all()
-        forms3 = Formulario3.objects.all()
+        forms2 = Formulario2.objects.filter(estado="Proceso")
+        forms3 = Formulario3.objects.filter(estado="Proceso")
     except:
         forms2 = None
         forms3 = None

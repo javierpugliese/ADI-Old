@@ -18,113 +18,53 @@
 			<br><br>
 				<div id= "primero">
 					{% for forms2 in todos_los_f2 %}
-						{% if forms2.estado == "Proceso" %}
-							<div class="container">
-				        <div class="col s1">
-				          <div class="card green lighten-2 z-depth-5" >
-										<div <div style="color:#0000cc">
-	            				<center><span class="card-title">F2</span></center>
-	          				</div>
-				            <div class="card-content black-text">
-												<center><p>{{forms2.id}} - {{forms2.alumno}}</p></center>
-                        <a onclick="datos_f2('{% url 'datos_f2' forms2.id %}', {{forms2.id}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
-    		              		<i class="material-icons">info</i>
-    		            		</a>
-				          	</div>
-				          </div>
-				        </div>
-							</div>
-						{% endif %}
-						{% if forms2.estado == "Finalizado" %}
-							<div class="container">
-				        <div class="col s1">
-				          <div class="card blue lighten-2 z-depth-5" >
-										<div <div style="color:#0000cc">
-	            				<center><span class="card-title">F2</span></center>
-	          				</div>
-				            <div class="card-content black-text">
-												<center><p>{{forms2.id}} - {{forms2.alumno}}</p></center>
-                        <a onclick="datos_f2('{% url 'datos_f2' forms2.id %}', {{forms2.id}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
-    		              		<i class="material-icons">info</i>
-    		            		</a>
-				          	</div>
-				          </div>
-				        </div>
-							</div>
-						{% endif %}
-						{% if forms2.estado == "Rechazo" %}
-							<div class="container">
-				        <div class="col s1">
-				          <div class="card red lighten-2 z-depth-5" >
-										<div <div style="color:#0000cc">
-	            				<center><span class="card-title">F2</span></center>
-	          				</div>
-				            <div class="card-content black-text">
-												<center><p>{{forms2.id}} - {{forms2.alumno}}</p></center>
-                        <a onclick="datos_f2('{% url 'datos_f2' forms2.id %}', {{forms2.id}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
-    		              		<i class="material-icons">info</i>
-    		            		</a>
-				          	</div>
-				          </div>
-				        </div>
-							</div>
-						{% endif %}
+						<div class="container">
+				       <div class="col s1">
+				         <div class="card green lighten-2 z-depth-5" >
+									<div <div style="color:#0000cc">
+	           				<center><span class="card-title">F2</span></center>
+	          			</div>
+				           <div class="card-content black-text">
+											<center><p>{{forms2.id}} - {{forms2.alumno}} Estado: {{forms.2.estado}}</p></center>
+											<a onclick="aceptar_f2('{% url 'aceptar_f2' forms2.id %}', {{forms2.id}})" id="myBtn"  class="waves-effect waves-light btn green darken-4">
+    		             		<i class="material-icons">thumb_up</i>
+    		           		</a>
+                      <a onclick="datos_f2('{% url 'datos_f2' forms2.id %}', {{forms2.id}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
+    		             		<i class="material-icons">info</i>
+    		           		</a>
+											<a onclick="rechazar_f2('{% url 'rechazar_f2' forms2.id %}', {{forms2.id}})" id="myBtn"  class="waves-effect waves-light btn red darken-4">
+    		             		<i class="material-icons">thumb_down</i>
+    		           		</a>
+				         	</div>
+				         </div>
+				       </div>
+						</div>
 					{% endfor %}
 				</div>
 
         <div id= "segundo">
 					{% for forms3 in todos_los_f3 %}
-						{% if forms3.estado == "Proceso" %}
-							<div class="container">
-				        <div class="col s1">
-				          <div class="card green lighten-2 z-depth-5" >
-										<div <div style="color:#0000cc">
-	            				<center><span class="card-title">F3</span></center>
-	          				</div>
-				            <div class="card-content white-text">
-												<center><p>{{forms3.id}} - {{forms3.alumno}} Estado: {{forms3.estado}}</p></center>
-                        <a onclick="datos_f3('{% url 'datos_f3' forms3.id %}', {{forms3.id}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
-    		              		<i class="material-icons">info</i>
-    		            		</a>
-				          	</div>
-				          </div>
-				        </div>
-							</div>
-						{% endif %}
-						{% if forms3.estado == "Finalizado" %}
-							<div class="container">
-				        <div class="col s1">
-				          <div class="card blue lighten-2 z-depth-5" >
-										<div <div style="color:#0000cc">
-	            				<center><span class="card-title">F3</span></center>
-	          				</div>
-				            <div class="card-content white-text">
-												<center><p>{{forms3.preceptor}} - {{forms3.alumno}} Estado: {{forms3.estado}}</p></center>
-                        <a onclick="datos_f3('{% url 'datos_f3' forms3.id %}', {{forms3.id}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
-    		              		<i class="material-icons">info</i>
-    		            		</a>
-				          	</div>
-				          </div>
-				        </div>
-							</div>
-						{% endif %}
-						{% if forms3.estado == "Rechazado" %}
-							<div class="container">
-				        <div class="col s1">
-				          <div class="card red lighten-2 z-depth-5" >
-										<div <div style="color:#0000cc">
-	            				<center><span class="card-title">F3</span></center>
-	          				</div>
-				            <div class="card-content white-text">
-												<center><p>{{forms3.preceptor}} - {{forms3.alumno}} Estado: {{forms3.estado}}</p></center>
-                        <a onclick="datos_f3('{% url 'datos_f3' forms3.id %}', {{forms3.id}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
-    		              		<i class="material-icons">info</i>
-    		            		</a>
-				          	</div>
-				          </div>
-				        </div>
-							</div>
-						{% endif %}
+						<div class="container">
+				       <div class="col s1">
+				         <div class="card green lighten-2 z-depth-5" >
+									<div <div style="color:#0000cc">
+	           				<center><span class="card-title">F3</span></center>
+	          			</div>
+				           <div class="card-content white-text">
+											<center><p>{{forms3.id}} - {{forms3.alumno}} Estado: {{forms3.estado}}</p></center>
+											<a onclick="aceptar_f3('{% url 'aceptar_f3' forms3.id %}', {{forms3.id}})" id="myBtn"  class="waves-effect waves-light btn green darken-4">
+    		             		<i class="material-icons">thumb_up</i>
+    		           		</a>
+                      <a onclick="datos_f3('{% url 'datos_f3' forms3.id %}', {{forms3.id}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
+    		             		<i class="material-icons">info</i>
+    		           		</a>
+											<a onclick="rechazar_f3('{% url 'rechazar_f3' forms3.id %}', {{forms3.id}})" id="myBtn"  class="waves-effect waves-light btn red darken-4">
+    		             		<i class="material-icons">thumb_down</i>
+    		           		</a>
+				         	</div>
+				         </div>
+				       </div>
+						</div>
 		    	{% endfor %}
 				</div>
 
@@ -143,7 +83,79 @@
 				</div>
 
 			</body>
-		<script type="text/javascript">
+	<script type="text/javascript">
+
+		function updateDiv(){
+		 	$( "#primero" ).load(window.location.href + " #primero" );
+ 		}
+
+		function updateDiv2(){
+		 	$( "#segundo" ).load(window.location.href + " #primero" );
+ 		}
+
+		function aceptar_f2(url, alum) {
+		 //alert("soquetes");
+		 $.ajax({
+			 method: "POST",
+			 url: url,
+			 data: {
+				 csrfmiddlewaretoken: '{{ csrf_token }}'
+			 }
+		 })
+			 .done(function (data) {
+				 alert(data.estado);
+				 updateDiv()
+			 });
+	 };
+
+	 function aceptar_f3(url, alum) {
+		//alert("soquetes");
+		$.ajax({
+			method: "POST",
+			url: url,
+			data: {
+				csrfmiddlewaretoken: '{{ csrf_token }}'
+			}
+		})
+			.done(function (data) {
+				alert(data.estado);
+				updateDiv2()
+			});
+	};
+
+	 function rechazar_f2(url, alum) {
+		//alert("soquetes");
+		$.ajax({
+			method: "POST",
+			url: url,
+			data: {
+				csrfmiddlewaretoken: '{{ csrf_token }}'
+			}
+		})
+			.done(function (data) {
+				alert(data.estado);
+				if (data.estado == "Operación realizada con éxito"){
+					updateDiv()
+				}
+			});
+		};
+
+		function rechazar_f3(url, alum) {
+ 		//alert("soquetes");
+ 		$.ajax({
+ 			method: "POST",
+ 			url: url,
+ 			data: {
+ 				csrfmiddlewaretoken: '{{ csrf_token }}'
+ 			}
+ 		})
+ 			.done(function (data) {
+ 				alert(data.estado);
+ 				if (data.estado == "Operación realizada con éxito"){
+ 					updateDiv2()
+ 				}
+ 			});
+ 		};
 
 		function datos_f2(url, alum) {
 		 //alert("soquetes");
@@ -181,5 +193,5 @@
 			});
 	};
 
-		</script>
+	</script>
 </html>
