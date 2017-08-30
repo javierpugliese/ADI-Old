@@ -21,74 +21,46 @@ from .models import *
 
 
 #Función que crea F2 individuales
-def crear_f2(request):
-    nombre_alumno = request.POST['nombre']
-    apellido_alumno = request.POST['apellido']
-    dni_alumno = request.POST['dni']
-    preceptor = request.POST['nombre_preceptor']
-    prec = User.objects.get(username=request.user)
-    ahorita = datetime.now()
-    al = Alumno.objects.get(nombre=nombre_alumno, apellido=apellido_alumno, dni=dni_alumno)
-    if al and prec:
-        print "Encuentra"
-        new_f2 = Formulario2(alumno=al, preceptor=prec, fecha=ahorita, estado="Proceso")
-        new_f2.save()
-        al.estado = "Indefinido"
-        al.save()
-        data = {
-            'estado': "Creado con éxito"
-        }
+def mostrar_opciones(request, alum_t):
+    al = Alumno.objects.get(dni=alum_t)
+    return render(request,
+                  'preceptor/F2_grupal.html',
+                  {'alumno':al})
+
+def crear_f2(request, nada):
+    print nada
+    pepe = request.user
+    ahorita = timezone.now()
+    prec = Preceptor.objects.get(nombre_usuario=pepe)
+    todos = Alumno.objects.filter(curso=prec.curso, estado="Indefinido")
+    if todos:
+        for a in todos:
+            print "encuentra"
+            a.estado="Saliendo"
+            a.save()
+            print a.estado
+            new_f2 = Formulario2(alumno=a, fecha=ahorita, estado="Proceso", preceptor=prec)
+            new_f2.save()
     else:
-        data = {
-            'estado': "Error"
-        }
+        print "No encuentra"
+    data = {
+        'estado': "activo"
+    }
     return JsonResponse(data, safe=False)
 
 def crear_f3(request):
-    if request.method == 'POST':
-        #Igual que el F2 individual
-        nombre_alumno = request.POST['nombre2']
-        apellido_alumno = request.POST['apellido2']
-        dni_alumno = request.POST['dni2']
-        nombre_usuario = request.POST['preceptor2']
-        ahorita = datetime.now()
-        prec = User.objects.get(username=nombre_usuario)
-        al = Alumno.objects.get(nombre=nombre_alumno, apellido=apellido_alumno, dni=dni_alumno)
-        if prec and al:
-            new_f3 = Formulario3(alumno=al, preceptor=prec, fecha=ahorita)
-            new_f3.save()
-        else:
-            print "NONONO"
-        return redirect ('cambio')
-    return HttpResponse('HOLA <b style="color: red">SOLO PODES ACCEDER POR POST</b>')
+    print "nada"
 
 def buscar_alumno(request):
     if request.method == 'POST':
-        #Tomamos los valores ingresados en el template
-        nombre = request.POST['nombre3']
-        apellido = request.POST['apellido3']
-        dni = request.POST['dni3']
-        #Corroboramos que los datos ingresados sean de un alumno
-        global aux
-        aux = Alumno.objects.filter(nombre=nombre, apellido=apellido,dni=dni)
-        if aux:
-            print "Existe"
-        else:
-            print "NO EXISTE"
+        print "hola"
     return HttpResponse('FUNCIONO')
 
 def modificar_alumno(request):
-    print "Arrancamos"
-    if request.method == 'POST':
-        n_nombre = request.POST['nombre4']
-        n_apellido = request.POST['apellido4']
-        n_dni = request.POST['dni4']
-        aux.update(nombre=n_nombre, apellido=n_apellido, dni=n_dni)
-    return HttpResponse('FUNCIONO')
+    print "nada"
 
 
 def crear_alumno(request):
-    print "HOLA"
     nombre = request.POST['nombre']
     apellido = request.POST['apellido']
     dni = request.POST['dni']
@@ -97,7 +69,6 @@ def crear_alumno(request):
     cur = Curso.objects.get(numero=num_curso)
     if cur:
         #Buscamos el curso del preceptor
-        print "CREADO !!!!!!"
         al = Alumno(nombre=nombre, apellido=apellido, dni=dni, estado="Indefinido", curso=cur, faltas=0)
         al.save()
     else:
@@ -218,24 +189,16 @@ def volver(request, alum_t):
 def datos_alumnos(request, id_for):
     print id_for;
     al = Alumno.objects.get(dni=id_for)
-    data = {
-        'apellido':al.apellido,
-        'nombre':al.nombre,
-        'dni':al.dni,
-        'estado':al.estado
-    }
     return JsonResponse(data, safe=False)
 
 def datos_f2(request, id_for):
     print id_for;
     formi = Formulario2.objects.get(id=id_for)
-    data = {
-        'preceptor':formi.preceptor.username,
-        'alumno':formi.alumno.nombre,
-        'fecha':formi.fecha,
-        'estado':formi.estado
-    }
-    return JsonResponse(data, safe=False)
+    alum = formi.alumno
+    return render(request,
+                  'guardia/datos.html',
+                  {'form':formi})
+    #return JsonResponse(data, safe=False)
 
 def datos_f3(request, id_for):
     print id_for;
@@ -299,16 +262,30 @@ def guardia(request):
 def inicio(request):
   return render(request, 'index.html')
 
+def alumnos_para_formulario(request):
+    pepe = request.user
+    try:
+        prec = Preceptor.objects.get(nombre_usuario=pepe)
+        al = Alumno.objects.filter(curso=prec.curso, estado="Presente").order_by('-apellido')
+    except:
+        al = None
+    return render(request,
+                 'preceptor/F2.html',
+                 {'todos_los_alumnos':al})
+
 def f2(request):
     pepe = request.user
     try:
-        prec = Preceptor.objects.get(nombre_usuario=pepe).values()
-        print "Encontro"
+        prec = Preceptor.objects.get(nombre_usuario=pepe)
+        al = Alumno.objects.filter(curso=prec.curso, estado="Presente").order_by('-apellido')
     except:
-        prec = None
+        al = None
     return render(request,
                  'preceptor/F2.html',
-                 {'preceptor':prec})
+                 {'todos_los_alumnos':al})
+
+def f3(request):
+    return render(request, 'preceptor/F3.html')
 
 def f2grupal(request):
    try:

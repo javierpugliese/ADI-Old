@@ -49,14 +49,14 @@
 			</div>
 			<div class="nav-content">
 				<ul class="tabs tabs-transparent">
-					<li class="tab"><a href="#perfiles">Perfiles</a></li>
+					<li class="tab"><a id="open_perfil" href="#perfiles">Perfiles</a></li>
 					<li class="tab"><a href="#c_alumno">Cargar alumno</a></li>
 					<li class="tab"><a class="active" href="#mod_alumno">Modificar datos</a></li>
 					<li class="tab"><a href="#observaciones">Observaciones</a></li>
 				</ul>
 			</div>
 	    </nav>
-	    <div id="perfiles" class="col s12">Aca van los perfiles de los alumnos para visualizar sus datos, etc</div>
+	    <div id="perfiles" class="col s12"></div>
 		<div id="c_alumno" class="col s12">Aca va el formulario para cargar un alumno a la base de datos</div>
 		<div id="mod_alumno" class="col s12">Aca va el formulario para modificar los datos de los alumnos ya cargados en la base de datos</div>
 		<div id="observaciones" class="col s12">Aca va un registro de cartas con las ultimas observaciones realizadas en fecha y con opcion de modificar, se divide en 2 secciones esta pagina y la 2da va a tener el mini formulario para cargar una observacion a un alumno</div>
@@ -72,134 +72,90 @@
 			</div>
 			<div class="nav-content">
 				<ul class="tabs tabs-transparent">
-					<li class="tab"><a id="open_f1" href="#f1">F1</a></li>
-					<li class="tab"><a id="open_f2" href="#f2">F2</a></li>
-          <li class="tab"><a id="open_f2g" href="#f2">F2 Grupal</a></li>
-					<li class="tab"><a id="open_f3" href="#f3">F3</a></li>
-					<li class="tab"><a id="open_fm" href="#fm">F.M.</a></li>
+          <li class="tab"><a id="open_cf" href="#f1">Crear Formulario</a></li>
+					<li class="tab"><a id="ver_formularios" href="#f1">Ver Formularios</a></li>
 				</ul>
 			</div>
 	    </nav>
-	    <div id="f_1" class="col s12"></div>
-  		<div id="f_2" class="col s12"></div>
-		  <div id="f_3" class="col s12"></div>
-		<div id="fm" class="col s12">Aca va el Formulario Medico, que luego sera cargado y completado con todos los datos necesarios para ser llevados a administracion (o sea que quede un registro)</div>
-	  </div>
     <div id="contenido"></div>
-
-    <div id="f2">
-      <div class="mdc-card mdc-card--theme-dark" style="padding-right: 50px;padding-bottom: 22px;padding-left: 50px;">
-        <section class="mdc-card__primary" style="text-align: center;">
-          <h2 class="mdc-typography--display1" style="color:#333638">F2</h2>
-          <form action="{% url 'crear_f2' %}" method="POST">
-            <div class="row">
-              <div class="input.field col s4">
-                <center><input id="nombre" name="nombre" type="text" class="validate"></center>
-                <label for="name">Nombre</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input.field col s4">
-                <input id="apellido" name="apellido" type="text" class="validate">
-                <label for="name">Apellido</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input.field col s4">
-                <input id="dni" name="dni" type="text" class="validate">
-                <label for="name">DNI</label>
-                </div>
-            </div>
-            <div class="row">
-              <div class="input.field col s4">
-                <input id="nombre_preceptor" name="nombre_preceptor" type="text" class="validate">
-                <label for="name">Preceptor</label>
-              </div>
-            </div>
-            <br>
-            <button type="submit" class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple" style="background-color:#333638;color:white;">
-              Crear formulario
-            </button>
-            {% csrf_token %}
-          </form>
-           </section>
-        </div>
-      </div>
-
-      <div id="f2g">
-
-
-
-      </div>
-
-      <div id="f3">
-        <div class="mdc-card mdc-card--theme-dark" style="padding-right: 50px;padding-bottom: 22px;padding-left: 50px;">
-          <section class="mdc-card__primary" style="text-align: center;">
-            <h2 class="mdc-typography--display1" style="color:#333638">F3</h2>
-            <form action="{% url 'crear_f3' %}" method="POST">
-              <div class="row">
-                <div class="input.field col s4">
-                  <center><input id="nombre2" name="nombre2" type="text" class="validate"></center>
-                  <label for="name">Nombre</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input.field col s4">
-                  <input id="apellido2" name="apellido2" type="text" class="validate">
-                  <label for="name">Apellido</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input.field col s4">
-                  <input id="dni2" name="dni2" type="text" class="validate">
-                  <label for="name">DNI</label>
-                  </div>
-              </div>
-              <div class="row">
-                <div class="input.field col s4">
-                  <input id="nombre_preceptor2" name="nombre_preceptor2" type="text" class="validate">
-                  <label for="name">Preceptor</label>
-                </div>
-              </div>
-              <br>
-              <button type="submit" class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple" style="background-color:#333638;color:white;">
-                Crear formulario
-              </button>
-              {% csrf_token %}
-            </form>
-             </section>
-          </div>
-      </div>
-      <!--Import jQuery before materialize.js-->
     </body>
     <script>
 
-      ocul()
 
-      function ocul(){
-        f2.style.visibility="hidden"
-        f3.style.visibility="hidden"
-      }
 
-        $(document).ready(function(){
-            $('#open_f1').click(function(){
-              alert("Falta este template")
-            })
-            $('#open_f2').click(function(){
-              f3.style.visibility="hidden"
-              f2.style.visibility="visible"
+      var nada = "";
+
+      $(document).ready(function(){
+        $('#open_cf').click(function(){
+          $.ajax({
+            method: "GET",
+            url: "/f2/",
+          })
+            .done(function(data){
+              $("#contenido")[0].innerHTML = nada;
+              $("#contenido")[0].innerHTML = data;
             });
-            $('#open_f2g').click(function(){
-              alert("Falta abrir desde URL")
-            });
-            $('#open_f3').click(function(){
-              f2.style.visibility="hidden"
-              f3.style.visibility="visible"
-            });
-            $('#open_fm').click(function(){
-              alert("Falta este template")
-            })
         });
+        $('#ver_formularios').click(function(){
+          alert("nada");
+        });
+      });
+
+
+
+      function volver(url, alum) {
+  		 //alert("soquetes");
+  		 $.ajax({
+  			 method: "POST",
+  			 url: url,
+  			 data: {
+  				 csrfmiddlewaretoken: '{{ csrf_token }}'
+  			 }
+  		 })
+  			 .done(function (data) {
+  				 alert(data.estado);
+  				 updateDiv()
+  			 });
+  	 };
+
+       //Funcion del F2 para cambiar el estado del alumno
+
+       function retirar(url, alum) {
+     	 $.ajax({
+     		 method: "POST",
+     		 url: url,
+     		 data: {
+     			 csrfmiddlewaretoken: '{{ csrf_token }}'
+     		 }
+     	 })
+     		 .done(function (data) {
+     			 $("#datos").html(data);
+
+           updatePresentesF2()
+     		 });
+     	};
+
+      function cf2(url) {
+      $.ajax({
+        method: "POST",
+        url: url,
+        data: {
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        }
+      })
+        .done(function (data) {
+          alert(data.estado)
+        });
+     };
+
+
+      function updatePresentesF2(){
+   		    $( "#presentes_para_f2" ).load(window.location.href + " #presentes_para_f2" );
+    	}
+
+      function updateDiv(){
+		 	    $( "#primero" ).load(window.location.href + " #primero" );
+ 		  }
 
         function datos(url, alum) {
     		 //alert("soquetes");
@@ -218,5 +174,23 @@
     				 document.getElementById('id01').style.display='block';
     			 });
     	 };
+
+       function pres(url, alum) {
+   		 //alert("soquetes");
+   		 $.ajax({
+   			 method: "POST",
+   			 url: url,
+   			 data: {
+   				 csrfmiddlewaretoken: '{{ csrf_token }}'
+   			 }
+   		 })
+   			 .done(function (data) {
+   				 document.getElementById('apellido').innerHTML=data.apellido;
+   				 document.getElementById('nombre').innerHTML=data.nombre;
+   				 document.getElementById('dni').innerHTML=data.dni;
+   				 document.getElementById('estado').innerHTML=data.estado;
+   				 document.getElementById('id01').style.display='block';
+   			 });
+   	 };
 	   </script>
   </html>

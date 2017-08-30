@@ -69,28 +69,25 @@
 				</div>
 
 				<div id="id01" class="w3-modal">
-					<div class="w3-modal-content">
-						<header class="w3-container w3-teal">
-							<span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-							<h2>Datos:</h2>
-						</header>
-						<div class="w3-container">
-							<center><span id ="preceptor">kjghkjghj</span></center>
-							<center><span id ="alumno">kjghkjghj</span></center>
-							<center><span id ="fecha">kjghkjghj</span></center>
-							<center><span id ="estado">kjghkjghj</span></center>
-						</div>
+					<div class="w3-modal-content" id="datos">
+					</div>
 				</div>
 
 			</body>
 	<script type="text/javascript">
+
+		$('document').ready(
+			function(){
+				$("#id01").addClass("hiddendiv")
+			}
+		);
 
 		function updateDiv(){
 		 	$( "#primero" ).load(window.location.href + " #primero" );
  		}
 
 		function updateDiv2(){
-		 	$( "#segundo" ).load(window.location.href + " #primero" );
+		 	$( "#segundo" ).load(window.location.href + " #segundo" );
  		}
 
 		function aceptar_f2(url, alum) {
@@ -118,8 +115,7 @@
 			}
 		})
 			.done(function (data) {
-				alert(data.estado);
-				updateDiv2()
+				$("#datos").html(data);
 			});
 	};
 
@@ -167,11 +163,8 @@
 			 }
 		 })
 			 .done(function (data) {
-				 document.getElementById('preceptor').innerHTML=data.preceptor;
-				 document.getElementById('alumno').innerHTML=data.alumno;
-				 document.getElementById('fecha').innerHTML=data.fecha;
-				 document.getElementById('estado').innerHTML=data.estado;
-				 document.getElementById('id01').style.display='block';
+				 	$("#datos").html(data);
+					document.getElementById('id01').style.display='block';
 			 });
 	 };
 

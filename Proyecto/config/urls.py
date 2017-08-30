@@ -18,10 +18,12 @@ urlpatterns = [
     url(r'^crearpreceptor/$', cpreceptor, name="cambio4"),
     url(r'^crearalumno/$', calumno, name="cambio5"),
     url(r'^cambiaralumno/$', chalumno, name="cambio6"),
+    url(r'^f3/$', f3, name="f3"),
 
 
     #URL para pasar ID.
-
+    url(r'^crear_f2/(\d+)$', crear_f2, name="crear_f2"),
+    url(r'^mostrar_opciones/(\d+)$', mostrar_opciones, name="mostrar_opciones"),
     url(r'^presente/(\d+)$', presente, name="presente"),
     url(r'^retiro/(\d+)$', retiro_grupal, name="retiro_grupal"),
     url(r'^aceptar_f3/(\d+)$', aceptar_f3, name="aceptar_f3"),
@@ -35,7 +37,6 @@ urlpatterns = [
 
 
     #URL de funciones sin ID.
-    url(r'^crear_f2/$', crear_f2, name="crear_f2"),
     url(r'^crear_f3/$', crear_f3, name="crear_f3"),
     url(r'^crearal/$', crear_alumno, name="crear_alumno"),
     url(r'^crear_preceptor/$', crear_preceptor, name="crear_preceptor"),

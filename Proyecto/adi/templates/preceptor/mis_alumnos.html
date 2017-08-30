@@ -1,21 +1,5 @@
-<html>
-
-<head>
-	{% load static %}
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
-
-		<body bgcolor="orange">
-			<br><br>
+<div
+		<br><br>
 				<div id= "primero">
 					{% for al in todos_los_alumnos %}
 						<!-- Presentes -->
@@ -73,7 +57,7 @@
 												<a onclick="pres('{% url 'datos_alumnos' al.dni %}', {{al.dni}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
 													<i class="material-icons">info</i>
 												</a>
-												
+
 										</div>
 									</div>
 								</div>
@@ -97,25 +81,3 @@
 				</div>
 
 			</body>
-		<script type="text/javascript">
-
-		function pres(url, alum) {
-		 //alert("soquetes");
-		 $.ajax({
-			 method: "POST",
-			 url: url,
-			 data: {
-				 csrfmiddlewaretoken: '{{ csrf_token }}'
-			 }
-		 })
-			 .done(function (data) {
-				 document.getElementById('apellido').innerHTML=data.apellido;
-				 document.getElementById('nombre').innerHTML=data.nombre;
-				 document.getElementById('dni').innerHTML=data.dni;
-				 document.getElementById('estado').innerHTML=data.estado;
-				 document.getElementById('id01').style.display='block';
-			 });
-	 };
-
-		</script>
-</html>

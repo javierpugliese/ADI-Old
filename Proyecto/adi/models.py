@@ -50,7 +50,7 @@ class Preceptor(models.Model):
 #        return 'Tweet nro {} - by {}'.format(self.id, self.user)
 
 class Formulario2(models.Model):
-    preceptor = models.ForeignKey(settings.AUTH_USER_MODEL)
+    preceptor = models.ForeignKey(Preceptor)
     alumno = models.ForeignKey(Alumno)
     fecha = models.DateTimeField(default=timezone.now)
     estado = models.CharField(max_length=11)
@@ -59,7 +59,7 @@ class Formulario2(models.Model):
         return 'F2 de {}'.format(self.alumno.nombre)
 
 class Formulario3(models.Model):
-    preceptor = models.ForeignKey(settings.AUTH_USER_MODEL)
+    preceptor = models.ForeignKey(Preceptor)
     alumno = models.ForeignKey(Alumno)
     fecha = models.DateTimeField(default=timezone.now)
     estado = models.CharField(max_length=11)
