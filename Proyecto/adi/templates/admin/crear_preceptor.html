@@ -1,0 +1,75 @@
+<html>
+
+{% load static %}
+
+<head>
+
+	<!-- permite cracteres tales como la ñ -->
+	<meta charset="UTF-8">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js">
+
+    </script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static "style.css" %}">
+<style>
+		body {
+		    margin: 0;
+		}
+
+		 #b1{
+  			position: relative;
+  			top: -0px;
+  			left: 250px;
+		}
+
+		#titulo {
+    		font-family: bold;
+    		text-decoration: underline;
+  		}
+
+
+
+
+</style>
+
+<title>Crear Preceptor</title>
+
+</head>
+
+<body style="background-color: whitesmoke">
+
+<div style="margin-left:15%; margin-right:15%; margin-top:%; margin-bottom:%; padding:0px 200px; width:%; height: %;">
+	<div class="container">
+	    <div class="col s12">
+	      <div class="card whitesmoke z-depth-4" >
+	        <div class="card-content black-text">
+	          <div <style="color:#0000cc">
+	            <center><span id="titulo" class="card-title black-text">CREAR PRECEPTOR</span></center>
+	          </div>
+	          <form action="{% url 'crear_preceptor' %}" method="POST">
+	  				    <div class="row">
+	  						    <div class="input-field col s12">
+	  							      <textarea name= 'nombre_usuario' placeholder="Nombre del Usuario" class="materialize-textarea"  type="text" id="username"></textarea>
+									  <textarea name= 'password' placeholder="Contraseña" maxlength="8" class="materialize-textarea"  type="text" id="password"></textarea>
+									  <textarea name= 'nombre' placeholder="Nombre" maxlength="8" class="materialize-textarea"  type="text" id="name"></textarea>
+									  <textarea name= 'apellido' placeholder="Apellido" class="materialize-textarea"  type="text" id="surname"></textarea>
+									  <textarea name= 'dni' placeholder="D.N.I" class="materialize-textarea"  type="text" id="dni"></textarea>
+										<textarea name= 'year' placeholder="Año" class="materialize-textarea" type="text" id="year"></textarea>
+										<textarea name= 'division' placeholder="División" class="materialize-textarea" type="text" id="division"></textarea>
+	  						    </div>
+	  					  </div>
+	  					    <a id= "b1" class="btn-floating btn-large waves-effect waves-light blue"><i class="large material-icons">add</i></a>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+</div>
+
+</body>
+</html>

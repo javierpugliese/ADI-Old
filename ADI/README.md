@@ -1,2 +1,0 @@
-# ADI
-Proyecto Django

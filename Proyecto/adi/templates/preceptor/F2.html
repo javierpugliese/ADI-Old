@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html class="mdc-typography">
+  {% load static %}
+  <head>
+		<meta charset="UTF-8">
+		<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <title>F2</title>
+    <link rel="stylesheet" href="{% static 'node_modules/material-components-web/dis/material-components-web.css' %}">
+	</head>
+	<style>
+		html, body {
+    	height: 100%;
+		}
+		html {
+			display: table;
+			margin: auto;
+		}
+		body {
+			display: table-cell;
+			vertical-align: middle;
+		}
+</style>
+  <body style="background-color: whitesmoke">
+		<div class="mdc-card mdc-card--theme-dark" style="padding-right: 50px;padding-bottom: 22px;padding-left: 50px;">
+  		<section class="mdc-card__primary" style="text-align: center;">
+        <h2 class="mdc-typography--display1" style="color:#333638">F2</h2>
+				<form action="{% url 'crear_f2' %}" method="POST">
+					<div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+						<input type="text" class="mdc-textfield__input" id="nom" name="nombre">
+						<label for="demo-input" class="mdc-textfield__label">Nombre</label>
+					</div>
+					<br>
+					<div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+						<input type="text" class="mdc-textfield__input" id="ape" name="apellido">
+						<label for="demo-input" class="mdc-textfield__label">Apellido</label>
+					</div>
+					<br>
+					<div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+						<input type="text" class="mdc-textfield__input" id="dni" name="dni">
+						<label for="demo-input" class="mdc-textfield__label">D.N.I.</label>
+					</div>
+					<br>
+					<div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+						<input type="text" class="mdc-textfield__input" id="prec" name="nombre_preceptor">
+						<label for="demo-input" class="mdc-textfield__label">Preceptor</label>
+					</div>
+					<br>
+					<br>
+					<br>
+					<button type="submit" class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple" style="background-color:#333638;color:white;">
+						Crear formulario
+					</button>
+          {% csrf_token %}
+				</form>
+			</section>
+		</div>
+    <script src="{% static 'node_modules/material-components-web/dist/material-components-web.js' %}"></script>
+    <script>mdc.autoInit()</script>
+	</body>
+  <script>
+
+    done(function(data)){
+      alert("HOLA");
+    }
+
+  </script>
+</html>

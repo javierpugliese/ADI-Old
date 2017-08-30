@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html>
+{% load static %}
+<head>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js">
+
+    </script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static "style.css" %}">
+<style>
+		body {
+		    margin: 0;
+		}
+
+
+		 #b1{
+  			position: relative;
+  			top: -0px;
+  			left: 250px;
+		}
+
+		#titulo {
+    		font-family: bold;
+    		text-decoration: underline;
+  		}
+
+
+
+
+
+</style>
+
+<title>Cargar Alumno</title>
+
+</head>
+
+<body style="background-color: whitesmoke">
+
+<div style="margin-left:15%; margin-right:15%; padding:10px 200px; height:100px;">
+	<div class="container">
+	    <div class="col s12">
+	      <div class="card whitesmoke z-depth-4" >
+	        <div class="card-content black-text">
+	          <div <div style="color:#0000cc">
+	            <center><span id="titulo" class="card-title black-text">CARGAR ALUMNO</span></center>
+	          </div>
+	          <form action="{% url 'crear_alumno' %}" method="POST">
+              {% csrf_token %}
+	  				    <div class="row">
+	  						    <div class="input-field col s12">
+	  							      <textarea name= 'nombre' placeholder="Nombre" class="materialize-textarea"  type="text" id="nombre"></textarea>
+												<textarea name= 'apellido' placeholder="Apellido" maxlength="8" class="materialize-textarea"  type="text" id="apellido"></textarea>
+												<textarea name= 'dni' placeholder="D.N.I" maxlength="8" class="materialize-textarea"  type="text" id="dni"></textarea>
+                        <textarea name= 'year' placeholder="Año" class="materialize-textarea" type="text" id="year"></textarea>
+                        <textarea name= 'division' placeholder="División" class="materialize-textarea" type="text" id="division"></textarea>
+	  						    </div>
+	  					  </div>
+	  					  <input class="waves-effect waves-light btn" type="submit" value="Crear">
+              </form>
+          </div>
+	      </div>
+	    </div>
+	  </div>
+  </div>
+</body>
+</html>

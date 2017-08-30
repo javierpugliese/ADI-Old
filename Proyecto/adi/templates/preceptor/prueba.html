@@ -1,0 +1,96 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="materialize/icons/icon.css" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+      <!-- Compiled and minified JavaScript -->
+      <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+          crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js">
+
+      </script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Let browser know website is optimized for mobile-->
+      <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
+	  <title>Preceptor</title>
+    </head>
+	<!--Esto es una referencia para usar los iconos de materialize-->
+	<!--            <i class="material-icons"></i>                -->
+    <body>
+	  <nav class="nav-extended" style="background-color:#212121">
+		<div class="nav-wrapper">
+			<!-- Poner el nombre del preceptor actual al lado del Logo con los tags de Django-->
+			<a href="#" class="brand-logo center">Preceptor {{user|upper}} </a>
+			<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+			<li><a href="{% url 'logout_p' %}">Cerrar sesion</a></li>
+			</ul>
+			<ul class="side-nav" id="mobile-demo">
+			<li><a href="#Desloguearse">Cerrar sesion</a></li>
+			</ul>
+		</div>
+		<div class="nav-content">
+			<ul class="tabs tabs-transparent">
+			   <li class="tab"><a class="active" href="#alumnos">Alumnado</a></li>
+			   <li class="tab"><a href="#formularios">Formularios</a></li>
+			</ul>
+		</div>
+	  </nav>
+	  <!-- Contenido del TAB Alumnos -->
+	  <div id="alumnos" class="col s12">
+		<nav class="nav-extended" style="background-color:#212121">
+			<div class="nav-wrapper">
+				<!-- Poner el nombre del preceptor actual al lado del Logo con los tags de Django-->
+				<a href="#" class="brand-logo">Alumnado</a>
+				<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+			</div>
+			<div class="nav-content">
+				<ul class="tabs tabs-transparent">
+					<li class="tab"><a href="#perfiles">Perfiles</a></li>
+					<li class="tab"><a href="#c_alumno">Cargar alumno</a></li>
+					<li class="tab"><a class="active" href="#mod_alumno">Modificar datos</a></li>
+					<li class="tab"><a href="#observaciones">Observaciones</a></li>
+				</ul>
+			</div>
+	    </nav>
+	    <div id="perfiles" class="col s12">Aca van los perfiles de los alumnos para visualizar sus datos, etc</div>
+		<div id="c_alumno" class="col s12">Aca va el formulario para cargar un alumno a la base de datos</div>
+		<div id="mod_alumno" class="col s12">Aca va el formulario para modificar los datos de los alumnos ya cargados en la base de datos</div>
+		<div id="observaciones" class="col s12">Aca va un registro de cartas con las ultimas observaciones realizadas en fecha y con opcion de modificar, se divide en 2 secciones esta pagina y la 2da va a tener el mini formulario para cargar una observacion a un alumno</div>
+	  </div>
+
+	  <!-- Contenido del TAB Formularios -->
+	  <div id="formularios" class="col s12">
+		<nav class="nav-extended" style="background-color:#212121;height:25%;">
+			<div class="nav-wrapper">
+				<!-- Poner el nombre del preceptor actual al lado del Logo con los tags de Django-->
+				<center><a href="#" class="brand-logo">Formularios</a></center>
+				<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+			</div>
+			<div class="nav-content">
+				<ul class="tabs tabs-transparent">
+					<li class="tab"><a href="#f1">F1</a></li>
+					<li class="tab"><a id="hola" href="#f2">F2</a></li>
+					<li class="tab"><a class="active" href="#f3">F3</a></li>
+					<li class="tab"><a href="#fm">F.M.</a></li>
+				</ul>
+			</div>
+	    </nav>
+	    <div id="f1" class="col s12">Aca va el f1</div>
+		<div id="f2" class="col s12">Aca va el f2</div>
+		<div id="f3" class="col s12">Aca va el f3</div>
+		<div id="fm" class="col s12">Aca va el Formulario Medico, que luego sera cargado y completado con todos los datos necesarios para ser llevados a administracion (o sea que quede un registro)</div>
+	  </div>
+      <!--Import jQuery before materialize.js-->
+    </body>
+    <script>
+			$(document).ready(function(){
+	    		$('#hola').click(function(){
+	       		
+	    		});
+			});
+	</script>
+  </html>

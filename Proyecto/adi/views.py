@@ -21,24 +21,24 @@ from .models import *
 
 
 #Función que crea F2 individuales
-def crear_formulario2(request):
-    if request.method == 'POST':
-        #Tomamos los valores ingresados en el template
-        nombre_alumno = request.POST['nombre']
-        apellido_alumno = request.POST['apellido']
-        dni_alumno = request.POST['dni']
-        nombre_usuario = request.POST['nombre_preceptor']
-        ahorita = datetime.now()
-        prec = User.objects.get(username=nombre_usuario)
-        #Verificamos que los datos existan.
-        al = Alumno.objects.get(nombre=nombre_alumno, apellido=apellido_alumno, dni=dni_alumno)
-        if prec and al:
-            new_f2 = Formulario2(alumno=al, preceptor=prec, fecha=ahorita, estado="Proceso")
-            new_f2.save()
-        else:
-            print "NONONO"
-        return redirect ('cambio')
-    return HttpResponse('HOLA <b style="color: red">SOLO PODES ACCEDER POR POST</b>')
+def crear_f2(request, alum_t):
+    al = Alumno.objects.get(dni=alum_t)
+    prec = User.objects.get(username=request.user)
+    ahorita = datetime.now()
+    if al and prec:
+        print "Encuentra"
+        new_f2 = Formulario2(alumno=al, preceptor=prec, fecha=ahorita)
+        new_f2.save()
+        al.estado = "Indefinido"
+        al.save()
+        data = {
+            'estado': "Creado con éxito"
+        }
+    else:
+        data = {
+            'estado': "Error"
+        }
+    return JsonResponse(data, safe=False)
 
 def crear_formulario3(request):
     if request.method == 'POST':
@@ -84,21 +84,23 @@ def modificar_alumno(request):
 
 
 def crear_alumno(request):
-    if request.method == 'POST':
-        nombre = request.POST['nombre']
-        apellido = request.POST['apellido']
-        dni = request.POST['dni']
-        year = request.POST['year']
-        division = request.POST['division']
-        #Buscamos el curso indicado para hacer la FK.
-        cur = Curso.objects.get(year=year, division=division)
-        if cur:
-            #Guardamos al alumnno
-            al = Alumno(nombre=nombre, apellido=apellido, dni=dni, estado="Indefinido", curso=cur, faltas=0)
-            al.save()
-        else:
-            print "No existe ese curso"
-    return render(request, 'index.html')
+    print "HOLA"
+    nombre = request.POST['nombre']
+    apellido = request.POST['apellido']
+    dni = request.POST['dni']
+    year = request.POST['year']
+    division = request.POST['division']
+    #Buscamos el curso
+    cur = Curso.objects.get(year=year, division=division)
+    if cur:
+        #Buscamos el curso del preceptor
+        al = Alumno(nombre=nombre, apellido=apellido, dni=dni, estado="Indefinido", curso=cur, faltas=0)
+        al.save()
+        print "CREADO !!!!!!"
+    else:
+        print "HOla"
+
+    return HttpResponse('FUNCIONO')
 
 
 def crear_preceptor(request):
@@ -277,39 +279,50 @@ function checkTime(i) {
 # Funciones de carga de template
 
 def preceptor(request):
-    return render(request, 'preceptor.html')
+    return render(request, 'preceptor/prueba.html')
 
 def cpreceptor(request):
-    return render(request, 'crear_preceptor.html')
+    return render(request, 'admin/crear_preceptor.html')
 
 def chalumno(request):
-    return render(request, 'modificar_alumno.html')
+    return render(request, 'admin/modificar_alumno.html')
 
 def calumno(request):
-    return render(request, 'crear_alumno.html')
+    return render(request, 'admin/cargar_alumno.html')
 
 def guardia(request):
     return render(request, 'guardia.html')
-
-def alumno(request):
-    return render(request, 'alumno.html')
-
-def picker(request):
-    return render(request, 'picker.html')
 
 def inicio(request):
   return render(request, 'index.html')
 
 def f2(request):
-    return render(request, "F2.html")
+    pepe = request.user
+    try:
+        prec = Preceptor.objects.get(nombre_usuario=pepe).values()
+        print "Encontro"
+    except:
+        prec = None
+    return render(request,
+                 'preceptor/F2.html',
+                 {'preceptor':prec})
 
-def alumnos(request):
+def f2grupal(request):
    try:
        alumnos = Alumno.objects.filter(estado="Presente")
    except:
        alumnos = None
    return render(request,
-                 'F2_grupal.html',
+                 'preceptor/F2_grupal.html',
+                 {'todos_los_alumnos':alumnos})
+
+def aux_f2(request):
+   try:
+       alumnos = Alumno.objects.filter(estado="Presente")
+   except:
+       alumnos = None
+   return render(request,
+                 'preceptor/aux_f2.html',
                  {'todos_los_alumnos':alumnos})
 
 def formularios(request):
@@ -319,7 +332,7 @@ def formularios(request):
     except:
         forms2 = None
         forms3 = None
-    return render(request,'formularios.html',{'todos_los_f3':forms3, 'todos_los_f2':forms2})
+    return render(request,'guardia/formularios.html',{'todos_los_f3':forms3, 'todos_los_f2':forms2})
 
 def mis_alumnos(request):
     pepe = request.user
@@ -329,14 +342,5 @@ def mis_alumnos(request):
     except:
         al = None
     return render(request,
-                 'mis_alumnos.html',
+                 'preceptor/mis_alumnos.html',
                  {'todos_los_alumnos':al})
-
-def f2s(request):
-   try:
-       f2 = Formulario2.objects.filter(estado="Presente")
-   except:
-       f2 = None
-   return render(request,
-                 'guardia.html',
-                 {'todos_los_f2':f2})

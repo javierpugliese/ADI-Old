@@ -16,9 +16,10 @@ class Padre_Tutor(models.Model):
 class Curso(models.Model):
     year = models.PositiveSmallIntegerField(default=1)
     division = models.CharField(max_length=1)
+    numero = models.IntegerField()
 
     def __str__(self):
-        return ' {} - {} '.format(self.year, self.division)
+        return ' {} - {} / {}'.format(self.year, self.division, self.numero)
 
 class Alumno(models.Model):
     nombre = models.CharField(max_length=20)
@@ -26,7 +27,7 @@ class Alumno(models.Model):
     dni = models.IntegerField(primary_key=True)
     curso = models.ForeignKey(Curso)
     faltas = models.FloatField(null=False)
-    estado = models.CharField(max_length=8)
+    estado = models.CharField(max_length=14)
 
     def __str__(self):
         return '{} '.format(self.nombre)

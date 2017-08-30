@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html class="mdc-typography">
+  {% load staticfiles %}
+  <head>
+		<meta charset="UTF-8">
+		<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link type="text/css" href="css/ui-darkness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+    <title>F2</title>
+    <link rel="stylesheet" href="{% static 'node_modules/material-components-web/dist/material-components-web.css' %}">
+	</head>
+	<style>
+		html, body {
+    	height: 100%;
+		}
+		html {
+			display: table;
+			margin: auto;
+		}
+		body {
+			display: table-cell;
+			vertical-align: middle;
+		}
+</style>
+  <body style="background-color: whitesmoke">
+    <select style="width: 280px" id="Mobility" name="Mobility">
+      <option selected="">Please Select</option>
+      <option>A</option>
+      <option>B</option>
+      <option>c</option>
+    </select>
+      <div class="mdc-card">
+  			<section class="mdc-card__primary">
+  				<h1 class="mdc-card__title mdc-card__title--large">Alumnos presentes: {{todos_los_alumnos|length}}</h1>
+  			</section>
+  			<section class="mdc-card__supporting-text">
+          <div id = "primero">
+            {% for alum in todos_los_alumnos %}
+              <form id="als">
+                <div class="mdc-card">
+        					  <div class="container">
+        		            <div class="col s6 div">
+                            <div class="card yellow lighten-2 z-depth-5" >
+            		            	<div class="card-content black-text">
+                                <br>
+            		              	<center><span class="card-title">{{alum.apellido|upper}} {{alum.nombre|upper}}</span></center>
+                                <div id="segundo">
+                                  <form id="hola">
+                                    <a onclick="pres('{% url 'datos_alumnos' alum.dni %}', {{alum.dni}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
+            													<i class="material-icons">info</i>
+            												</a>
+                                    <a onclick="loc('{% url 'crear_f2' alum.dni %}', {{alum.dni}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
+            													<i class="material-icons">thumb_up</i>
+            												</a>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+              </form>
+            </section>
+            {% endfor %}
+          </div>
+        </div>
+        <br>
+		    <br>
+		    <br>
+		    <br>
+
+    <div id="id01" class="w3-modal">
+      <div class="w3-modal-content">
+        <header class="w3-container w3-teal">
+          <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+          <h2>Datos:</h2>
+        </header>
+        <div class="w3-container">
+          <center><span id ="preceptor">kjghkjghj</span></center>
+          <center><span id ="alumno">kjghkjghj</span></center>
+          <center><span id ="fecha">kjghkjghj</span></center>
+          <center><span id ="estado">kjghkjghj</span></center>
+        </div>
+    </div>
+
+	</body>
+  <script>
+
+  function pres(url, alum) {
+   //alert("soquetes");
+   $.ajax({
+     method: "POST",
+     url: url,
+     data: {
+       csrfmiddlewaretoken: '{{ csrf_token }}'
+     }
+   })
+     .done(function (data) {
+       document.getElementById('apellido').innerHTML=data.apellido;
+       document.getElementById('nombre').innerHTML=data.nombre;
+       document.getElementById('dni').innerHTML=data.dni;
+       document.getElementById('estado').innerHTML=data.estado;
+       document.getElementById('id01').style.display='block';
+     });
+ };
+
+ function loc(url, alum) {
+  alert("soquetes");
+  $.ajax({
+    method: "POST",
+    url: url,
+    data: {
+      csrfmiddlewaretoken: '{{ csrf_token }}'
+    }
+  })
+    .done(function (data) {
+      alert(data.estado);
+    });
+};
+
+  </script>
+
+</html>

@@ -1,0 +1,121 @@
+<html>
+
+<head>
+	{% load static %}
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+		<body bgcolor="orange">
+			<br><br>
+				<div id= "primero">
+					{% for al in todos_los_alumnos %}
+						<!-- Presentes -->
+						{% if al.estado == "Presente" %}
+							<div class="container">
+								<div class="col s1">
+									<div class="card blue lighten-2 z-depth-5" >
+										<div class="card-content white-text">
+												<p>{{al.apellido|upper}} {{al.nombre|title}} Estado: {{al.estado}} Curso {{al.curso}}</p>
+												<a onclick="pres('{% url 'datos_alumnos' al.dni %}', {{al.dni}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
+													<i class="material-icons">info</i>
+												</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endif %}
+						<!-- Ausentes -->
+						{% if al.estado == "Ausente" %}
+			        <div class="container">
+				        <div class="col s1">
+				          <div class="card red lighten-2 z-depth-5" >
+				            <div class="card-content white-text">
+												<p>{{al.apellido|upper}} {{al.nombre|title}} Estado: {{al.estado}} Curso {{al.curso}}</p>
+                        <a onclick="pres('{% url 'datos_alumnos' al.dni %}', {{al.dni}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
+    		              		<i class="material-icons">info</i>
+    		            		</a>
+				          	</div>
+				          </div>
+				        </div>
+							</div>
+						{% endif %}
+						<!-- Retirados -->
+						{% if al.estado == "Retirado" %}
+							<div class="container">
+								<div class="col s1">
+									<div class="card green lighten-2 z-depth-5" >
+										<div class="card-content white-text">
+												<p>{{al.apellido|upper}} {{al.nombre|title}} Estado: {{al.estado}} Curso {{al.curso}}</p>
+												<a onclick="pres('{% url 'datos_alumnos' al.dni %}', {{al.dni}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
+													<i class="material-icons">info</i>
+												</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endif %}
+						<!-- Indefinido -->
+						{% if al.estado == "Indefinido" %}
+							<div class="container">
+								<div class="col s1">
+									<div class="card white lighten-2 z-depth-5" >
+										<div class="card-content grey-text">
+												<p>{{al.apellido|upper}} {{al.nombre|title}} Estado: {{al.estado}} Curso {{al.curso}}</p>
+												<a onclick="pres('{% url 'datos_alumnos' al.dni %}', {{al.dni}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
+													<i class="material-icons">info</i>
+												</a>
+												
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+
+				<div id="id01" class="w3-modal">
+					<div class="w3-modal-content">
+						<header class="w3-container w3-teal">
+							<span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+							<h2>Datos:</h2>
+						</header>
+						<div class="w3-container">
+							<center><span id ="apellido">kjghkjghj</span></center>
+							<center><span id ="nombre">kjghkjghj</span></center>
+							<center><span id ="dni">kjghkjghj</span></center>
+							<center><span id ="estado">kjghkjghj</span></center>
+						</div>
+				</div>
+
+			</body>
+		<script type="text/javascript">
+
+		function pres(url, alum) {
+		 //alert("soquetes");
+		 $.ajax({
+			 method: "POST",
+			 url: url,
+			 data: {
+				 csrfmiddlewaretoken: '{{ csrf_token }}'
+			 }
+		 })
+			 .done(function (data) {
+				 document.getElementById('apellido').innerHTML=data.apellido;
+				 document.getElementById('nombre').innerHTML=data.nombre;
+				 document.getElementById('dni').innerHTML=data.dni;
+				 document.getElementById('estado').innerHTML=data.estado;
+				 document.getElementById('id01').style.display='block';
+			 });
+	 };
+
+		</script>
+</html>
