@@ -25,24 +25,21 @@
   		<section class="mdc-card__primary" style="text-align: center;">
         <h2 class="mdc-typography--display1" style="color:#333638">F2</h2>
 				<form action="{% url 'crear_f2' %}" method="POST">
-					<div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-						<input type="text" class="mdc-textfield__input" id="nom" name="nombre">
-						<label for="demo-input" class="mdc-textfield__label">Nombre</label>
+					<div class="input.field col s4">
+            <input id="nombre" name="nombre" type="text" class="validate">
+            <label for="name">Nombre</label>
 					</div>
-					<br>
-					<div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-						<input type="text" class="mdc-textfield__input" id="ape" name="apellido">
-						<label for="demo-input" class="mdc-textfield__label">Apellido</label>
+          <div class="input.field col s4">
+            <input id="apellido" name="apellido" type="text" class="validate">
+            <label for="name">Apellido</label>
 					</div>
-					<br>
-					<div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-						<input type="text" class="mdc-textfield__input" id="dni" name="dni">
-						<label for="demo-input" class="mdc-textfield__label">D.N.I.</label>
+          <div class="input.field col s4">
+            <input id="dni" name="dni" type="text" class="validate">
+            <label for="name">DNI</label>
 					</div>
-					<br>
-					<div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-						<input type="text" class="mdc-textfield__input" id="prec" name="nombre_preceptor">
-						<label for="demo-input" class="mdc-textfield__label">Preceptor</label>
+          <div class="input.field col s4">
+            <input id="nombre_preceptor" name="nombre_preceptor" type="text" class="validate">
+            <label for="name">Preceptor</label>
 					</div>
 					<br>
 					<br>

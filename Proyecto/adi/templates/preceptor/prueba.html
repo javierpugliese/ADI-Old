@@ -44,7 +44,7 @@
 		<nav class="nav-extended" style="background-color:#212121">
 			<div class="nav-wrapper">
 				<!-- Poner el nombre del preceptor actual al lado del Logo con los tags de Django-->
-				<a href="#" class="brand-logo">Alumnado</a>
+				<a href="#" class="brand-logo">Alumnos</a>
 				<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 			</div>
 			<div class="nav-content">
@@ -72,25 +72,151 @@
 			</div>
 			<div class="nav-content">
 				<ul class="tabs tabs-transparent">
-					<li class="tab"><a href="#f1">F1</a></li>
-					<li class="tab"><a id="hola" href="#f2">F2</a></li>
-					<li class="tab"><a class="active" href="#f3">F3</a></li>
-					<li class="tab"><a href="#fm">F.M.</a></li>
+					<li class="tab"><a id="open_f1" href="#f1">F1</a></li>
+					<li class="tab"><a id="open_f2" href="#f2">F2</a></li>
+          <li class="tab"><a id="open_f2g" href="#f2">F2 Grupal</a></li>
+					<li class="tab"><a id="open_f3" href="#f3">F3</a></li>
+					<li class="tab"><a id="open_fm" href="#fm">F.M.</a></li>
 				</ul>
 			</div>
 	    </nav>
-	    <div id="f1" class="col s12">Aca va el f1</div>
-		<div id="f2" class="col s12">Aca va el f2</div>
-		<div id="f3" class="col s12">Aca va el f3</div>
+	    <div id="f_1" class="col s12"></div>
+  		<div id="f_2" class="col s12"></div>
+		  <div id="f_3" class="col s12"></div>
 		<div id="fm" class="col s12">Aca va el Formulario Medico, que luego sera cargado y completado con todos los datos necesarios para ser llevados a administracion (o sea que quede un registro)</div>
 	  </div>
+    <div id="contenido"></div>
+
+    <div id="f2">
+      <div class="mdc-card mdc-card--theme-dark" style="padding-right: 50px;padding-bottom: 22px;padding-left: 50px;">
+        <section class="mdc-card__primary" style="text-align: center;">
+          <h2 class="mdc-typography--display1" style="color:#333638">F2</h2>
+          <form action="{% url 'crear_f2' %}" method="POST">
+            <div class="row">
+              <div class="input.field col s4">
+                <center><input id="nombre" name="nombre" type="text" class="validate"></center>
+                <label for="name">Nombre</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input.field col s4">
+                <input id="apellido" name="apellido" type="text" class="validate">
+                <label for="name">Apellido</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input.field col s4">
+                <input id="dni" name="dni" type="text" class="validate">
+                <label for="name">DNI</label>
+                </div>
+            </div>
+            <div class="row">
+              <div class="input.field col s4">
+                <input id="nombre_preceptor" name="nombre_preceptor" type="text" class="validate">
+                <label for="name">Preceptor</label>
+              </div>
+            </div>
+            <br>
+            <button type="submit" class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple" style="background-color:#333638;color:white;">
+              Crear formulario
+            </button>
+            {% csrf_token %}
+          </form>
+           </section>
+        </div>
+      </div>
+
+      <div id="f2g">
+
+
+
+      </div>
+
+      <div id="f3">
+        <div class="mdc-card mdc-card--theme-dark" style="padding-right: 50px;padding-bottom: 22px;padding-left: 50px;">
+          <section class="mdc-card__primary" style="text-align: center;">
+            <h2 class="mdc-typography--display1" style="color:#333638">F3</h2>
+            <form action="{% url 'crear_f3' %}" method="POST">
+              <div class="row">
+                <div class="input.field col s4">
+                  <center><input id="nombre2" name="nombre2" type="text" class="validate"></center>
+                  <label for="name">Nombre</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input.field col s4">
+                  <input id="apellido2" name="apellido2" type="text" class="validate">
+                  <label for="name">Apellido</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input.field col s4">
+                  <input id="dni2" name="dni2" type="text" class="validate">
+                  <label for="name">DNI</label>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="input.field col s4">
+                  <input id="nombre_preceptor2" name="nombre_preceptor2" type="text" class="validate">
+                  <label for="name">Preceptor</label>
+                </div>
+              </div>
+              <br>
+              <button type="submit" class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple" style="background-color:#333638;color:white;">
+                Crear formulario
+              </button>
+              {% csrf_token %}
+            </form>
+             </section>
+          </div>
+      </div>
       <!--Import jQuery before materialize.js-->
     </body>
     <script>
-			$(document).ready(function(){
-	    		$('#hola').click(function(){
-	       		
-	    		});
-			});
-	</script>
+
+      ocul()
+
+      function ocul(){
+        f2.style.visibility="hidden"
+        f3.style.visibility="hidden"
+      }
+
+        $(document).ready(function(){
+            $('#open_f1').click(function(){
+              alert("Falta este template")
+            })
+            $('#open_f2').click(function(){
+              f3.style.visibility="hidden"
+              f2.style.visibility="visible"
+            });
+            $('#open_f2g').click(function(){
+              alert("Falta abrir desde URL")
+            });
+            $('#open_f3').click(function(){
+              f2.style.visibility="hidden"
+              f3.style.visibility="visible"
+            });
+            $('#open_fm').click(function(){
+              alert("Falta este template")
+            })
+        });
+
+        function datos(url, alum) {
+    		 //alert("soquetes");
+    		 $.ajax({
+    			 method: "POST",
+    			 url: url,
+    			 data: {
+    				 csrfmiddlewaretoken: '{{ csrf_token }}'
+    			 }
+    		 })
+    			 .done(function (data) {
+    				 document.getElementById('apellido').innerHTML=data.apellido;
+    				 document.getElementById('nombre').innerHTML=data.nombre;
+    				 document.getElementById('dni').innerHTML=data.dni;
+    				 document.getElementById('estado').innerHTML=data.estado;
+    				 document.getElementById('id01').style.display='block';
+    			 });
+    	 };
+	   </script>
   </html>

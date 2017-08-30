@@ -21,13 +21,17 @@ from .models import *
 
 
 #Función que crea F2 individuales
-def crear_f2(request, alum_t):
-    al = Alumno.objects.get(dni=alum_t)
+def crear_f2(request):
+    nombre_alumno = request.POST['nombre']
+    apellido_alumno = request.POST['apellido']
+    dni_alumno = request.POST['dni']
+    preceptor = request.POST['nombre_preceptor']
     prec = User.objects.get(username=request.user)
     ahorita = datetime.now()
+    al = Alumno.objects.get(nombre=nombre_alumno, apellido=apellido_alumno, dni=dni_alumno)
     if al and prec:
         print "Encuentra"
-        new_f2 = Formulario2(alumno=al, preceptor=prec, fecha=ahorita)
+        new_f2 = Formulario2(alumno=al, preceptor=prec, fecha=ahorita, estado="Proceso")
         new_f2.save()
         al.estado = "Indefinido"
         al.save()
@@ -40,7 +44,7 @@ def crear_f2(request, alum_t):
         }
     return JsonResponse(data, safe=False)
 
-def crear_formulario3(request):
+def crear_f3(request):
     if request.method == 'POST':
         #Igual que el F2 individual
         nombre_alumno = request.POST['nombre2']
@@ -88,15 +92,14 @@ def crear_alumno(request):
     nombre = request.POST['nombre']
     apellido = request.POST['apellido']
     dni = request.POST['dni']
-    year = request.POST['year']
-    division = request.POST['division']
+    num_curso = request.POST['num_curso']
     #Buscamos el curso
-    cur = Curso.objects.get(year=year, division=division)
+    cur = Curso.objects.get(numero=num_curso)
     if cur:
         #Buscamos el curso del preceptor
+        print "CREADO !!!!!!"
         al = Alumno(nombre=nombre, apellido=apellido, dni=dni, estado="Indefinido", curso=cur, faltas=0)
         al.save()
-        print "CREADO !!!!!!"
     else:
         print "HOla"
 
