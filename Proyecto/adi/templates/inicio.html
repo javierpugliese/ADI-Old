@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+  <html lang="sp">
+  {% load static %}
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      <title>ADI Principal</title>
+
+      <!-- CSS  -->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link href='{% static "css/materialize.css" %}' type="text/css" rel="stylesheet" media="screen,projection"/>
+      <link href='{% static "css/style.css" %}' type="text/css" rel="stylesheet" media="screen,projection"/>
+    </head>
+    <body>
+      <nav class="white" role="navigation">
+        <div class="nav-wrapper container">
+          <a id="logo-container" href="#" class="brand-logo">A.D.I</a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="#">Menu</a></li>
+          </ul>
+          <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+        </div>
+      </nav>
+
+      <div id="index-banner" class="parallax-container">
+        <div class="section no-pad-bot">
+          <div class="container">
+            <br><br>
+            <h1 class="header center teal-text text-lighten-2"></h1>
+            <div class="row center">
+            </div>
+            <div class="row center">
+               <IMG SRC="http://preinscripcion.itsv.edu.ar/static/img/cole.png" width="180" height="200">
+            </div>
+            <br><br>
+
+          </div>
+        </div>
+        <div class="parallax"><img src='{% static "img/background1.jpg" %}' alt="Unsplashed background img 1"></div>
+      </div>
+
+
+      <div class="container">
+        <div class="section">
+
+          <!--   Icon Section   -->
+          <div class="row">
+            <div class="col s12 m4">
+              <div class="icon-block">
+                <h2 class="center brown-text"><i class="material-icons">group</i></h2>
+                <center><a href='{% url "login_p" %}'class="waves-effect waves-light btn-large">Preceptor</a></center>
+                <p class="light">INFO.</p>
+              </div>
+            </div>
+
+            <div class="col s12 m4">
+              <div class="icon-block">
+                <h2 class="center brown-text"><i class="material-icons">collections_bookmark</i></h2>
+                <center><a class="waves-effect waves-light btn-large">Administracion</a></center>
+                <p class="light">INFO.</p>
+              </div>
+            </div>
+
+            <div class="col s12 m4">
+              <div class="icon-block">
+                <h2 class="center brown-text"><i class="material-icons">security</i></h2>
+                <center><a class="waves-effect waves-light btn-large">Guardia</a></center>
+                <p class="light">INFO.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="parallax-container valign-wrapper">
+        <div class="section no-pad-bot">
+          <div class="container">
+            <div class="row center">
+              <h5 class="header col s12 light"></h5>
+            </div>
+          </div>
+        </div>
+        <div class="parallax"><img src='{% static "img/background2.jpg" %}' alt="Unsplashed background img 2"></div>
+      </div>
+
+      <footer class="page-footer teal">
+        <div class="container">
+          <div class="row">
+              <h5 class="white-text">Bio</h5>
+              <p class="grey-text text-lighten-4 ">Somos un grupo enfocado en el desarrollo de  A.D.I que es un Adinistrador de Datos Institucional. Buscamos reducir el uso de papeleo y asi mejorar el rendimiento y evitar errores a la hora de manejar informacion institucional.</p>
+
+        </div>
+        <div class="footer-copyright">
+          <div class="container">Hecho por <a class="brown-text text-lighten-3" href="http://materializecss.com">M, J y G</a>
+          </div>
+        </div>
+      </footer>
+
+      <!--  Scripts-->
+      <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src='{% static "js/materialize.js" %}'></script>
+      <script src='{% static "js/init.js" %}'></script>
+      </body>
+    </html>

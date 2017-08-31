@@ -281,6 +281,9 @@ def preceptor(request):
 def cpreceptor(request):
     return render(request, 'admin/crear_preceptor.html')
 
+def index(request):
+    return render(request, 'inicio.html')
+
 def chalumno(request):
     return render(request, 'admin/modificar_alumno.html')
 
@@ -292,6 +295,9 @@ def guardia(request):
 
 def inicio(request):
   return render(request, 'index.html')
+
+def login_p(request):
+    return render(request, 'login.html')
 
 def alumnos_para_formulario(request):
     pepe = request.user

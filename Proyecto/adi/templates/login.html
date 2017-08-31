@@ -1,51 +1,81 @@
 <!DOCTYPE html>
-{% load static %}
-<html class="mdc-typography">
-  <head>
-		<meta charset="UTF-8">
-		<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-    <title>Iniciar sesión</title>
-    <link rel="stylesheet" href="{% static 'node_modules/material-components-web/dis/material-components-web.css' %}">
-	</head>
-	<style>
-		html, body {
-    	height: 100%;
-		}
-		html {
-			display: table;
-			margin: auto;
-		}
+
+<html>
+
+	{% load static %}
+
+<head>
+
+	<!-- permite cracteres tales como la ñ -->
+	<meta charset="UTF-8"
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js">
+
+    </script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static "style.css" %}">
+
+
+<style>
 		body {
-			display: table-cell;
-			vertical-align: middle;
+		    margin: 0;
 		}
+
+
+		 #b1{
+  			position: relative;
+  			top: -0px;
+  			left: 90px;
+		}
+
+		#titulo {
+    		font-family: bold;
+    		text-decoration: underline;
+  		}
+
 </style>
-  <body style="background-color: whitesmoke">
-		<div class="mdc-card mdc-card--theme-dark" style="padding-right: 50px;padding-bottom: 22px;padding-left: 50px;">
-  		<section class="mdc-card__primary" style="text-align: center;">
-    		<h2 class="mdc-typography--display1" style="color:#333638">Iniciar sesión</h2>
-				<form href = "{% url 'modificar_alumno' %}" method="POST">
-					<div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-						<input type="text" class="mdc-textfield__input" id="demo-input" name="username">
-						<label for="demo-input" class="mdc-textfield__label">Usuario</label>
-					</div>
-					<br>
-					<div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-						<input type="password" class="mdc-textfield__input" id="demo-input" name="password">
-						<label for="demo-input" class="mdc-textfield__label">Contraseña</label>
-					</div>
-					<br>
-					<br>
-					<br>
-					<button type="submit" class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple" style="background-color:#333638;color:white;">
-						Iniciar sesión
-					</button>
-          {% csrf_token %}
-				</form>
-			</section>
-		</div>
-		<p style="text-align: center;font-size: 75%;"></p>
-    <script src="{% static 'node_modules/material-components-web/dist/material-components-web.js' %}"></script>
-    <script>mdc.autoInit()</script>
-	</body>
+
+<title>Inicio sesion</title>
+
+</head>
+
+<body style="background-color: whitesmoke">
+
+<div style="margin-left:15%; margin-right:15%; margin-top:4%; padding:10px 200px; height:100px;">
+	<div class="container">
+	    <div class="col s12">
+	      <div class="card whitesmoke z-depth-4" >
+	        <div class="card-content black-text">
+	          <div <div style="color:#0000cc">
+							<form href = "/" method="POST">
+	            <center><span id="titulo" class="card-title black-text">INICIO SESIÓN</span></center>
+	          </div>
+        			<div class="input-field col s1">
+        			  <i class="material-icons prefix">person</i>
+        			  <input name="username" id="icon_prefix" type="text" class="validate">
+        			  <label for="icon_prefix">Usuario</label>
+        			</div>
+    			  	<div class="input-field col s2">
+        			  <i class="material-icons prefix"></i>
+        			  <input name="password" id="icon_telephone" type="password" minlength="5" maxlength="16" class="validate">
+        			  <label for="icon_telephone">Contraseña</label>
+        			</div>
+							<button id="b1" class="btn waves-effect waves-light" type="submit" name="action"
+							>Iniciar<i class="material-icons right">send</i></button>
+		          {% csrf_token %}
+						</form>
+    				<br>
+    				<br>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+</div>
+
+</body>
 </html>
