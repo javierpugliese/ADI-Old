@@ -13,7 +13,6 @@ urlpatterns = [
     url(r'^$', auth_views.login, {'template_name': 'login.html'}, name="login_p"),
     url(r'^logout/$', auth_views.logout, {'template_name': 'logged_out.html'}, name="logout_p"),
     url(r'^preceptor/$', preceptor, name="cambio"),
-    url(r'^f2/$', f2, name="f2"),
     url(r'^guardia/$', guardia, name="cambio2"),
     url(r'^crearpreceptor/$', cpreceptor, name="cambio4"),
     url(r'^crearalumno/$', calumno, name="cambio5"),
@@ -44,7 +43,8 @@ urlpatterns = [
     url(r'^busal/$', buscar_alumno, name="buscar_alumno"),
 
     #URL de cargra de Templates con filtros.
-
+    url(r'^f2/$', f2, name="f2"),
     url(r'^formularios/$', formularios, name="formularios"),
-    url(r'^mis_alumnos/$', mis_alumnos, name="mis_alumnos"),
+    url(r'^mis_formularios/$', mis_formularios, name="mis_formularios"),
+    url(r'^mis_alumnos/$', mis_alumnos, name="mis_alumnos")
 ]

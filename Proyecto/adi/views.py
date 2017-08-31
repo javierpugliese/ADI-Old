@@ -38,23 +38,25 @@ def crear_f2(request, dni_alumno):
     ahorita = timezone.now()
     prec = Preceptor.objects.get(nombre_usuario=pepe)
     alumno = Alumno.objects.get(curso=prec.curso, dni=dni_alumno)
-    alumno.estado="Saliendo_con_F2"
-    new_f2 = Formulario2(alumno=alumno, fecha=ahorita, estado="Proceso", preceptor=prec)
-    new_f2.save()
-    try:
-        f2s = Formulario2.objects.filter(preceptor=prec, estado="Proceso")
-        print "encuentra"
-    except:
-        f2s = None
-    return render(request,
-                  'preceptor/confirmar_F2.html',
-                  {'f2':f2s})
+    if alumno.estado=="Saliendo":
+        return render(request, 'preceptor/usuario_con_form.html')
+    else:
+        alumno.estado="Saliendo"
+        alumno.save()
+        new_f2 = Formulario2(alumno=alumno, fecha=ahorita, estado="Proceso", preceptor=prec)
+        new_f2.save()
+        try:
+            f2s = Formulario2.objects.filter(preceptor=prec, estado="Proceso")
+        except:
+            f2s = None
+        return render(request,
+                      'preceptor/confirmar_F2.html',
+                      {'f2':f2s})
 
 def confirmar_f2(request):
-    print "HOLA"
     pepe = request.user
     prec = Preceptor.objects.get(nombre_usuario=pepe)
-    del_f2 = Formulario2.objects.filter(estado="Proceso")
+    del_f2 = Formulario2.objects.filter(estado="Proceso", preceptor=prec)
     for a in del_f2:
         a.estado="Verificar"
         a.save()
@@ -332,3 +334,14 @@ def mis_alumnos(request):
     return render(request,
                  'preceptor/mis_alumnos.html',
                  {'todos_los_alumnos':al})
+
+def mis_formularios(request):
+    pepe = request.user
+    prec = Preceptor.objects.get(nombre_usuario=pepe)
+    try:
+        forms2 = Formulario2.objects.filter(estado="Proceso", preceptor=prec)
+        forms3 = Formulario3.objects.filter(estado="Proceso", preceptor=prec)
+    except:
+        forms2 = None
+        forms3 = None
+    return render(request,'preceptor/mis_formularios.html',{'todos_los_f3':forms3, 'todos_los_f2':forms2})

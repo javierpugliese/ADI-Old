@@ -1,0 +1,33 @@
+<div id= "primero">
+  {% for forms2 in todos_los_f2 %}
+    <div class="container">
+       <div class="col s1">
+         <div class="card blue lighten-2 z-depth-5" >
+          <div <div style="color:#0000cc">
+            <center><span class="card-title">F2</span></center>
+          </div>
+           <div class="card-content black-text">
+              <center><p>{{forms2.alumno.apellido|upper}} {{forms2.alumno.nombre}} - Curso: {{forms2.alumno.curso}}</p></center>
+          </div>
+         </div>
+       </div>
+    </div>
+  {% endfor %}
+</div>
+
+<div id= "segundo">
+  {% for forms3 in todos_los_f3 %}
+    <div class="container">
+       <div class="col s1">
+         <div class="card green lighten-2 z-depth-5" >
+          <div <div style="color:#0000cc">
+            <center><span class="card-title">F3</span></center>
+          </div>
+           <div class="card-content white-text">
+              <center><p>{{forms3.id}} - {{forms3.alumno}} Estado: {{forms3.estado}}</p></center>
+          </div>
+         </div>
+       </div>
+    </div>
+  {% endfor %}
+</div>

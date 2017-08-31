@@ -49,17 +49,11 @@
 			</div>
 			<div class="nav-content">
 				<ul class="tabs tabs-transparent">
-					<li class="tab"><a id="open_perfil" href="#perfiles">Perfiles</a></li>
-					<li class="tab"><a href="#c_alumno">Cargar alumno</a></li>
-					<li class="tab"><a class="active" href="#mod_alumno">Modificar datos</a></li>
-					<li class="tab"><a href="#observaciones">Observaciones</a></li>
+          <li class="tab"><a id="avrir_perfil" href="#perfiles">Ayuda</a></li>
+          <li class="tab"><a id="open_perfil" href="#perfiles">Estado Alumnos</a></li>
 				</ul>
 			</div>
 	    </nav>
-	    <div id="perfiles" class="col s12"></div>
-		<div id="c_alumno" class="col s12">Aca va el formulario para cargar un alumno a la base de datos</div>
-		<div id="mod_alumno" class="col s12">Aca va el formulario para modificar los datos de los alumnos ya cargados en la base de datos</div>
-		<div id="observaciones" class="col s12">Aca va un registro de cartas con las ultimas observaciones realizadas en fecha y con opcion de modificar, se divide en 2 secciones esta pagina y la 2da va a tener el mini formulario para cargar una observacion a un alumno</div>
 	  </div>
 
 	  <!-- Contenido del TAB Formularios -->
@@ -67,7 +61,7 @@
 		<nav class="nav-extended" style="background-color:#212121;height:25%;">
 			<div class="nav-wrapper">
 				<!-- Poner el nombre del preceptor actual al lado del Logo con los tags de Django-->
-				<center><a href="#" class="brand-logo">Formularios</a></center>
+				<center><a href="#" id="formularios" class="brand-logo">Formularios</a></center>
 				<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 			</div>
 			<div class="nav-content">
@@ -85,28 +79,55 @@
     </body>
     <script type="text/javascript">
 
-  		$('document').ready(
-  			function(){
-  				$("#id01").addClass("hiddendiv")
+
+      ocul()
+
+  		function ocul(){
+  		  	$("#id01").addClass("hiddendiv")
           $("#hola").addClass("hiddendiv")
-  			}
-  		);
+  	  }
+
 
       var nada = "";
 
       $(document).ready(function(){
+        $('#abrir_perfil').click(function(){
+          $.ajax({
+            method: "GET",
+            url: "/mis_alumnos/",
+          })
+            .done(function(data){
+              alert(data)
+              $("#contenido")[0].innerHTML = data;
+            });
+        });
+        $('#open_perfil').click(function(){
+          $.ajax({
+            method: "GET",
+            url: "/mis_alumnos/",
+          })
+            .done(function(data){
+              alert(data)
+              $("#contenido")[0].innerHTML = data;
+            });
+        });
         $('#open_cf').click(function(){
           $.ajax({
             method: "GET",
             url: "/f2/",
           })
             .done(function(data){
-              $("#contenido")[0].innerHTML = nada;
               $("#contenido")[0].innerHTML = data;
             });
         });
         $('#ver_formularios').click(function(){
-          alert("nada");
+          $.ajax({
+            method: "GET",
+            url: "/mis_formularios/",
+          })
+            .done(function(data){
+              $("#contenido")[0].innerHTML = data;
+            });
         });
       });
 
@@ -119,9 +140,9 @@
   				 csrfmiddlewaretoken: '{{ csrf_token }}'
   			 }
   		 })
-  			 .done(function (data) {
-
-  			 });
+  		 .done(function (data) {
+           mostrando_f2s()
+  		 });
   	 };
 
       function mostrar_f1(url, alum) {
@@ -230,12 +251,16 @@
      };
 
 
-      function updatePresentesF2(){
-   		    $( "#presentes_para_f2" ).load(window.location.href + " #presentes_para_f2" );
+      function updatePresentesF(){
+   		    $( "#presentes_para_f" ).load(window.location.href + " #presentes_para_f" );
     	}
 
       function updateDiv(){
 		 	    $( "#primero" ).load(window.location.href + " #primero" );
+ 		  }
+
+      function mostrando_f2s(){
+		 	    $( "#mostrando_f2s" ).load(window.location.href + " #mostrando_f2s" );
  		  }
 
         function datos(url, alum) {
