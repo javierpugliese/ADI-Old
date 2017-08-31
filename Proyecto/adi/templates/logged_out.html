@@ -1,36 +1,73 @@
 <!DOCTYPE html>
-<html class="mdc-typography">
-  <head>
-		<meta charset="UTF-8">
-		<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-    <title>Iniciar sesión</title>
-    <link rel="stylesheet" href="node_modules/material-components-web/dist/material-components-web.css">
-	</head>
-	<style>
-		html, body {
-    	height: 100%;
-		}
-		html {
-			display: table;
-			margin: auto;
-		}
+{% load static %}
+<html>
+
+<head>
+
+	<!-- permite cracteres tales como la ñ -->
+	<meta charset="UTF-8"
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js">
+    </script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static "style.css" %}">
+
+
+<style>
 		body {
-			display: table-cell;
-			vertical-align: middle;
+		    margin: 0;
 		}
+
+
+		 #b1{
+  			position: relative;
+  			top: -0px;
+  			left: 185px;
+		    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+		h2.font {
+			text-align: center;
+    		font:bold;
+    		color: black;
+  		}
+
+
 </style>
-  <body style="background-color: whitesmoke">
-		<div class="mdc-card mdc-card--theme-dark" style="padding-right: 50px;padding-bottom: 22px;padding-left: 50px;">
-  		<section class="mdc-card__primary" style="text-align: center;">
-    		<h2 class="mdc-typography--display1" style="color:#333638">Usted ha cerrado sesión</h2>
-					<br>
-					<button href="{% url 'login_p' %}" class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple" style="background-color:#333638;color:white;">
-							Página principal
-					</button>
-		</section>
-		</div>
-		<p style="text-align: center;font-size: 75%;">by Javier Pugliese</p>
-    <script src="node_modules/material-components-web/dist/material-components-web.js"></script>
-    <script>mdc.autoInit()</script>
-	</body>
+
+<title>Sesion Cerrada</title>
+
+</head>
+
+<body style="background-color: whitesmoke">
+
+<div id="col" style="margin-left:10%; margin-right:10%; margin-top:4%; padding:10px 200px; height:100px;">
+	<div class="container">
+    <form href = "{% url 'index' %}" method="POST">
+	    <div class="col s12">
+	      <div class="card whitesmoke z-depth-4" >
+	        <div class="card-content black-text">
+	          <div <div style="color:#0000cc">
+	           <h2 class="font">Usted ha cerrado sesion</h2>
+	          </div>
+	          <br>
+            <button id="b1" class="btn waves-effect waves-light" type="submit" name="action"
+            >Menú<i class="material-icons right">send</i></button>
+            {% csrf_token %}
+          </form>
+
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+</div>
+
+</body>
 </html>

@@ -13,10 +13,19 @@ class Padre_Tutor(models.Model):
     def __str__(self):
         return '{} '.format(self.nombre)
 
+class Preceptor(models.Model):
+    nombre_usuario = models.CharField(max_length=20)
+    nombre = models.CharField(max_length=20)
+    apellido = models.CharField(max_length=20)
+    dni = models.IntegerField(null=False)
+    def __str__(self):
+        return '{} '.format(self.nombre_usuario)
+
 class Curso(models.Model):
     year = models.PositiveSmallIntegerField(default=1)
     division = models.CharField(max_length=1)
     numero = models.IntegerField()
+    preceptor = models.ForeignKey(Preceptor)
 
     def __str__(self):
         return ' {} - {} / {}'.format(self.year, self.division, self.numero)
@@ -31,18 +40,6 @@ class Alumno(models.Model):
 
     def __str__(self):
         return '{} '.format(self.nombre)
-
-class Preceptor(models.Model):
-    nombre_usuario = models.CharField(max_length=20)
-    nombre = models.CharField(max_length=20)
-    apellido = models.CharField(max_length=20)
-    dni = models.IntegerField(null=False)
-    curso = models.ForeignKey(Curso)
-
-    def __str__(self):
-        return '{} '.format(self.nombre)
-
-
 
 #    def count_like(self):
 #        return Like.objects.filter(tweet=self).count()
