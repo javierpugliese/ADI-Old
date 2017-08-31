@@ -78,10 +78,19 @@
 			</div>
 	    </nav>
     <div id="contenido"></div>
+    <div id="hola">
+      <div id="dato">
+      </div>
+    </div>
     </body>
-    <script>
+    <script type="text/javascript">
 
-
+  		$('document').ready(
+  			function(){
+  				$("#id01").addClass("hiddendiv")
+          $("#hola").addClass("hiddendiv")
+  			}
+  		);
 
       var nada = "";
 
@@ -101,6 +110,79 @@
         });
       });
 
+      function update_f2(url, alum) {
+  		 //alert("soquetes");
+  		 $.ajax({
+  			 method: "POST",
+  			 url: url,
+  			 data: {
+  				 csrfmiddlewaretoken: '{{ csrf_token }}'
+  			 }
+  		 })
+  			 .done(function (data) {
+
+  			 });
+  	 };
+
+      function mostrar_f1(url, alum) {
+  		 //alert("soquetes");
+  		 $.ajax({
+  			 method: "POST",
+  			 url: url,
+  			 data: {
+  				 csrfmiddlewaretoken: '{{ csrf_token }}'
+  			 }
+  		 })
+  			 .done(function (data) {
+           $("#dato").html(data);
+           document.getElementById('hola').style.display='block';
+  			 });
+  	 };
+
+     function mostrar_f2(url, alum) {
+      //alert("soquetes");
+      $.ajax({
+        method: "POST",
+        url: url,
+        data: {
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        }
+      })
+        .done(function (data) {
+          $("#dato").html(data);
+          document.getElementById('hola').style.display='block';
+        });
+    };
+
+    function mostrar_f3(url, alum) {
+     //alert("soquetes");
+     $.ajax({
+       method: "POST",
+       url: url,
+       data: {
+         csrfmiddlewaretoken: '{{ csrf_token }}'
+       }
+     })
+       .done(function (data) {
+         $("#dato").html(data);
+         document.getElementById('hola').style.display='block';
+       });
+   };
+
+   function mostrar_fm(url, alum) {
+    //alert("soquetes");
+    $.ajax({
+      method: "POST",
+      url: url,
+      data: {
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+      }
+    })
+      .done(function (data) {
+        $("#dato").html(data);
+        document.getElementById('hola').style.display='block';
+      });
+  };
 
 
       function volver(url, alum) {
@@ -129,9 +211,8 @@
      		 }
      	 })
      		 .done(function (data) {
-     			 $("#datos").html(data);
-
-           updatePresentesF2()
+           $("#datos").html(data);
+ 					 document.getElementById('id01').style.display='block';
      		 });
      	};
 

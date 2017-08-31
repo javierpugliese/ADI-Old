@@ -20,36 +20,71 @@ from .models import *
 
 
 
-#Función que crea F2 individuales
+#Función que crea F2
 def mostrar_opciones(request, alum_t):
     al = Alumno.objects.get(dni=alum_t)
     return render(request,
-                  'preceptor/F2_grupal.html',
+                  'preceptor/elegir_form.html',
                   {'alumno':al})
 
-def crear_f2(request, nada):
-    print nada
+def crear_fm(request, dni_alumno):
+    return HttpResponse("Funca")
+
+def crear_f1(request, dni_alumno):
+    return HttpResponse("Funca")
+
+def crear_f2(request, dni_alumno):
     pepe = request.user
     ahorita = timezone.now()
     prec = Preceptor.objects.get(nombre_usuario=pepe)
-    todos = Alumno.objects.filter(curso=prec.curso, estado="Indefinido")
-    if todos:
-        for a in todos:
-            print "encuentra"
-            a.estado="Saliendo"
-            a.save()
-            print a.estado
-            new_f2 = Formulario2(alumno=a, fecha=ahorita, estado="Proceso", preceptor=prec)
-            new_f2.save()
-    else:
-        print "No encuentra"
-    data = {
-        'estado': "activo"
-    }
-    return JsonResponse(data, safe=False)
+    alumno = Alumno.objects.get(curso=prec.curso, dni=dni_alumno)
+    alumno.estado="Saliendo_con_F2"
+    new_f2 = Formulario2(alumno=alumno, fecha=ahorita, estado="Proceso", preceptor=prec)
+    new_f2.save()
+    try:
+        f2s = Formulario2.objects.filter(preceptor=prec, estado="Proceso")
+        print "encuentra"
+    except:
+        f2s = None
+    return render(request,
+                  'preceptor/confirmar_F2.html',
+                  {'f2':f2s})
+
+def confirmar_f2(request):
+    print "HOLA"
+    pepe = request.user
+    prec = Preceptor.objects.get(nombre_usuario=pepe)
+    del_f2 = Formulario2.objects.filter(estado="Proceso")
+    for a in del_f2:
+        a.estado="Verificar"
+        a.save()
+    return HttpResponse('HECHO')
+
+def confirmar_f3(request):
+    pepe = request.user
+    prec = Preceptor.objects.get(nombre_usuario=pepe)
+    del_f3 = Formulario3.objects.filter(estado="Proceso")
+    for a in del_f3:
+        a.estado="Verificar"
+        a.save()
+    return HttpResponse('HECHO')
+
 
 def crear_f3(request):
-    print "nada"
+    pepe = request.user
+    ahorita = timezone.now()
+    prec = Preceptor.objects.get(nombre_usuario=pepe)
+    alumno = Alumno.objects.filter(curso=prec.curso, dni=dni_alumno)
+    alumno.estado="Indefinido"
+    new_f3 = Formulario3(alumno=a, fecha=ahorita, estado="Proceso", preceptor=prec)
+    new_f3.save()
+    try:
+        f3s = Formulario3.objects.filter(preceptor=prec, estado="Proceso")
+    except:
+        f3s = None
+    return render(request,
+                  'preceptor/confirmar_F3.html',
+                  {'f3s':f3})
 
 def buscar_alumno(request):
     if request.method == 'POST':
@@ -58,7 +93,7 @@ def buscar_alumno(request):
 
 def modificar_alumno(request):
     print "nada"
-
+    return HttpResponse('FUNCIONO')
 
 def crear_alumno(request):
     nombre = request.POST['nombre']
@@ -94,12 +129,6 @@ def crear_preceptor(request):
         user = User.objects.create_user(username=nombre_usuario, password=password)
         user.save()
     return render(request, 'index.html')
-
-def retiro_grupal(request, alum_t):
-    al = Alumno.objects.filter(dni=alum_t)
-    if request.method == 'POST':
-        al.update(estado="Retirado")
-    return HttpResponse('FUNCIONO')
 
 def aceptar_f2(request, alum_t):
     f2 = Formulario2.objects.get(id=alum_t)
@@ -281,34 +310,13 @@ def f2(request):
     except:
         al = None
     return render(request,
-                 'preceptor/F2.html',
+                 'preceptor/elegir_formulario.html',
                  {'todos_los_alumnos':al})
-
-def f3(request):
-    return render(request, 'preceptor/F3.html')
-
-def f2grupal(request):
-   try:
-       alumnos = Alumno.objects.filter(estado="Presente")
-   except:
-       alumnos = None
-   return render(request,
-                 'preceptor/F2_grupal.html',
-                 {'todos_los_alumnos':alumnos})
-
-def aux_f2(request):
-   try:
-       alumnos = Alumno.objects.filter(estado="Presente")
-   except:
-       alumnos = None
-   return render(request,
-                 'preceptor/aux_f2.html',
-                 {'todos_los_alumnos':alumnos})
 
 def formularios(request):
     try:
-        forms2 = Formulario2.objects.filter(estado="Proceso")
-        forms3 = Formulario3.objects.filter(estado="Proceso")
+        forms2 = Formulario2.objects.filter(estado="Verificar")
+        forms3 = Formulario3.objects.filter(estado="Verificar")
     except:
         forms2 = None
         forms3 = None
