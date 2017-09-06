@@ -116,31 +116,29 @@ def crear_alumno(request):
 
 def crear_preceptor(request):
     if request.method == 'POST':
+        print "llega"
         nombre_usuario = request.POST['nombre_usuario']
         password = request.POST['password']
         nombre = request.POST['nombre']
         apellido = request.POST['apellido']
         dni = request.POST['dni']
-        year = request.POST['year']
-        division = request.POST['division']
-        cur = Curso.objects.get(year=year, division=division)
         #Creamos al modelo Preceptor a partir de los datos ingresados, relacionando nombre_usuario con el User creado
-        preceptor = Preceptor(nombre_usuario=nombre_usuario,nombre=nombre, apellido=apellido, dni=dni, curso=cur)
+        preceptor = Preceptor(nombre_usuario=nombre_usuario,nombre=nombre, apellido=apellido, dni=dni)
         preceptor.save()
         #Creamos al usuario
         user = User.objects.create_user(username=nombre_usuario, password=password)
         user.save()
     return render(request, 'index.html')
 
-def aceptar_f2(request, alum_t):
-    f2 = Formulario2.objects.get(id=alum_t)
-    nom = f2.alumno.nombre
+def aceptar_formulario(request, alum_t):
+    formulario = Formulario.objects.get(id=alum_t)
+    nom = formulario.alumno.nombre
     al = Alumno.objects.get(nombre=nom)
     if al:
         al.estado="Retirado"
         al.save()
-        f2.estado="Finalizado"
-        f2.save()
+        formulario.estado="Finalizado"
+        formulario.save()
         data = {
             'estado':"Operación realizada con éxito"
         }
@@ -150,51 +148,15 @@ def aceptar_f2(request, alum_t):
         }
     return JsonResponse(data, safe=False)
 
-def aceptar_f3(request, alum_t):
-    f3 = Formulario3.objects.get(id=alum_t)
-    nom = f3.alumno.nombre
-    al = Alumno.objects.get(nombre=nom)
-    if al:
-        al.estado="Retirado"
-        al.save()
-        f3.estado="Finalizado"
-        f3.save()
-        data = {
-            'estado':"Operación realizada con éxito"
-        }
-    else:
-        data = {
-            'estado':"La operación falló"
-        }
-    return JsonResponse(data, safe=False)
-
-def rechazar_f2(request, alum_t):
-    f2 = Formulario2.objects.get(id=alum_t)
-    nom = f2.alumno.nombre
+def rechazar_formulario(request, alum_t):
+    formulario = Formulario.objects.get(id=alum_t)
+    nom = formulario.alumno.nombre
     al = Alumno.objects.get(nombre=nom)
     if al:
         al.estado="Indefinido"
         al.save()
-        f2.estado="Rechazado"
-        f2.save()
-        data = {
-            'estado':"Operación realizada con éxito"
-        }
-    else:
-        data = {
-            'estado':"La operación falló"
-        }
-    return JsonResponse(data, safe=False)
-
-def rechazar_f3(request, alum_t):
-    f3 = Formulario3.objects.get(id=alum_t)
-    nom = f3.alumno.nombre
-    al = Alumno.objects.get(nombre=nom)
-    if al:
-        al.estado="Indefinido"
-        al.save()
-        f3.estado="Rechazado"
-        f3.save()
+        formulario.estado="Rechazado"
+        formulario.save()
         data = {
             'estado':"Operación realizada con éxito"
         }
@@ -222,24 +184,14 @@ def datos_alumnos(request, id_for):
     al = Alumno.objects.get(dni=id_for)
     return JsonResponse(data, safe=False)
 
-def datos_f2(request, id_for):
+def datos_formulario(request, id_for):
     print id_for;
-    formi = Formulario2.objects.get(id=id_for)
+    formi = Formulario.objects.get(id=id_for)
     alum = formi.alumno
     return render(request,
                   'guardia/datos.html',
                   {'form':formi})
-    #return JsonResponse(data, safe=False)
 
-def datos_f3(request, id_for):
-    print id_for;
-    formi = Formulario3.objects.get(id=id_for)
-    data = {
-        'preceptor':formi.preceptor.username,
-        'alumno':formi.alumno.nombre,
-        'fecha':formi.fecha,
-        'estado':formi.estado
-    }
     return JsonResponse(data, safe=False)
 
 """ Reloj
@@ -299,17 +251,6 @@ def inicio(request):
 def login_p(request):
     return render(request, 'login.html')
 
-def alumnos_para_formulario(request):
-    pepe = request.user
-    try:
-        prec = Preceptor.objects.get(nombre_usuario=pepe)
-        al = Alumno.objects.filter(curso=prec.curso, estado="Presente").order_by('-apellido')
-    except:
-        al = None
-    return render(request,
-                 'preceptor/F2.html',
-                 {'todos_los_alumnos':al})
-
 def f2(request):
     pepe = request.user
     try:
@@ -323,20 +264,23 @@ def f2(request):
 
 def formularios(request):
     try:
-        forms2 = Formulario2.objects.filter(estado="Verificar")
-        forms3 = Formulario3.objects.filter(estado="Verificar")
+        forms2 = Formulario.objects.filter(tipo="True", estado="Proceso")
+        forms3 = Formulario.objects.filter(tipo="False", estado="Proceso")
     except:
         forms2 = None
         forms3 = None
+    print forms2
+    print forms3
     return render(request,'guardia/formularios.html',{'todos_los_f3':forms3, 'todos_los_f2':forms2})
 
 def mis_alumnos(request):
     pepe = request.user
     try:
-        prec = Preceptor.objects.get(nombre_usuario=pepe)
-        al = Alumno.objects.filter(curso=prec.curso).order_by('-apellido')
+        print pepe
+        al = Alumno.objects.filter(estado="Presente")
     except:
         al = None
+    print al
     return render(request,
                  'preceptor/mis_alumnos.html',
                  {'todos_los_alumnos':al})
@@ -345,8 +289,8 @@ def mis_formularios(request):
     pepe = request.user
     prec = Preceptor.objects.get(nombre_usuario=pepe)
     try:
-        forms2 = Formulario2.objects.filter(estado="Proceso", preceptor=prec)
-        forms3 = Formulario3.objects.filter(estado="Proceso", preceptor=prec)
+        forms2 = Formulario.objects.filter(tipo="True", estado="Proceso", preceptor=prec)
+        forms3 = Formulario.objects.filter(tipo="False", estado="Proceso", preceptor=prec)
     except:
         forms2 = None
         forms3 = None

@@ -1,73 +1,61 @@
 <!DOCTYPE html>
+<!-- Cargamos archivos estáticos-->
 {% load static %}
 <html>
-
-<head>
-
-	<!-- permite cracteres tales como la ñ -->
-	<meta charset="UTF-8"
-
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
-
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-        crossorigin="anonymous"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js">
-    </script>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="{% static "style.css" %}">
-
-
-<style>
-		body {
-		    margin: 0;
-		}
-
-
-		 #b1{
-  			position: relative;
-  			top: -0px;
-  			left: 185px;
-		    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-}
-
-		h2.font {
-			text-align: center;
-    		font:bold;
-    		color: black;
-  		}
-
-
-</style>
-
-<title>Sesion Cerrada</title>
-
-</head>
-
-<body style="background-color: whitesmoke">
-
-<div id="col" style="margin-left:10%; margin-right:10%; margin-top:4%; padding:10px 200px; height:100px;">
-	<div class="container">
-    <form href = "{% url 'index' %}" method="POST">
-	    <div class="col s12">
-	      <div class="card whitesmoke z-depth-4" >
-	        <div class="card-content black-text">
-	          <div <div style="color:#0000cc">
-	           <h2 class="font">Usted ha cerrado sesion</h2>
-	          </div>
-	          <br>
-            <button id="b1" class="btn waves-effect waves-light" type="submit" name="action"
-            >Menú<i class="material-icons right">send</i></button>
-            {% csrf_token %}
-          </form>
-
-	        </div>
-	      </div>
-	    </div>
-	  </div>
-</div>
-
-</body>
+	<head>
+		<!--Importamos Google Icon Font-->
+		<link href="{% static 'materialize/icons/icons.css' %}" rel="stylesheet">
+		<!--Importamos materialize.css-->
+		<link type="text/css" rel="stylesheet" href="{% static 'materialize/css/materialize.min.css' %}"  media="screen,projection"/>
+		<!--Permitirle al navegador saber si está optimizado para dispositivos móbiles-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8"/>
+		<!-- Agregamos un título a esta plantilla -->
+		<title>Sesión cerrada</title>
+		<!-- HOJA DE ESTILOS PERSONALIZADA INTERNA-->
+		<style>
+				/*** !important was needed for snippet ***/
+				/* Cambiar color de un título al pasar por encima el cursor*/
+				h4 {
+					color:blue;
+				}
+				h4:hover {
+					color: royalblue;
+				}
+		</style>
+	</head>
+	<body style="background-color: whitesmoke">
+		<!-- Formulario para el Login-->
+		{% block content %}
+			<form method="POST">
+				{% csrf_token %}
+				<!-- Encerramos el contenido del formulario dentro de una carta -->
+				<div style="margin-left:15%; margin-right:15%; margin-top:4%; padding:10px 200px; height:100px;">
+					<div class="row">
+						<div class="container">
+							<div class="col s12">
+								<div class="card whitesmoke z-depth-4">
+									<!-- Contenido superior de la carta -->
+									<div class="card-content">
+											<center><h4>Usted ha cerrado sesión</h4></center>
+									</div>
+									<!-- Sección de acción de la carta-->
+									<div class="card-action" style="text-align:center">
+										<!-- Boton que ejecuta la accion del formulario -->
+										<!-- No ejecuta ninguna acción porque en settings.py
+												 esta definida la variable LOGOUT_REDIRECT_URL
+										 -->
+										 <a style="background-color: royalblue" class="btn waves-effect waves-light" type="submit" name="action"
+										  href="{% url 'index' %}">Volver <i class="material-icons right">send</i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		{% endblock %}
+		<!--Importar jQuery antes de materialize.js-->
+		<script type="text/javascript" src="{% static 'jquery/jquery-3.2.1.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'materialize/js/materialize.min.js' %}"></script>
+	</body>
 </html>

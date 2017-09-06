@@ -46,20 +46,12 @@ class Alumno(models.Model):
 #    def __str__(self):
 #        return 'Tweet nro {} - by {}'.format(self.id, self.user)
 
-class Formulario2(models.Model):
+class Formulario(models.Model):
     preceptor = models.ForeignKey(Preceptor)
     alumno = models.ForeignKey(Alumno)
     fecha = models.DateTimeField(default=timezone.now)
     estado = models.CharField(max_length=11)
+    tipo = models.BooleanField()
 
     def __str__(self):
-        return 'F2 de {}'.format(self.alumno.nombre)
-
-class Formulario3(models.Model):
-    preceptor = models.ForeignKey(Preceptor)
-    alumno = models.ForeignKey(Alumno)
-    fecha = models.DateTimeField(default=timezone.now)
-    estado = models.CharField(max_length=11)
-
-    def __str__(self):
-        return 'F3 de {} '.format(self.alumno.nombre)
+        return 'Formulario de {}'.format(self.alumno.nombre)

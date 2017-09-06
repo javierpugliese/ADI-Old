@@ -49,7 +49,7 @@
 			</div>
 			<div class="nav-content">
 				<ul class="tabs tabs-transparent">
-          <li class="tab"><a id="avrir_perfil" href="#perfiles">Ayuda</a></li>
+          <li class="tab"><a id="abrir_perfil" href="#perfiles">Ayuda</a></li>
           <li class="tab"><a id="open_perfil" href="#perfiles">Estado Alumnos</a></li>
 				</ul>
 			</div>
@@ -71,7 +71,12 @@
 				</ul>
 			</div>
 	    </nav>
-    <div id="contenido"></div>
+
+    <span id="contenido">
+
+    </span>
+
+
     <div id="hola">
       <div id="dato">
       </div>
@@ -91,21 +96,13 @@
       var nada = "";
 
       $(document).ready(function(){
-        $('#abrir_perfil').click(function(){
-          $.ajax({
-            method: "GET",
-            url: "/mis_alumnos/",
-          })
-            .done(function(data){
-              $("#contenido")[0].innerHTML = data;
-            });
-        });
         $('#open_perfil').click(function(){
           $.ajax({
             method: "GET",
             url: "/mis_alumnos/",
           })
             .done(function(data){
+              alert(data);
               $("#contenido")[0].innerHTML = data;
             });
         });

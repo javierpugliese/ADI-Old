@@ -1,104 +1,132 @@
 <!DOCTYPE html>
-  <html lang="sp">
-  {% load static %}
-    <head>
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1"/>
-      <title>ADI Principal</title>
-
-      <!-- CSS  -->
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <link href='{% static "css/materialize.css" %}' type="text/css" rel="stylesheet" media="screen,projection"/>
-      <link href='{% static "css/style.css" %}' type="text/css" rel="stylesheet" media="screen,projection"/>
-    </head>
-    <body>
-      <nav class="white" role="navigation">
-        <div class="nav-wrapper container">
-          <a id="logo-container" href="#" class="brand-logo">A.D.I</a>
-          <ul class="right hide-on-med-and-down">
-            <li><a href="#">Menu</a></li>
-          </ul>
-          <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-        </div>
-      </nav>
-
-      <div id="index-banner" class="parallax-container">
-        <div class="section no-pad-bot">
-          <div class="container">
-            <br><br>
-            <h1 class="header center teal-text text-lighten-2"></h1>
-            <div class="row center">
-            </div>
-            <div class="row center">
-               <IMG SRC="http://preinscripcion.itsv.edu.ar/static/img/cole.png" width="180" height="200">
-            </div>
-            <br><br>
-
-          </div>
-        </div>
-        <div class="parallax"><img src='{% static "img/background1.jpg" %}' alt="Unsplashed background img 1"></div>
-      </div>
-
-
-      <div class="container">
-        <div class="section">
-
-          <!--   Icon Section   -->
-          <div class="row">
-            <div class="col s12 m4">
-              <div class="icon-block">
-                <h2 class="center brown-text"><i class="material-icons">group</i></h2>
-                <center><a href='{% url "login_p" %}'class="waves-effect waves-light btn-large">Preceptor</a></center>
-                <p class="light">INFO.</p>
-              </div>
-            </div>
-
-            <div class="col s12 m4">
-              <div class="icon-block">
-                <h2 class="center brown-text"><i class="material-icons">collections_bookmark</i></h2>
-                <center><a class="waves-effect waves-light btn-large">Administracion</a></center>
-                <p class="light">INFO.</p>
-              </div>
-            </div>
-
-            <div class="col s12 m4">
-              <div class="icon-block">
-                <h2 class="center brown-text"><i class="material-icons">security</i></h2>
-                <center><a class="waves-effect waves-light btn-large">Guardia</a></center>
-                <p class="light">INFO.</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-      <div class="parallax-container valign-wrapper">
-        <div class="section no-pad-bot">
-          <div class="container">
-            <div class="row center">
-              <h5 class="header col s12 light"></h5>
-            </div>
-          </div>
-        </div>
-        <div class="parallax"><img src='{% static "img/background2.jpg" %}' alt="Unsplashed background img 2"></div>
-      </div>
-
-      <footer class="page-footer teal">
-        <div class="container">
-          <div class="row">
-              <h5 class="white-text">Bio</h5>
-              <p class="grey-text text-lighten-4 ">Somos un grupo enfocado en el desarrollo de  A.D.I que es un Adinistrador de Datos Institucional. Buscamos reducir el uso de papeleo y asi mejorar el rendimiento y evitar errores a la hora de manejar informacion institucional.</p>
-
-        </div>
-        <div class="footer-copyright">
-          <div class="container">Hecho por <a class="brown-text text-lighten-3" href="http://materializecss.com">M, J y G</a>
-          </div>
-        </div>
-      </footer>
-
-      <!--  Scripts-->
-      <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-      <script src='{% static "js/materialize.js" %}'></script>
-      <script src='{% static "js/init.js" %}'></script>
-      </body>
-    </html>
+<!-- Cargamos archivos estáticos-->
+{% load static %}
+<html>
+	<head>
+		<!-- Importamos Google Icon Font -->
+		<link href="{% static 'materialize/icons/icons.css' %}" rel="stylesheet">
+		<!-- Importamos materialize.css -->
+		<link type="text/css" rel="stylesheet" href="{% static 'materialize/css/materialize.min.css' %}"  media="screen,projection"/>
+		<!-- Permitirle al navegador saber si está optimizado para dispositivos móbiles -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8"/>
+		<!-- Agregamos un título a esta plantilla -->
+		<title>ADARIN</title>
+	</head>
+	<body style="background-color:#32237d">
+		<!-- Navbar -->
+		<nav style="background-color: #32237d" role="navigation">
+			<div class="nav-wrapper z-depth-4">
+				<!-- Logo y título centrado -->
+				<a id="logo-container" href="/" class="brand-logo center">
+					<i class="material-icons prefix" style="font-size: 45px">assignment</i> ADI
+				</a>
+			</div>
+		</nav>
+		<!-- Parallax 1 -->
+		<div id="index-banner" class="parallax-container z-depth-4">
+			<div class="parallax"><img src='{% static "img/background2.jpg" %}' alt="Unsplashed background img 1"></div>
+		</div>
+		<!-- Contenido intermedio -->
+		<div class="container z-depth-5" style="background-color:#3a2993">
+			<!-- Sección de íconos de redirección -->
+			<div class="section">
+				<!-- Fila -->
+				<div class="row center">
+					<!-- Alumnos -->
+					{% block alumnos %}
+					<div class="col s12 m4">
+						<div class="icon-block">
+							<h2 class="center white-text"><i class="medium material-icons prefix">face</i></h2>
+								<center>
+									<!-- Botón de redireccionamiento a view de alumnos -->
+									<a style="background-color:royalblue" class="btn waves-effect waves-light" href="{% url 'login_p' %}">Alumnos</a>
+									<p class="white-text" style="font-weight: bold;text-align: center;text-justify: inter-word">Incluye la función de revisión de inasistencias y estado de conducta, además de poder visualizar perfiles, los cuales incluyen los datos personales del alumno con la posibilidad de modificar éstos sólo en casos específicos.</p>
+									<p style="color:red;font-weight: bold;text-align: center">Espacio sólo para alumnos registrados</p>
+								</center>
+						</div>
+					</div>
+					{% endblock %}
+					<!-- Guardia -->
+					{% block guardia %}
+					<div class="col s12 m4">
+						<div class="icon-block">
+							<h2 class="center white-text"><i class="medium material-icons prefix">security</i></h2>
+								<center>
+									<!-- Botón de redireccionamiento a view del guardia -->
+									<a style="background-color:royalblue" class="btn waves-effect waves-light" href="{% url 'login_p' %}">Guardia</a>
+									<p class="white-text" style="font-weight: bold;text-align: center;text-justify: inter-word">Incluye la función de controlar de formularios que le serán entregados en un momento por los preceptores. Abarca la revisión de datos de los formularios para dar el alta a los alumnos que quisieran retirarse y están autorizados.</p>
+									<p style="color:red;font-weight: bold;text-align: center">Espacio sólo para guardias registrados</p>
+								</center>
+						</div>
+					</div>
+					{% endblock %}
+					<!-- Preceptores -->
+					{% block preceptores %}
+					<div class="col s12 m4">
+						<div class="icon-block">
+							<h2 class="center white-text"><i class="medium material-icons prefix">group</i></h2>
+								<center>
+									<!-- Botón de redireccionamiento a view del preceptor -->
+									<a style="background-color:royalblue" class="btn waves-effect waves-light" href="{% url 'login_p' %}">Preceptores</a>
+									<p class="white-text" style="font-weight: bold;text-align: center;text-justify: inter-word">Incluye funciones de visualización de datos de los alumnos, como así la modificación de éstos. Además, se podrán cargar formularios de salida y aplicar observaciones de conducta o porcentajes de inasistencia.</p>
+									<p style="color:red;font-weight: bold;text-align: center">Espacio sólo para preceptores registrados</p>
+								</center>
+						</div>
+					</div>
+					{% endblock %}
+					<!-- Truqueamos la fila poniendo una columna vacía para centrar el bloque de administración -->
+					<div class="col s12 m4 center">
+					</div>
+					<!-- Administradores -->
+					{% block administración %}
+					<div class="col s12 m4 center">
+						<div class="icon-block">
+							<h2 class="center white-text"><i class="medium material-icons prefix">collections_bookmark</i></h2>
+								<center>
+									<!-- Botón de redireccionamiento a view del admin -->
+									<a style="background-color:royalblue" class="btn waves-effect waves-light" href="{% url 'admin:index' %}">Administración</a>
+									<p class="white-text" style="font-weight: bold;text-align: center;text-justify: inter-word">Incluye la completa creación, manipulación y consulta de datos y funciones que abarcará el sistema ADARIN. Nótese que el acceso a ésta sección queda bajo la responsabilidad de cada institución escolar.</p>
+									<p style="color:red;font-weight: bold;text-align: center">Espacio sólo para administradores</p>
+								</center>
+						</div>
+					</div>
+					{% endblock %}
+					<!-- Llenamos la fila poniendo una columna vacía para centrar el bloque de administración -->
+					<div class="col s12 m4 center">
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Parallax 2 -->
+		<div class="parallax-container valign-wrapper z-depth-4">
+			<div class="parallax">
+				<img src='{% static "img/background1.jpg" %}' alt="Unsplashed background img 2">
+			</div>
+		</div>
+		<!-- Footer -->
+		<footer class="page-footer z-depth-4" style="background-color: #32237d">
+			<!-- Contenedor de información acerca de nosotros -->
+			<div class="container">
+				<div class="row">
+					<h5 class="white-text">Bio de la empresa</h5>
+					<p class="grey-text text-lighten-4" style="text-align:justify;text-justify:inter-word">Somos un equipo de estudiantes del nivel secundario enfocado a la etapa de aprendizaje en desarrollo de aplicaciones web con Django. ADARIN busca virtualizar archivos institucionales, reduciendo el papeleo para así mejorar el rendimiento con respecto al manejo de tareas que lleva a cabo una institución escolar.</p>
+				</div>
+			<!-- Contenedor de créditos y copyright -->
+				<div class="footer-copyright z-depth-4" style="background-color:#3a2993">
+					<div class="container" style="text-align: center">Realizado por
+						<b style="color:red">Gonzalo, Javier y Mateo</b> con <a style="color:#ff8484" href="http://materializecss.com/"><b>Materialize</b></a>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<!--Importamos jQuery antes de materialize.js-->
+		<script type="text/javascript" src="{% static 'jquery/jquery-3.2.1.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'materialize/js/materialize.min.js' %}"></script>
+		<!-- Inicializamos parallax -->
+		<script>
+			$(document).ready(function(){
+				$('.parallax').parallax();
+			});
+		</script>
+	</body>
+</html>

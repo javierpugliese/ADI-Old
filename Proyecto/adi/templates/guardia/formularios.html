@@ -26,13 +26,13 @@
 	          			</div>
 				           <div class="card-content black-text">
 											<center><p>{{forms2.alumno.apellido|upper}} {{forms2.alumno.nombre}} - Curso: {{forms2.alumno.curso}}</p></center>
-											<a onclick="aceptar_f2('{% url 'aceptar_f2' forms2.id %}', {{forms2.id}})" id="myBtn"  class="waves-effect waves-light btn green darken-4">
+											<a onclick="aceptar_f2('{% url 'aceptar_formulario' forms2.id %}', {{forms2.id}})" id="myBtn"  class="waves-effect waves-light btn green darken-4">
     		             		<i class="material-icons">thumb_up</i>
     		           		</a>
-                      <a onclick="datos_f2('{% url 'datos_f2' forms2.id %}', {{forms2.id}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
+                      <a onclick="datos_f2('{% url 'datos_formulario' forms2.id %}', {{forms2.id}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
     		             		<i class="material-icons">info</i>
     		           		</a>
-											<a onclick="rechazar_f2('{% url 'rechazar_f2' forms2.id %}', {{forms2.id}})" id="myBtn"  class="waves-effect waves-light btn red darken-4">
+											<a onclick="rechazar_f2('{% url 'rechazar_formulario' forms2.id %}', {{forms2.id}})" id="myBtn"  class="waves-effect waves-light btn red darken-4">
     		             		<i class="material-icons">thumb_down</i>
     		           		</a>
 				         	</div>
