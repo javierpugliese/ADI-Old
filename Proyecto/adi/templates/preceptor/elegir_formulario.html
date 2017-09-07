@@ -1,22 +1,18 @@
-<div id="presentes_para_formulario">
-	{% for al in todos_los_alumnos %}
-			<div class="container">
-				<div class="col s1">
-					<div class="card white lighten-2 z-depth-5" >
-						<div class="card-content blue-text">
-								<p>{{al.apellido|upper}} {{al.nombre|title}} Estado: {{al.estado}} Curso {{al.curso}}</p>
-								<a onclick="mostrar_f2('{% url 'crear_f2' al.dni %}', {{al.dni}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
-									F2
-								</a>
-								<a onclick="mostrar_f3('{% url 'crear_f3' al.dni %}', {{al.dni}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
-									F3
-								</a>
-								<a onclick="mostrar_fm('{% url 'crear_fm' al.dni %}', {{al.dni}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
-									FM
-								</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		{% endfor %}
+
+<header class="w3-container w3-teal">
+  <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+  <h2>Datos:</h2>
+</header>
+<div class="w3-container">
+  <br>
+  <center><span id ="preceptor">Apellido:{{alumno.apellido}}</span></center>
+  <center><span id ="alumno">Nombre:{{alumno.nombre|upper}}</span></center>
+  <center><span id ="fecha">Estado:{{alumno.estado|upper}}</span></center>
+	<br>
+	<a onclick="crear_f2('{% url 'crear_f2' alumno.dni %}', {{alumno.dni}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
+		F2
+	</a>
+  <a onclick="crear_f3('{% url 'crear_f3' alumno.dni %}', {{alumno.dni}})" id="myBtn"  class="waves-effect waves-light btn red darken-4">
+		F3
+	</a>
 </div>

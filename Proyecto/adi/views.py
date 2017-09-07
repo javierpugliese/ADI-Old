@@ -18,15 +18,7 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 from .models import *
 
-
-
 #Función que crea F2
-def mostrar_opciones(request, alum_t):
-    al = Alumno.objects.get(dni=alum_t)
-    return render(request,
-                  'preceptor/elegir_form.html',
-                  {'alumno':al})
-
 def crear_fm(request, dni_alumno):
     return HttpResponse("Funca")
 
@@ -35,58 +27,31 @@ def crear_f1(request, dni_alumno):
 
 def crear_f2(request, dni_alumno):
     pepe = request.user
-    ahorita = timezone.now()
+    alumno2 = Alumno.objects.get(dni=dni_alumno)
     prec = Preceptor.objects.get(nombre_usuario=pepe)
-    alumno = Alumno.objects.get(curso=prec.curso, dni=dni_alumno)
-    if alumno.estado=="Saliendo":
+    if alumno2.estado=="Saliendo":
         return render(request, 'preceptor/usuario_con_form.html')
     else:
-        alumno.estado="Saliendo"
-        alumno.save()
-        new_f2 = Formulario2(alumno=alumno, fecha=ahorita, estado="Proceso", preceptor=prec)
-        new_f2.save()
-        try:
-            f2s = Formulario2.objects.filter(preceptor=prec, estado="Proceso")
-        except:
-            f2s = None
-        return render(request,
-                      'preceptor/confirmar_F2.html',
-                      {'f2':f2s})
+        alumno2.estado="Saliendo"
+        alumno2.save()
+        ahorita = timezone.now()
+        new_f = Formulario(alumno=alumno2, fecha=ahorita, estado="Proceso", preceptor=prec, tipo="True")
+        new_f.save()
+    return HttpResponse("Hecho")
 
-def confirmar_f2(request):
+def crear_f3(request, dni_alumno):
     pepe = request.user
+    alumno2 = Alumno.objects.get(dni=dni_alumno)
     prec = Preceptor.objects.get(nombre_usuario=pepe)
-    del_f2 = Formulario2.objects.filter(estado="Proceso", preceptor=prec)
-    for a in del_f2:
-        a.estado="Verificar"
-        a.save()
-    return HttpResponse('HECHO')
-
-def confirmar_f3(request):
-    pepe = request.user
-    prec = Preceptor.objects.get(nombre_usuario=pepe)
-    del_f3 = Formulario3.objects.filter(estado="Proceso")
-    for a in del_f3:
-        a.estado="Verificar"
-        a.save()
-    return HttpResponse('HECHO')
-
-
-def crear_f3(request):
-    pepe = request.user
-    ahorita = timezone.now()
-    prec = Preceptor.objects.get(nombre_usuario=pepe)
-    alumno = Alumno.objects.filter(curso=prec.curso, dni=dni_alumno)
-    alumno.estado="Indefinido"
-    new_f3 = Formulario3(alumno=a, fecha=ahorita, estado="Proceso", preceptor=prec)
-    new_f3.save()
-    try:
-        f3s = Formulario3.objects.filter(preceptor=prec, estado="Proceso")
-    except:
-        f3s = None
-    return render(request,
-                  'preceptor/confirmar_F3.html',
-                  {'f3s':f3})
+    if alumno2.estado=="Saliendo":
+        return render(request, 'preceptor/usuario_con_form.html')
+    else:
+        alumno2.estado="Saliendo"
+        alumno2.save()
+        ahorita = timezone.now()
+        new_f = Formulario(alumno=alumno2, fecha=ahorita, estado="Proceso", preceptor=prec, tipo="False")
+        new_f.save()
+    return HttpResponse("Hecho")
 
 def buscar_alumno(request):
     if request.method == 'POST':
@@ -180,9 +145,8 @@ def volver(request, alum_t):
     return HttpResponse('FUNCIONO')
 
 def datos_alumnos(request, id_for):
-    print id_for;
     al = Alumno.objects.get(dni=id_for)
-    return JsonResponse(data, safe=False)
+    return render (request, 'preceptor/elegir_formulario.html', {'alumno':al})
 
 def datos_formulario(request, id_for):
     print id_for;
@@ -191,8 +155,6 @@ def datos_formulario(request, id_for):
     return render(request,
                   'guardia/datos.html',
                   {'form':formi})
-
-    return JsonResponse(data, safe=False)
 
 """ Reloj
 <html>
@@ -273,16 +235,20 @@ def formularios(request):
     print forms3
     return render(request,'guardia/formularios.html',{'todos_los_f3':forms3, 'todos_los_f2':forms2})
 
+def mis_alumnos_presentes(request):
+    pepe = request.user
+    prec = Preceptor.objects.filter(nombre_usuario=pepe)
+    al = Alumno.objects.filter(curso__preceptor=prec, estado="Presente")
+    return render(request,
+                 'preceptor/mis_alumnos_presentes.html',
+                 {'todos_los_alumnos':al})
+
 def mis_alumnos(request):
     pepe = request.user
-    try:
-        print pepe
-        al = Alumno.objects.filter(estado="Presente")
-    except:
-        al = None
-    print al
+    prec = Preceptor.objects.get(nombre_usuario=pepe)
+    al = Alumno.objects.filter(curso__preceptor=prec)
     return render(request,
-                 'preceptor/mis_alumnos.html',
+                 'preceptor/mis_alumnos_presentes.html',
                  {'todos_los_alumnos':al})
 
 def mis_formularios(request):

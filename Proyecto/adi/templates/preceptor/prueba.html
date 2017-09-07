@@ -1,11 +1,15 @@
   <!DOCTYPE html>
+  {% load static %}
   <html>
     <head>
       <!--Import Google Icon Font-->
       <link href="materialize/icons/icon.css" rel="stylesheet">
       <!--Import materialize.css-->
       <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+      <script type="text/javascript" src="{% static 'jquery/jquery-3.2.1.min.js' %}"></script>
+  		<script type="text/javascript" src="{% static 'materialize/js/materialize.min.js' %}"></script>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
       <!-- Compiled and minified JavaScript -->
       <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
           crossorigin="anonymous"></script>
@@ -16,6 +20,37 @@
       <!--Let browser know website is optimized for mobile-->
       <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
 	  <title>Preceptor</title>
+    <script>
+      $(document).ready(function(){
+        $('#open_perfil').click(function(){
+          $.ajax({
+            method: "GET",
+            url: "/mis_alumnos/",
+          })
+            .done(function(data){
+              $("#contenido2")[0].innerHTML = data;
+            });
+        });
+        $('#open_cf').click(function(){
+          $.ajax({
+            method: "GET",
+            url: "/mis_alumnos_presentes/",
+          })
+            .done(function(data){
+              $("#contenido2")[0].innerHTML = data;
+            });
+        });
+        $('#ver_formularios').click(function(){
+          $.ajax({
+            method: "GET",
+            url: "/mis_formularios/",
+          })
+            .done(function(data){
+              $("#contenido2")[0].innerHTML = data;
+            });
+        });
+      });
+    </script>
     </head>
 	<!--Esto es una referencia para usar los iconos de materialize-->
 	<!--            <i class="material-icons"></i>                -->
@@ -62,7 +97,6 @@
 			<div class="nav-wrapper">
 				<!-- Poner el nombre del preceptor actual al lado del Logo con los tags de Django-->
 				<center><a href="#" id="formularios" class="brand-logo">Formularios</a></center>
-				<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 			</div>
 			<div class="nav-content">
 				<ul class="tabs tabs-transparent">
@@ -72,75 +106,18 @@
 			</div>
 	    </nav>
 
-    <span id="contenido">
+    <div id="contenido"></div>
+    <div id="contenido2"></div>
 
-    </span>
-
-
-    <div id="hola">
-      <div id="dato">
-      </div>
+    <div id="id01" class="w3-modal">
+    	<div class="w3-modal-content" id="datos">
+    	</div>
     </div>
+
     </body>
     <script type="text/javascript">
 
-
-      ocul()
-
-  		function ocul(){
-  		  	$("#id01").addClass("hiddendiv")
-          $("#hola").addClass("hiddendiv")
-  	  }
-
-
-      var nada = "";
-
-      $(document).ready(function(){
-        $('#open_perfil').click(function(){
-          $.ajax({
-            method: "GET",
-            url: "/mis_alumnos/",
-          })
-            .done(function(data){
-              alert(data);
-              $("#contenido")[0].innerHTML = data;
-            });
-        });
-        $('#open_cf').click(function(){
-          $.ajax({
-            method: "GET",
-            url: "/f2/",
-          })
-            .done(function(data){
-              $("#contenido")[0].innerHTML = data;
-            });
-        });
-        $('#ver_formularios').click(function(){
-          $.ajax({
-            method: "GET",
-            url: "/mis_formularios/",
-          })
-            .done(function(data){
-              $("#contenido")[0].innerHTML = data;
-            });
-        });
-      });
-
-      function update_f2(url, alum) {
-  		 //alert("soquetes");
-  		 $.ajax({
-  			 method: "POST",
-  			 url: url,
-  			 data: {
-  				 csrfmiddlewaretoken: '{{ csrf_token }}'
-  			 }
-  		 })
-  		 .done(function (data) {
-           mostrando_f2s()
-  		 });
-  	 };
-
-      function mostrar_f1(url, alum) {
+      function pres(url, alum) {
   		 //alert("soquetes");
   		 $.ajax({
   			 method: "POST",
@@ -150,13 +127,12 @@
   			 }
   		 })
   			 .done(function (data) {
-           $("#dato").html(data);
-           document.getElementById('hola').style.display='block';
+  				 	$("#datos").html(data);
+  					document.getElementById('id01').style.display='block';
   			 });
   	 };
 
-     function mostrar_f2(url, alum) {
-      //alert("soquetes");
+     function crear_f2(url, alum) {
       $.ajax({
         method: "POST",
         url: url,
@@ -165,13 +141,11 @@
         }
       })
         .done(function (data) {
-          $("#dato").html(data);
-          document.getElementById('hola').style.display='block';
+           id01.style.visibility = "hidden"
         });
     };
 
-    function mostrar_f3(url, alum) {
-     //alert("soquetes");
+    function crear_f3(url, alum) {
      $.ajax({
        method: "POST",
        url: url,
@@ -180,118 +154,9 @@
        }
      })
        .done(function (data) {
-         $("#dato").html(data);
-         document.getElementById('hola').style.display='block';
+          id01.style.visibility = "hidden"
        });
    };
 
-   function mostrar_fm(url, alum) {
-    //alert("soquetes");
-    $.ajax({
-      method: "POST",
-      url: url,
-      data: {
-        csrfmiddlewaretoken: '{{ csrf_token }}'
-      }
-    })
-      .done(function (data) {
-        $("#dato").html(data);
-        document.getElementById('hola').style.display='block';
-      });
-  };
-
-
-      function volver(url, alum) {
-  		 //alert("soquetes");
-  		 $.ajax({
-  			 method: "POST",
-  			 url: url,
-  			 data: {
-  				 csrfmiddlewaretoken: '{{ csrf_token }}'
-  			 }
-  		 })
-  			 .done(function (data) {
-  				 alert(data.estado);
-  				 updateDiv()
-  			 });
-  	 };
-
-       //Funcion del F2 para cambiar el estado del alumno
-
-       function retirar(url, alum) {
-     	 $.ajax({
-     		 method: "POST",
-     		 url: url,
-     		 data: {
-     			 csrfmiddlewaretoken: '{{ csrf_token }}'
-     		 }
-     	 })
-     		 .done(function (data) {
-           $("#datos").html(data);
- 					 document.getElementById('id01').style.display='block';
-     		 });
-     	};
-
-      function cf2(url) {
-      $.ajax({
-        method: "POST",
-        url: url,
-        data: {
-          csrfmiddlewaretoken: '{{ csrf_token }}'
-        }
-      })
-        .done(function (data) {
-          alert(data.estado)
-        });
-     };
-
-
-      function updatePresentesF(){
-   		    $( "#presentes_para_f" ).load(window.location.href + " #presentes_para_f" );
-    	}
-
-      function updateDiv(){
-		 	    $( "#primero" ).load(window.location.href + " #primero" );
- 		  }
-
-      function mostrando_f2s(){
-		 	    $( "#mostrando_f2s" ).load(window.location.href + " #mostrando_f2s" );
- 		  }
-
-        function datos(url, alum) {
-    		 //alert("soquetes");
-    		 $.ajax({
-    			 method: "POST",
-    			 url: url,
-    			 data: {
-    				 csrfmiddlewaretoken: '{{ csrf_token }}'
-    			 }
-    		 })
-    			 .done(function (data) {
-    				 document.getElementById('apellido').innerHTML=data.apellido;
-    				 document.getElementById('nombre').innerHTML=data.nombre;
-    				 document.getElementById('dni').innerHTML=data.dni;
-    				 document.getElementById('estado').innerHTML=data.estado;
-    				 document.getElementById('id01').style.display='block';
-    			 });
-    	 };
-
-       function pres(url, alum) {
-   		 //alert("soquetes");
-   		 $.ajax({
-   			 method: "POST",
-   			 url: url,
-   			 data: {
-   				 csrfmiddlewaretoken: '{{ csrf_token }}'
-   			 }
-   		 })
-   			 .done(function (data) {
-   				 document.getElementById('apellido').innerHTML=data.apellido;
-   				 document.getElementById('nombre').innerHTML=data.nombre;
-   				 document.getElementById('dni').innerHTML=data.dni;
-   				 document.getElementById('estado').innerHTML=data.estado;
-   				 document.getElementById('id01').style.display='block';
-   			 });
-   	 };
 	   </script>
   </html>

@@ -5,12 +5,14 @@
 	<head>
 		<!-- Importamos Google Icon Font -->
 		<link href="{% static 'materialize/icons/icons.css' %}" rel="stylesheet">
+		<script type="text/javascript" src="{% static 'jquery/jquery-3.2.1.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'materialize/js/materialize.min.js' %}"></script>
 		<!-- Importamos materialize.css -->
 		<link type="text/css" rel="stylesheet" href="{% static 'materialize/css/materialize.min.css' %}"  media="screen,projection"/>
 		<!-- Permitirle al navegador saber si está optimizado para dispositivos móbiles -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8"/>
 		<!-- Agregamos un título a esta plantilla -->
-		<title>ADARIN</title>
+		<title>ADI</title>
 	</head>
 	<body style="background-color:#32237d">
 		<!-- Navbar -->
@@ -85,7 +87,7 @@
 								<center>
 									<!-- Botón de redireccionamiento a view del admin -->
 									<a style="background-color:royalblue" class="btn waves-effect waves-light" href="{% url 'admin:index' %}">Administración</a>
-									<p class="white-text" style="font-weight: bold;text-align: center;text-justify: inter-word">Incluye la completa creación, manipulación y consulta de datos y funciones que abarcará el sistema ADARIN. Nótese que el acceso a ésta sección queda bajo la responsabilidad de cada institución escolar.</p>
+									<p class="white-text" style="font-weight: bold;text-align: center;text-justify: inter-word">Incluye la completa creación, manipulación y consulta de datos y funciones que abarcará el sistema ADI. Nótese que el acceso a ésta sección queda bajo la responsabilidad de cada institución escolar.</p>
 									<p style="color:red;font-weight: bold;text-align: center">Espacio sólo para administradores</p>
 								</center>
 						</div>
@@ -109,7 +111,7 @@
 			<div class="container">
 				<div class="row">
 					<h5 class="white-text">Bio de la empresa</h5>
-					<p class="grey-text text-lighten-4" style="text-align:justify;text-justify:inter-word">Somos un equipo de estudiantes del nivel secundario enfocado a la etapa de aprendizaje en desarrollo de aplicaciones web con Django. ADARIN busca virtualizar archivos institucionales, reduciendo el papeleo para así mejorar el rendimiento con respecto al manejo de tareas que lleva a cabo una institución escolar.</p>
+					<p class="grey-text text-lighten-4" style="text-align:justify;text-justify:inter-word">Somos un equipo de estudiantes del nivel secundario enfocado a la etapa de aprendizaje en desarrollo de aplicaciones web con Django. AD busca virtualizar archivos institucionales, reduciendo el papeleo para así mejorar el rendimiento con respecto al manejo de tareas que lleva a cabo una institución escolar.</p>
 				</div>
 			<!-- Contenedor de créditos y copyright -->
 				<div class="footer-copyright z-depth-4" style="background-color:#3a2993">
@@ -119,9 +121,6 @@
 				</div>
 			</div>
 		</footer>
-		<!--Importamos jQuery antes de materialize.js-->
-		<script type="text/javascript" src="{% static 'jquery/jquery-3.2.1.min.js' %}"></script>
-		<script type="text/javascript" src="{% static 'materialize/js/materialize.min.js' %}"></script>
 		<!-- Inicializamos parallax -->
 		<script>
 			$(document).ready(function(){
