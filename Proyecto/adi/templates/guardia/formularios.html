@@ -52,13 +52,13 @@
 	          			</div>
 				           <div class="card-content white-text">
 											<center><p>{{forms3.id}} - {{forms3.alumno}} Estado: {{forms3.estado}}</p></center>
-											<a onclick="aceptar_f3('{% url 'aceptar_f3' forms3.id %}', {{forms3.id}})" id="myBtn"  class="waves-effect waves-light btn green darken-4">
+											<a onclick="aceptar_f3('{% url 'aceptar_formulario' forms3.id %}', {{forms3.id}})" id="myBtn"  class="waves-effect waves-light btn green darken-4">
     		             		<i class="material-icons">thumb_up</i>
     		           		</a>
-                      <a onclick="datos_f3('{% url 'datos_f3' forms3.id %}', {{forms3.id}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
+                      <a onclick="datos_f3('{% url 'datos_formulario' forms3.id %}', {{forms3.id}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
     		             		<i class="material-icons">info</i>
     		           		</a>
-											<a onclick="rechazar_f3('{% url 'rechazar_f3' forms3.id %}', {{forms3.id}})" id="myBtn"  class="waves-effect waves-light btn red darken-4">
+											<a onclick="rechazar_f3('{% url 'rechazar_formulario' forms3.id %}', {{forms3.id}})" id="myBtn"  class="waves-effect waves-light btn red darken-4">
     		             		<i class="material-icons">thumb_down</i>
     		           		</a>
 				         	</div>
@@ -74,7 +74,7 @@
 				</div>
 
 			</body>
-	<script type="text/javascript">
+	<script >
 
 		$('document').ready(
 			function(){
@@ -91,19 +91,19 @@
  		}
 
 		function aceptar_f2(url, alum) {
-		 //alert("soquetes");
-		 $.ajax({
-			 method: "POST",
-			 url: url,
-			 data: {
-				 csrfmiddlewaretoken: '{{ csrf_token }}'
-			 }
-		 })
-			 .done(function (data) {
-				 alert(data.estado);
+     //alert("soquetes");
+     $.ajax({
+       method: "POST",
+       url: url,
+       data: {
+         csrfmiddlewaretoken: '{{ csrf_token }}'
+       }
+     })
+       .done(function (data) {
+         Materialize.toast(data.estado, 4000)
 				 updateDiv()
 			 });
-	 };
+   };
 
 	 function aceptar_f3(url, alum) {
 		//alert("soquetes");
@@ -115,75 +115,69 @@
 			}
 		})
 			.done(function (data) {
-				$("#datos").html(data);
+				Materialize.toast(data.estado, 4000)
+				updateDiv2()
 			});
 	};
 
-	 function rechazar_f2(url, alum) {
+	function rechazar_f2(url, alum) {
+	 //alert("soquetes");
+	 $.ajax({
+		 method: "POST",
+		 url: url,
+		 data: {
+			 csrfmiddlewaretoken: '{{ csrf_token }}'
+		 }
+	 })
+		 .done(function (data) {
+			 Materialize.toast(data.estado, 4000)
+			 updateDiv()
+		 });
+ };
+
+ function rechazar_f3(url, alum) {
+	//alert("soquetes");
+	$.ajax({
+		method: "POST",
+		url: url,
+		data: {
+			csrfmiddlewaretoken: '{{ csrf_token }}'
+		}
+	})
+		.done(function (data) {
+			Materialize.toast(data.estado, 4000)
+			updateDiv2()
+		});
+};
+
+	function datos_f2(url, alum) {
 		//alert("soquetes");
 		$.ajax({
-			method: "POST",
-			url: url,
-			data: {
-				csrfmiddlewaretoken: '{{ csrf_token }}'
-			}
+		 method: "POST",
+		 url: url,
+		 data: {
+			 csrfmiddlewaretoken: '{{ csrf_token }}'
+		 }
 		})
-			.done(function (data) {
-				alert(data.estado);
-				if (data.estado == "Operación realizada con éxito"){
-					updateDiv()
-				}
-			});
-		};
-
-		function rechazar_f3(url, alum) {
- 		//alert("soquetes");
- 		$.ajax({
- 			method: "POST",
- 			url: url,
- 			data: {
- 				csrfmiddlewaretoken: '{{ csrf_token }}'
- 			}
- 		})
- 			.done(function (data) {
- 				alert(data.estado);
- 				if (data.estado == "Operación realizada con éxito"){
- 					updateDiv2()
- 				}
- 			});
- 		};
-
-		function datos_f2(url, alum) {
-		 //alert("soquetes");
-		 $.ajax({
-			 method: "POST",
-			 url: url,
-			 data: {
-				 csrfmiddlewaretoken: '{{ csrf_token }}'
-			 }
-		 })
-			 .done(function (data) {
-				 	$("#datos").html(data);
-					document.getElementById('id01').style.display='block';
-			 });
-	 };
-
-	 function datos_f3(url, alum) {
-		//alert("soquetes");
-		$.ajax({
-			method: "POST",
-			url: url,
-			data: {
-				csrfmiddlewaretoken: '{{ csrf_token }}'
-			}
-		})
-			.done(function (data) {
-				document.getElementById('preceptor').innerHTML=data.preceptor;
-				document.getElementById('alumno').innerHTML=data.alumno;
-				document.getElementById('fecha').innerHTML=data.fecha;
-				document.getElementById('estado').innerHTML=data.estado;
+		 .done(function (data) {
+				$("#datos").html(data);
 				document.getElementById('id01').style.display='block';
-			});
+	 });
+	};
+
+	function datos_f3(url, alum) {
+		//alert("soquetes");
+		$.ajax({
+		 method: "POST",
+		 url: url,
+		 data: {
+			 csrfmiddlewaretoken: '{{ csrf_token }}'
+		 }
+		})
+		 .done(function (data) {
+				$("#datos").html(data);
+				document.getElementById('id01').style.display='block';
+	 });
 	};
 
 	</script>

@@ -26,32 +26,40 @@ def crear_f1(request, dni_alumno):
     return HttpResponse("Funca")
 
 def crear_f2(request, dni_alumno):
+    #Tomamos al usuario loggueado
     pepe = request.user
+    #Buscamos al alumno a partir del Dni
     alumno2 = Alumno.objects.get(dni=dni_alumno)
     prec = Preceptor.objects.get(nombre_usuario=pepe)
     if alumno2.estado=="Saliendo":
         return render(request, 'preceptor/usuario_con_form.html')
     else:
+        #Modificamos el estado del alumno, para que este no aparezaca en usuarios disponibles para Formulario
         alumno2.estado="Saliendo"
         alumno2.save()
         ahorita = timezone.now()
+        #Creamos el Formulario de tipo True ya que es un F2
         new_f = Formulario(alumno=alumno2, fecha=ahorita, estado="Proceso", preceptor=prec, tipo="True")
         new_f.save()
     return HttpResponse("Hecho")
 
 def crear_f3(request, dni_alumno):
+    #Tomamos al usuario loggueado
     pepe = request.user
+    #Buscamos al alumno a partir del Dni
     alumno2 = Alumno.objects.get(dni=dni_alumno)
     prec = Preceptor.objects.get(nombre_usuario=pepe)
     if alumno2.estado=="Saliendo":
         return render(request, 'preceptor/usuario_con_form.html')
     else:
+        #Modificamos el estado del alumno, para que este no aparezaca en usuarios disponibles para Formulario
         alumno2.estado="Saliendo"
         alumno2.save()
         ahorita = timezone.now()
+        #Creamos el Formulario de tipo False ya que es un F3
         new_f = Formulario(alumno=alumno2, fecha=ahorita, estado="Proceso", preceptor=prec, tipo="False")
         new_f.save()
-    return HttpResponse("Hecho")
+    return HttpResponse('FUNCIONO')
 
 def buscar_alumno(request):
     if request.method == 'POST':
@@ -105,7 +113,7 @@ def aceptar_formulario(request, alum_t):
         formulario.estado="Finalizado"
         formulario.save()
         data = {
-            'estado':"Operación realizada con éxito"
+            'estado': al.nombre + " aceptado"
         }
     else:
         data = {
@@ -123,7 +131,7 @@ def rechazar_formulario(request, alum_t):
         formulario.estado="Rechazado"
         formulario.save()
         data = {
-            'estado':"Operación realizada con éxito"
+            'estado': al.nombre + " RECHAZADO"
         }
     else:
         data = {

@@ -1,18 +1,44 @@
+  <div class="w3-modal-content w3-animate-top">
+    <header class="w3-container w3-teal">
+      <h2>Datos:</h2>
+    </header>
+    <div class="w3-container">
+      <br>
+      <center><span id ="preceptor">Apellido:{{alumno.apellido}}</span></center>
+      <center><span id ="alumno">Nombre:{{alumno.nombre|upper}}</span></center>
+      <center><span id ="fecha">Estado:{{alumno.estado|upper}}</span></center>
+    	<br>
+    	<a onclick="crear_f2('{% url 'crear_f2' alumno.dni %}', {{alumno.dni}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
+    		F2
+    	</a>
+      <a onclick="crear_f3('{% url 'crear_f3' alumno.dni %}', {{alumno.dni}})" id="myBtn"  class="waves-effect waves-light btn red darken-4">
+    		F3
+    	</a>
+      <a onclick="cerrar()" id="myBtn"  class="waves-effect waves-light btn red darken-4">
+    		Cerrar
+    	</a>
+      <a onclick="estoy()" class="waves-effect waves-light btn white darken-4">
+    		Opciones
+    	</a>
+      <select id="aioConceptName">
+        <option>choose io</option>
+        <option>roma</option>
+        <option>totti</option>
+      </select>
+    </div>
+  </div>
+<script>
+// Get the modal
 
-<header class="w3-container w3-teal">
-  <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-  <h2>Datos:</h2>
-</header>
-<div class="w3-container">
-  <br>
-  <center><span id ="preceptor">Apellido:{{alumno.apellido}}</span></center>
-  <center><span id ="alumno">Nombre:{{alumno.nombre|upper}}</span></center>
-  <center><span id ="fecha">Estado:{{alumno.estado|upper}}</span></center>
-	<br>
-	<a onclick="crear_f2('{% url 'crear_f2' alumno.dni %}', {{alumno.dni}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
-		F2
-	</a>
-  <a onclick="crear_f3('{% url 'crear_f3' alumno.dni %}', {{alumno.dni}})" id="myBtn"  class="waves-effect waves-light btn red darken-4">
-		F3
-	</a>
-</div>
+// When the user clicks anywhere outside of the modal, close it
+  function cerrar() {
+      var modal = document.getElementById('id01');
+      modal.style.display = "none";
+    }
+
+  function estoy(){
+    var conceptName = $('#aioConceptName').find(":selected").text();
+    alert(conceptName);
+  }
+
+</script>
