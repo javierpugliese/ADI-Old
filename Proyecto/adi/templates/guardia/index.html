@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js">
+
+    </script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static "style.css" %}">
+<style>
+
+    .sub_nav {
+        font-family: ;
+        text-decoration: underline;
+      }
+    .reloj {
+      font-family: bold;
+      margin: -5%;
+      color: white;
+      font-size: ;
+    }
+
+    .nav {
+      color: #3f009e;
+    }
+
+</style>
+
+<script>
+  $(document).ready(function(){
+    $('#open_forms').click(function(){
+      $.ajax({
+        method: "GET",
+        url: "/formularios/",
+      })
+        .done(function(data){
+          $("#contenido2")[0].innerHTML = data;
+        });
+    });
+  });
+
+  function ver_hora() {
+    var mihora = new Date();
+    var horas = mihora.getHours().toString();
+    var minutos = mihora.getMinutes().toString();
+    if (minutos.lenght == 1) {
+        minutos = "0" + minutos;
+    }
+    var segundos = mihora.getSeconds().toString();
+    if (minutos.lenght == 1) {
+        segundos = "0" + segundos;
+    }
+    document.forms[0].mireloj.value = horas + ":" + minutos + ":" + segundos;
+  }
+
+<!--...........................-->
+  var r = setInterval(ver_hora, 1000);
+
+</script>
+
+<title>Guardia</title>
+
+</head>
+
+<body style="background-color: whitesmoke">
+
+  <nav class="indigo darken-2 toolbar" >
+    <div class="nav-wrapper">
+      <a class="brand-logo center">{{user|upper}}</a>
+      <ul  class="left">
+        <li><a id="open_forms" href="#Formularios">Formularios</a></li>
+      </ul>
+      <ul  class="right indigo darken-3 toolbar">
+        <li><a class="sub_nav" href="{% url 'logout_p' %}">CERRAR SESIÓN</a></li>
+      </ul>
+    </div>
+  </nav>
+
+<div class="reloj"style="margin-left:70%; margin-right:25%">
+  <form>
+    <p>
+      <input type="text" name="mireloj" onclick="ver_hora">
+    </p>
+  </form>
+</div>
+
+  <div id="contenido2"></div>
+
+  </body>
+
+  <script>
+
+      $('document').ready(
+        function(){
+          $("#id01").addClass("hiddendiv")
+        }
+      );
+
+      function updateDiv(){
+        $( "#primero" ).load(window.location.href + " #primero" );
+      }
+
+      function updateDiv2(){
+        $( "#segundo" ).load(window.location.href + " #segundo" );
+      }
+
+      function aceptar_f2(url, alum) {
+       //alert("soquetes");
+       $.ajax({
+         method: "POST",
+         url: url,
+         data: {
+           csrfmiddlewaretoken: '{{ csrf_token }}'
+         }
+       })
+         .done(function (data) {
+           Materialize.toast(data.estado, 4000, 'green')
+           updateDiv()
+         });
+     };
+
+     function aceptar_f3(url, alum) {
+      //alert("soquetes");
+      $.ajax({
+        method: "POST",
+        url: url,
+        data: {
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        }
+      })
+        .done(function (data) {
+          Materialize.toast(data.estado, 4000, 'green')
+          updateDiv2()
+        });
+    };
+
+    function rechazar_f2(url, alum) {
+     //alert("soquetes");
+     $.ajax({
+       method: "POST",
+       url: url,
+       data: {
+         csrfmiddlewaretoken: '{{ csrf_token }}'
+       }
+     })
+       .done(function (data) {
+         Materialize.toast(data.estado, 4000, 'red')
+         updateDiv()
+       });
+    };
+
+    function rechazar_f3(url, alum) {
+    //alert("soquetes");
+    $.ajax({
+      method: "POST",
+      url: url,
+      data: {
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+      }
+    })
+      .done(function (data) {
+        Materialize.toast(data.estado, 4000, 'red')
+        updateDiv2()
+      });
+    };
+
+    function datos_f2(url, alum) {
+      //alert("soquetes");
+      $.ajax({
+       method: "POST",
+       url: url,
+       data: {
+         csrfmiddlewaretoken: '{{ csrf_token }}'
+       }
+      })
+       .done(function (data) {
+          $("#datos").html(data);
+          document.getElementById('id01').style.display='block';
+     });
+    };
+
+    function datos_f3(url, alum) {
+      //alert("soquetes");
+      $.ajax({
+       method: "POST",
+       url: url,
+       data: {
+         csrfmiddlewaretoken: '{{ csrf_token }}'
+       }
+      })
+       .done(function (data) {
+          $("#datos").html(data);
+          document.getElementById('id01').style.display='block';
+     });
+};
+
+  </script>
+</html>

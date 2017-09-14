@@ -53,6 +53,7 @@
 	            <center><span id="titulo" class="card-title black-text">CREAR PRECEPTOR</span></center>
 	          </div>
 	          <form action="{% url 'crear_preceptor' %}" method="POST">
+							{% csrf_token %}
 	  				    <div class="row">
 	  						    <div class="input-field col s12">
 	  							      <textarea name= 'nombre_usuario' placeholder="Nombre del Usuario" class="materialize-textarea"  type="text" id="username"></textarea>
@@ -62,7 +63,7 @@
 									  <textarea name= 'dni' placeholder="D.N.I" class="materialize-textarea"  type="text" id="dni"></textarea>
 	  						    </div>
 	  					  </div>
-	  					    <a id= "b1" class="btn-floating btn-large waves-effect waves-light blue"><i class="large material-icons">add</i></a>
+	  					    <input class="waves-effect waves-light btn" type="submit" value="Crear">
 						</form>
 					</div>
 	      </div>

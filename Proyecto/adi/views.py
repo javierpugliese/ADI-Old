@@ -16,6 +16,7 @@ from django.utils import timezone
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+from django.core.mail import send_mail
 from .models import *
 
 #Función que crea F2
@@ -61,14 +62,21 @@ def crear_f3(request, dni_alumno):
         new_f.save()
     return HttpResponse('FUNCIONO')
 
-def buscar_alumno(request):
-    if request.method == 'POST':
-        print "hola"
-    return HttpResponse('FUNCIONO')
+def buscar_alumno(request, dni_alumno):
+    al = Alumno.objects.get(dni=dni_alumno)
+    return render(request, 'admin/modificar_alumno.html', {'alumno':al})
 
-def modificar_alumno(request):
-    print "nada"
-    return HttpResponse('FUNCIONO')
+def mod_alumno(request, alum_t):
+    al = Alumno.objects.get(dni=alum_t)
+    nombre2 = request.POST['nombre']
+    apellido2 = request.POST['apellido']
+    al.nombre=nombre2
+    al.apellido=apellido2
+    al.save()
+    data = {
+        'estado': al.apellido + " actualizado"
+    }
+    return JsonResponse(data, safe=False)
 
 def crear_alumno(request):
     nombre = request.POST['nombre']
@@ -101,14 +109,14 @@ def crear_preceptor(request):
         #Creamos al usuario
         user = User.objects.create_user(username=nombre_usuario, password=password)
         user.save()
-    return render(request, 'index.html')
+    return render(request, 'inicio.html')
 
 def aceptar_formulario(request, alum_t):
     formulario = Formulario.objects.get(id=alum_t)
     nom = formulario.alumno.nombre
     al = Alumno.objects.get(nombre=nom)
     if al:
-        al.estado="Retirado"
+        al.estado="Presente"
         al.save()
         formulario.estado="Finalizado"
         formulario.save()
@@ -119,6 +127,12 @@ def aceptar_formulario(request, alum_t):
         data = {
             'estado':"La operación falló"
         }
+    print al.padre.email
+    subject = 'Retiro de ' + al.nombre
+    #message = 'Le notificamos que su hijo ' + al.apellido + " " + al.nombre + " se ha retirado de la escuela "
+    from_email = 'gonzamirandab2000@gmail.com'
+    send_mail(subject, None, from_email, ['al.padre.email'])
+    print "llegamos2"
     return JsonResponse(data, safe=False)
 
 def rechazar_formulario(request, alum_t):
@@ -206,6 +220,9 @@ def cpreceptor(request):
 def index(request):
     return render(request, 'inicio.html')
 
+def index_guardia(request):
+    return render(request, 'guardia/index.html')
+
 def chalumno(request):
     return render(request, 'admin/modificar_alumno.html')
 
@@ -258,6 +275,10 @@ def mis_alumnos(request):
     return render(request,
                  'preceptor/mis_alumnos_presentes.html',
                  {'todos_los_alumnos':al})
+
+def traer_alumnos(request):
+    al = Alumno.objects.all()
+    return render(request,'admin/buscar_alumno.html',{'todos_los_alumnos':al})
 
 def mis_formularios(request):
     pepe = request.user

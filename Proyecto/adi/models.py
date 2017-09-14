@@ -6,7 +6,8 @@ from django.db import models
 
 class Padre_Tutor(models.Model):
     nombre = models.CharField(max_length=20)
-    dni = models.IntegerField()
+    apellido = models.CharField(max_length=20)
+    dni = models.IntegerField(null=False)
     email = models.EmailField(max_length=40)
     telefono = models.IntegerField()
 
@@ -17,14 +18,14 @@ class Preceptor(models.Model):
     nombre_usuario = models.CharField(max_length=20)
     nombre = models.CharField(max_length=20)
     apellido = models.CharField(max_length=20)
-    dni = models.IntegerField(null=False)
+    dni = models.IntegerField(null=False, primary_key=True)
     def __str__(self):
         return '{} '.format(self.nombre_usuario)
 
 class Curso(models.Model):
     year = models.PositiveSmallIntegerField(default=1)
     division = models.CharField(max_length=1)
-    numero = models.IntegerField()
+    numero = models.IntegerField(primary_key=True)
     preceptor = models.ForeignKey(Preceptor)
 
     def __str__(self):
@@ -33,13 +34,15 @@ class Curso(models.Model):
 class Alumno(models.Model):
     nombre = models.CharField(max_length=20)
     apellido = models.CharField(max_length=20)
-    dni = models.IntegerField(primary_key=True)
+    dni = models.IntegerField(null=False)
+    padre = models.ForeignKey(Padre_Tutor)
     curso = models.ForeignKey(Curso)
     faltas = models.FloatField(null=False)
     estado = models.CharField(max_length=14)
 
     def __str__(self):
         return '{} '.format(self.nombre)
+
 
 #    def count_like(self):
 #        return Like.objects.filter(tweet=self).count()

@@ -1,0 +1,14 @@
+{% for al in todos_los_alumnos %}
+    <div class="container">
+				<div class="col s1">
+						<div class="card blue lighten-2 z-depth-5" >
+									<div class="card-content white-text">
+  									<p>{{al.apellido|upper}} {{al.nombre|title}} Estado: {{al.estado}} Curso {{al.curso}}</p>
+									<a onclick="traer('{% url 'buscar_alumno' al.dni %}', {{al.dni}})" id="myBtn"  class="waves-effect waves-light btn blue darken-4">
+										<i class="material-icons">info</i>
+								</a>
+						</div>
+				</div>
+			</div>
+		</div>
+{% endfor %}

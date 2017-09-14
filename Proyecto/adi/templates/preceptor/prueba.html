@@ -2,20 +2,27 @@
   {% load static %}
   <html>
     <head>
-      <!--Import Google Icon Font-->
-      <link href="materialize/icons/icon.css" rel="stylesheet">
-      <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
-      <script type="text/javascript" src="{% static 'jquery/jquery-3.2.1.min.js' %}"></script>
-  		<script type="text/javascript" src="{% static 'materialize/js/materialize.min.js' %}"></script>
+      <style>
+        division{
+            display: block;
+            height: 1px;
+            border: 0;
+            border-top: 1px solid #FFFF00;
+            margin: 1em 0;
+            padding: 0;
+        }
+        select option {
+            margin:40px
+        }
+      </style>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
-      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
       <!-- Compiled and minified JavaScript -->
+  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
           crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js">
-
-      </script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+  		<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Let browser know website is optimized for mobile-->
       <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -26,6 +33,15 @@
           $.ajax({
             method: "GET",
             url: "/mis_alumnos/",
+          })
+            .done(function(data){
+              $("#contenido2")[0].innerHTML = data;
+            });
+        });
+        $('#mod_alumno').click(function(){
+          $.ajax({
+            method: "GET",
+            url: "/traer_alumnos/",
           })
             .done(function(data){
               $("#contenido2")[0].innerHTML = data;
@@ -56,23 +72,23 @@
 	<!--            <i class="material-icons"></i>                -->
     <body>
 	  <nav class="nav-extended" style="background-color:#212121">
-		<div class="nav-wrapper">
-			<!-- Poner el nombre del preceptor actual al lado del Logo con los tags de Django-->
-			<a href="#" class="brand-logo center">Preceptor {{user|upper}} </a>
-			<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-			<ul id="nav-mobile" class="right hide-on-med-and-down">
-			<li><a href="{% url 'logout_p' %}">Cerrar sesion</a></li>
-			</ul>
-			<ul class="side-nav" id="mobile-demo">
-			<li><a href="#Desloguearse">Cerrar sesion</a></li>
-			</ul>
-		</div>
-		<div class="nav-content">
-			<ul class="tabs tabs-transparent">
-			   <li class="tab"><a class="active" href="#alumnos">Alumnado</a></li>
-			   <li class="tab"><a href="#formularios">Formularios</a></li>
-			</ul>
-		</div>
+  		<div class="nav-wrapper">
+  			<!-- Poner el nombre del preceptor actual al lado del Logo con los tags de Django-->
+  			<a href="#" class="brand-logo center">Preceptor {{user|upper}} </a>
+  			<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+  			<ul id="nav-mobile" class="right hide-on-med-and-down">
+  			<li><a href="{% url 'logout_p' %}">Cerrar sesion</a></li>
+  			</ul>
+  			<ul class="side-nav" id="mobile-demo">
+  			<li><a href="#Desloguearse">Cerrar sesion</a></li>
+  			</ul>
+  		</div>
+  		<div class="nav-content">
+  			<ul class="tabs tabs-transparent">
+  			   <li class="tab"><a class="active" href="#alumnos">Alumnado</a></li>
+  			   <li class="tab"><a href="#formularios">Formularios</a></li>
+  			</ul>
+  		</div>
 	  </nav>
 	  <!-- Contenido del TAB Alumnos -->
 	  <div id="alumnos" class="col s12">
@@ -88,7 +104,7 @@
           <li class="tab"><a id="open_perfil" href="#perfiles">Estado Alumnos</a></li>
 				</ul>
 			</div>
-	    </nav>
+    </nav>
 	  </div>
 
 	  <!-- Contenido del TAB Formularios -->
@@ -102,6 +118,7 @@
 				<ul class="tabs tabs-transparent">
           <li class="tab"><a id="open_cf" href="#f1">Crear Formulario</a></li>
 					<li class="tab"><a id="ver_formularios" href="#f1">Ver Formularios</a></li>
+          <li class="tab"><a id="mod_alumno" href="#perfiles">Modificar Alumnos</a></li>
 				</ul>
 			</div>
 	    </nav>
@@ -110,12 +127,36 @@
     <div id="contenido2"></div>
 
     <div id="id01" class="w3-modal">
-    	<div class="w3-modal-content" id="datos">
+    	<div class="modal-dialog modal-sm" id="datos">
     	</div>
     </div>
 
     </body>
     <script type="text/javascript">
+
+    function alumnos_presentes(){
+      $( "#alumnos_presentes" ).load(window.location.href + " #alumnos_presentes" );
+    }
+
+        function traer(url, alum) {
+         //alert("soquetes");
+         $.ajax({
+           method: "POST",
+           url: url,
+           data: {
+             csrfmiddlewaretoken: '{{ csrf_token }}'
+           }
+         })
+           .done(function (data) {
+              $("#datos").html(data);
+              document.getElementById('id01').style.display='block';
+           });
+       };
+
+       function cerrar() {
+           var modal = document.getElementById('id01');
+           modal.style.display = "none";
+         }
 
       function pres(url, alum) {
   		 //alert("soquetes");
@@ -142,7 +183,8 @@
       })
         .done(function (data) {
            id01.style.visibility = "hidden"
-           Materialize.toast("Formulario Creado", 4000, 'blue')
+           Materialize.toast("Formulario Creado", 750, 'blue')
+           alumnos_presentes()
         });
     };
 
@@ -156,7 +198,8 @@
      })
        .done(function (data) {
           id01.style.visibility = "hidden"
-          Materialize.toast("Formulario Creado", 4000, 'green')
+          Materialize.toast("Formulario Creado", 750, 'green')
+          alumnos_presentes()
        });
    };
 

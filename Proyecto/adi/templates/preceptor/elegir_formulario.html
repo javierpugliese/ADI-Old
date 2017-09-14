@@ -1,4 +1,5 @@
-  <div class="w3-modal-content w3-animate-top">
+<div class="w3-modal-content w3-animate-top">
+  <div class="modal-dialog modal-sm">
     <header class="w3-container w3-teal">
       <h2>Datos:</h2>
     </header>
@@ -17,28 +18,22 @@
       <a onclick="cerrar()" id="myBtn"  class="waves-effect waves-light btn red darken-4">
     		Cerrar
     	</a>
-      <a onclick="estoy()" class="waves-effect waves-light btn white darken-4">
-    		Opciones
-    	</a>
-      <select id="aioConceptName">
-        <option>choose io</option>
-        <option>roma</option>
-        <option>totti</option>
-      </select>
     </div>
   </div>
+</div>
 <script>
-// Get the modal
 
-// When the user clicks anywhere outside of the modal, close it
-  function cerrar() {
-      var modal = document.getElementById('id01');
-      modal.style.display = "none";
-    }
-
-  function estoy(){
-    var conceptName = $('#aioConceptName').find(":selected").text();
-    alert(conceptName);
+function estoy(){
+  var elecc = $('#aioConceptName').find(":selected").text();
+  if (elecc=="F1"){
+    alert("Hola");
   }
+  if (elecc=="F2") {
+    crear_f2('{% url 'crear_f2' alumno.dni %}', {{alumno.dni}})
+  }
+  if (elecc=="F3") {
+    crear_f2('{% url 'crear_f3' alumno.dni %}', {{alumno.dni}})
+  }
+}
 
 </script>
