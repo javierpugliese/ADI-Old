@@ -3,33 +3,40 @@
         <h4 class="modal-title">Modal Header</h4>
     </div>
     <form id="datos">
+      {% csrf_token %}
       <div class="modal-body">
-          <span>{{alumno.nombre}}</span><input type="text" class="mdc-textfield__input" id="nombre" maxlength="20" name="nombre">
-          <span>{{alumno.apellido}}</span><input type="text" class="mdc-textfield__input" id="apellido" maxlength="20" name="apellido">
-
-	        </div>
+        <span>{{alumno.nombre}}</span><input type="text" class="mdc-textfield__input" id="nombre" maxlength="20" name="nombre">
+        <span>{{alumno.apellido}}</span><input type="text" class="mdc-textfield__input" id="apellido" maxlength="20" name="apellido">
+      </div>
         <button onclick="cerrar()" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button onclick="mod_alumno('{% url 'mod_alumno' alumno.dni %}', {{alumno.dni}})" type="button" class="btn btn-default" data-dismiss="modal">Modificar</button>
-    </form>
-
-
-</div>
+        <button onclick="mod_alumno('{% url 'mod_alumno' %}')" type="button" class="btn btn-default" data-dismiss="modal">Modificar</button>
+      </form>
+  </div>
 
 <script>
 
-function mod_alumno(url, alum) {
-   var form = document.getElementById("datos");
-   var formData = new FormData(form);
-   $.ajax({
-     method: "POST",
-     url: url,
-     data: {
-       csrfmiddlewaretoken: '{{ csrf_token }}'
-     }
-   })
-     .done(function (data) {
-       Materialize.toast(data.estado, 4000, 'green')
-   });
-};
+    function updateDiv_mod(){
+      $( "#mod_alumno" ).load(window.location.href + " #mod_alumno" );
+    }
+
+    function mod_alumno(url) {
+       var form = $('form').get(0);
+       var formData = new FormData(form);
+       //formData.append('datos', $('input[type=file]')[0].files[0]);
+       $.ajax({
+           type: 'POST',
+           url: url,
+           data: formData,
+           contentType: false,
+           cache: false,
+           csrfmiddlewaretoken: formData["csrfmiddlewaretoken"],
+           processData: false
+        })
+        .done(function(data){
+            Materialize.toast(data.estado, 2000, 'green')
+            cerrar()
+            updateDiv_mod()
+        });
+    };
 
 </script>

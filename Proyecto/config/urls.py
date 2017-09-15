@@ -23,7 +23,6 @@ urlpatterns = [
     #URL para pasar ID.
     url(r'^buscar_alumno/(\d+)$', buscar_alumno, name="buscar_alumno"),
     url(r'^crear_fm/(\d+)$', crear_fm, name="crear_fm"),
-    url(r'^mod_alumno/(\d+)$', mod_alumno, name="mod_alumno"),
     url(r'^crear_f1/(\d+)$', crear_f1, name="crear_f1"),
     url(r'^crear_f2/(\d+)$', crear_f2, name="crear_f2"),
     url(r'^crear_f3/(\d+)$', crear_f3, name="crear_f3"),
@@ -37,6 +36,7 @@ urlpatterns = [
 
     #URL de funciones sin ID.
     url(r'^crearal/$', crear_alumno, name="crear_alumno"),
+    url(r'^mod_alumno/$', mod_alumno, name="mod_alumno"),
     url(r'^crear_preceptor/$', crear_preceptor, name="crear_preceptor"),
     url(r'^busal/$', buscar_alumno, name="buscar_alumno"),
     url(r'^mis_alumnos/$', mis_alumnos, name="mis_alumnos"),

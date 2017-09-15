@@ -54,6 +54,7 @@ class Formulario(models.Model):
     alumno = models.ForeignKey(Alumno)
     fecha = models.DateTimeField(default=timezone.now)
     estado = models.CharField(max_length=11)
+    # El estado de tipo determina el tipo de Formulario, True = F2, False = F3
     tipo = models.BooleanField()
 
     def __str__(self):

@@ -36,8 +36,8 @@ def crear_f2(request, dni_alumno):
         return render(request, 'preceptor/usuario_con_form.html')
     else:
         #Modificamos el estado del alumno, para que este no aparezaca en usuarios disponibles para Formulario
-        alumno2.estado="Saliendo"
-        alumno2.save()
+        #alumno2.estado="Saliendo"
+        #alumno2.save()
         ahorita = timezone.now()
         #Creamos el Formulario de tipo True ya que es un F2
         new_f = Formulario(alumno=alumno2, fecha=ahorita, estado="Proceso", preceptor=prec, tipo="True")
@@ -54,8 +54,8 @@ def crear_f3(request, dni_alumno):
         return render(request, 'preceptor/usuario_con_form.html')
     else:
         #Modificamos el estado del alumno, para que este no aparezaca en usuarios disponibles para Formulario
-        alumno2.estado="Saliendo"
-        alumno2.save()
+        #alumno2.estado="Saliendo"
+        #alumno2.save()
         ahorita = timezone.now()
         #Creamos el Formulario de tipo False ya que es un F3
         new_f = Formulario(alumno=alumno2, fecha=ahorita, estado="Proceso", preceptor=prec, tipo="False")
@@ -64,15 +64,16 @@ def crear_f3(request, dni_alumno):
 
 def buscar_alumno(request, dni_alumno):
     al = Alumno.objects.get(dni=dni_alumno)
+    global al
     return render(request, 'admin/modificar_alumno.html', {'alumno':al})
 
-def mod_alumno(request, alum_t):
-    al = Alumno.objects.get(dni=alum_t)
+def mod_alumno(request):
     nombre2 = request.POST['nombre']
     apellido2 = request.POST['apellido']
     al.nombre=nombre2
     al.apellido=apellido2
     al.save()
+    print al.apellido
     data = {
         'estado': al.apellido + " actualizado"
     }
@@ -178,35 +179,6 @@ def datos_formulario(request, id_for):
                   'guardia/datos.html',
                   {'form':formi})
 
-""" Reloj
-<html>
-<head>
-<script>
-function startTime() {
-  var today = new Date();
-  var h = today.getHours();
-  var m = today.getMinutes();
-  var s = today.getSeconds();
-  m = checkTime(m);
-  s = checkTime(s);
-  document.getElementById('txt').innerHTML =
-  h + ":" + m + ":" + s;
-  var t = setTimeout(startTime, 500);
-}
-function checkTime(i) {
-  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-  return i;
-}
-</script>
-</head>
-
-<body onload="startTime()">
-
-<div id="txt"></div>
-
-</body>
-</html>
-"""
 
 # =========================================================================
 # Funciones de carga de template
