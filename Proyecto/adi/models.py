@@ -27,7 +27,6 @@ class Curso(models.Model):
     division = models.CharField(max_length=1)
     numero = models.IntegerField(primary_key=True)
     preceptor = models.ForeignKey(Preceptor)
-
     def __str__(self):
         return ' {} - {} / {}'.format(self.year, self.division, self.numero)
 
@@ -59,3 +58,6 @@ class Formulario(models.Model):
 
     def __str__(self):
         return 'Formulario de {}'.format(self.alumno.nombre)
+
+    def count_formularios(self):
+        return Formulario.objects.filter(tweet=self).count()

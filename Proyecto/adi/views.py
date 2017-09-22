@@ -129,10 +129,10 @@ def aceptar_formulario(request, alum_t):
             'estado':"La operación falló"
         }
     print al.padre.email
-    subject = 'Retiro de ' + al.nombre
+    #subject = 'Retiro de ' + al.nombre
     #message = 'Le notificamos que su hijo ' + al.apellido + " " + al.nombre + " se ha retirado de la escuela "
-    from_email = 'gonzamirandab2000@gmail.com'
-    send_mail(subject, None, from_email, ['al.padre.email'])
+    #from_email = 'gonzamirandab2000@gmail.com'
+    #send_mail(subject, None, from_email, ['al.padre.email'])
     print "llegamos2"
     return JsonResponse(data, safe=False)
 
