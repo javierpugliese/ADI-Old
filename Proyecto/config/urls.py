@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^crear_f1/(\d+)$', crear_f1, name="crear_f1"),
     url(r'^crear_f2/(\d+)$', crear_f2, name="crear_f2"),
     url(r'^crear_f3/(\d+)$', crear_f3, name="crear_f3"),
-    url(r'^presente/(\d+)$', presente, name="presente"),
+    url(r'^asistencia/(\d+)$', asistencia, name="asistencia"),
     url(r'^aceptar_formulario/(\d+)$', aceptar_formulario, name="aceptar_formulario"),
     url(r'^rechazar_formulario/(\d+)$', rechazar_formulario, name="rechazar_formulario"),
     url(r'^datos_alumnos/(\d+)$', datos_alumnos, name="datos_alumnos"),
@@ -35,6 +35,7 @@ urlpatterns = [
 
 
     #URL de funciones sin ID.
+    url(r'^traer_alumnos2/$', traer_alumnos2, name="traer_alumnos2"),
     url(r'^crearal/$', crear_alumno, name="crear_alumno"),
     url(r'^mod_alumno/$', mod_alumno, name="mod_alumno"),
     url(r'^crear_preceptor/$', crear_preceptor, name="crear_preceptor"),

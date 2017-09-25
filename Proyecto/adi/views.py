@@ -79,6 +79,22 @@ def mod_alumno(request):
     }
     return JsonResponse(data, safe=False)
 
+def traer_alumnos2(request):
+    cant_presente = 0
+    cant_ausentes = 0
+    cant_saliendo = 0
+    pepe = request.user
+    prec = Preceptor.objects.get(nombre_usuario=pepe)
+    cant_presente = Curso.objects.filter(alumno__estado="Presente", preceptor=prec).count()
+    cant_ausentes = Curso.objects.filter(alumno__estado="Ausente", preceptor=prec).count()
+    cant_saliendo = Curso.objects.filter(alumno__estado="Saliendo", preceptor=prec).count()
+    data = {
+        'presente': cant_presente,
+        'ausente': cant_ausentes,
+        'saliendo': cant_saliendo
+    }
+    return render(request, 'preceptor/charts.html', data)
+
 def crear_alumno(request):
     nombre = request.POST['nombre']
     apellido = request.POST['apellido']
@@ -154,12 +170,21 @@ def rechazar_formulario(request, alum_t):
         }
     return JsonResponse(data, safe=False)
 
-def presente(request, alum_id):
+def asistencia(request, alum_id):
     al = Alumno.objectos.get(dni=alum_id)
-    if request.method == 'POST':
-        al.estado="Presente"
+    if al.estado == "Ausente":
+        al.estado = "Presente"
         al.save()
-    return HttpResponse('FUNCIONO')
+        data = {
+            'estado': al.apellido + " Presente "
+        }
+    if al.estado == "Presente":
+        al.estado = "Ausente"
+        al.save()
+        data = {
+            'estado': al.apellido + " Ausente "
+        }
+    return JsonResponse(data, safe=False)
 
 def volver(request, alum_t):
     al = Alumno.objects.filter(dni=alum_t)
@@ -169,6 +194,7 @@ def volver(request, alum_t):
 
 def datos_alumnos(request, id_for):
     al = Alumno.objects.get(dni=id_for)
+    print "aca estoy"
     return render (request, 'preceptor/elegir_formulario.html', {'alumno':al})
 
 def datos_formulario(request, id_for):

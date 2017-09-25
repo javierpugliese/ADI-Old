@@ -27,46 +27,6 @@
       <!--Let browser know website is optimized for mobile-->
       <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
 	  <title>Preceptor</title>
-    <script>
-      $(document).ready(function(){
-        $('#open_perfil').click(function(){
-          $.ajax({
-            method: "GET",
-            url: "/mis_alumnos/",
-          })
-            .done(function(data){
-              $("#contenido2")[0].innerHTML = data;
-            });
-        });
-        $('#mod_alumno').click(function(){
-          $.ajax({
-            method: "GET",
-            url: "/traer_alumnos/",
-          })
-            .done(function(data){
-              $("#contenido2")[0].innerHTML = data;
-            });
-        });
-        $('#open_cf').click(function(){
-          $.ajax({
-            method: "GET",
-            url: "/mis_alumnos_presentes/",
-          })
-            .done(function(data){
-              $("#contenido2")[0].innerHTML = data;
-            });
-        });
-        $('#ver_formularios').click(function(){
-          $.ajax({
-            method: "GET",
-            url: "/mis_formularios/",
-          })
-            .done(function(data){
-              $("#contenido2")[0].innerHTML = data;
-            });
-        });
-      });
-    </script>
     </head>
 	<!--Esto es una referencia para usar los iconos de materialize-->
 	<!--            <i class="material-icons"></i>                -->
@@ -131,106 +91,133 @@
     	</div>
     </div>
 
-    <div id="piechart"></div>
-
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-  <script type="text/javascript">
-  // Load google charts
-  google.charts.load('current', {'packages':['corechart']});
-  google.charts.setOnLoadCallback(drawChart);
-
-  // Draw the chart and set the chart values
-  function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-    ['Task', 'Hours per Day'],
-    ['Work', 8],
-    ['Eat', 2],
-    ['TV', 4],
-    ['Gym', 2],
-    ['Sleep', 8]
-  ]);
-
-    // Optional; add a title and set the width and height of the chart
-    var options = {'title':'My Average Day', 'width':550, 'height':400};
-
-    // Display the chart inside the <div> element with id="piechart"
-    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-    chart.draw(data, options);
-  }
-  </script>
-
     </body>
-    <script type="text/javascript">
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <script>
+        $(document).ready(function(){
+            $('#open_perfil').click(function(){
+              $.ajax({
+                method: "GET",
+                url: "/mis_alumnos/",
+              })
+                .done(function(data){
+                  $("#contenido2")[0].innerHTML = data;
+                });
+            });
+            $('#mod_alumno').click(function(){
+              $.ajax({
+                method: "GET",
+                url: "/traer_alumnos2/",
+              })
+                .done(function(data){
+                  alert(data);
+                  $("#contenido2")[0].innerHTML = data;
+                });
+            });
+            $('#open_cf').click(function(){
+              $.ajax({
+                method: "GET",
+                url: "/mis_alumnos_presentes/",
+              })
+                .done(function(data){
+                  $("#contenido2")[0].innerHTML = data;
+                });
+            });
+            $('#ver_formularios').click(function(){
+              $.ajax({
+                method: "GET",
+                url: "/mis_formularios/",
+              })
+                .done(function(data){
+                  $("#contenido2")[0].innerHTML = data;
+                });
+            });
+          });
+      </script>
+      <script type="text/javascript">
+          function drawChart(data) {
+              var data = google.visualization.arrayToDataTable([
+                ['Task', 'Hours per Day'],
+                ['Presemte', data.presente],
+                ['Ausente', data.ausente],
+                ['Saliendo', data.saliendo],
+              ]);
 
-    function alumnos_presentes(){
-      $( "#alumnos_presentes" ).load(window.location.href + " #alumnos_presentes" );
-    }
+              var options = {
+                title: 'My Daily Activities',
+                is3D: true,
+              };
 
-        function traer(url, alum) {
-         //alert("soquetes");
-         $.ajax({
-           method: "POST",
-           url: url,
-           data: {
-             csrfmiddlewaretoken: '{{ csrf_token }}'
-           }
-         })
-           .done(function (data) {
-              $("#datos").html(data);
-              document.getElementById('id01').style.display='block';
-           });
-       };
+              var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+              chart.draw(data, options);
+            }
 
-       function cerrar() {
-           var modal = document.getElementById('id01');
-           modal.style.display = "none";
-         }
+            function alumnos_presentes(){
+              $( "#alumnos_presentes" ).load(window.location.href + " #alumnos_presentes" );
+            }
 
-      function pres(url, alum) {
-  		 //alert("soquetes");
-  		 $.ajax({
-  			 method: "POST",
-  			 url: url,
-  			 data: {
-  				 csrfmiddlewaretoken: '{{ csrf_token }}'
-  			 }
-  		 })
-  			 .done(function (data) {
-  				 	$("#datos").html(data);
-  					document.getElementById('id01').style.display='block';
-  			 });
-  	 };
+            function traer(url, alum) {
+             //alert("soquetes");
+             $.ajax({
+               method: "POST",
+               url: url,
+               data: {
+                 csrfmiddlewaretoken: '{{ csrf_token }}'
+               }
+             })
+               .done(function (data) {
+                  $("#datos").html(data);
+                  document.getElementById('id01').style.display='block';
+               });
+           };
 
-     function crear_f2(url, alum) {
-      $.ajax({
-        method: "POST",
-        url: url,
-        data: {
-          csrfmiddlewaretoken: '{{ csrf_token }}'
-        }
-      })
-        .done(function (data) {
-           id01.style.visibility = "hidden"
-           Materialize.toast("Formulario Creado", 1000, 'blue')
-           alumnos_presentes()
-        });
-    };
+               function cerrar() {
+                   var modal = document.getElementById('id01');
+                   modal.style.display = "none";
+                 }
 
-    function crear_f3(url, alum) {
-     $.ajax({
-       method: "POST",
-       url: url,
-       data: {
-         csrfmiddlewaretoken: '{{ csrf_token }}'
-       }
-     })
-       .done(function (data) {
-          id01.style.visibility = "hidden"
-          Materialize.toast("Formulario Creado", 1000, 'green')
-          alumnos_presentes()
-       });
-   };
+              function pres(url, alum) {
+          		 $.ajax({
+          			 method: "POST",
+          			 url: url,
+          			 data: {
+          				 csrfmiddlewaretoken: '{{ csrf_token }}'
+          			 }
+          		 })
+          			 .done(function (data) {
+          				 	$("#datos").html(data);
+          					document.getElementById('id01').style.display='block';
+          			 });
+          	 };
 
+             function crear_f2(url, alum) {
+              $.ajax({
+                method: "POST",
+                url: url,
+                data: {
+                  csrfmiddlewaretoken: '{{ csrf_token }}'
+                }
+              })
+                .done(function (data) {
+                   id01.style.visibility = "hidden"
+                   Materialize.toast("Formulario Creado", 1000, 'blue')
+                   alumnos_presentes()
+                });
+            };
+
+            function crear_f3(url, alum) {
+             $.ajax({
+               method: "POST",
+               url: url,
+               data: {
+                 csrfmiddlewaretoken: '{{ csrf_token }}'
+               }
+             })
+               .done(function (data) {
+                  id01.style.visibility = "hidden"
+                  Materialize.toast("Formulario Creado", 1000, 'green')
+                  alumnos_presentes()
+               });
+           };
 	   </script>
   </html>

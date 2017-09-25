@@ -4,6 +4,14 @@ from django.utils import timezone
 
 from django.db import models
 
+class Guardia(models.Model):
+    nombre = models.CharField(max_length=20)
+    apellido = models.CharField(max_length=20)
+    dni = models.IntegerField(null=False)
+
+    def __str__(self):
+        return '{} {} '.format(self.apellido, self.nombre)
+
 class Padre_Tutor(models.Model):
     nombre = models.CharField(max_length=20)
     apellido = models.CharField(max_length=20)
@@ -45,8 +53,6 @@ class Alumno(models.Model):
 
 #    def count_like(self):
 #        return Like.objects.filter(tweet=self).count()
-#    def __str__(self):
-#        return 'Tweet nro {} - by {}'.format(self.id, self.user)
 
 class Formulario(models.Model):
     preceptor = models.ForeignKey(Preceptor)
