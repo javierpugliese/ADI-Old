@@ -16,6 +16,7 @@ urlpatterns = [
     url(r'^index_guardia/$', index_guardia, name="index_guardia"),
     url(r'^preceptor/$', preceptor, name="cambio"),
     url(r'^guardia/$', guardia, name="cambio2"),
+    url(r'^prueba/estoy/$', prueba, name="prueba"),
     url(r'^crearpreceptor/$', cpreceptor, name="cambio4"),
     url(r'^crearalumno/$', calumno, name="cambio5"),
     url(r'^cambiaralumno/$', chalumno, name="cambio6"),

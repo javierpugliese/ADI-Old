@@ -1,0 +1,59 @@
+<html>
+    <head>
+
+        <title> CHARTS </title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
+
+    </head>
+    <body>
+
+<div class="container">
+  <canvas id="myChart" width="400" height="400"></canvas>
+</div>
+
+</body>
+    <script>
+
+    arranca();
+
+      function arranca(){
+        var endPoint = "prueba/estoy"
+        $.ajax({
+           method: "GET",
+           url: endPoint,
+         })
+           .done(function(data){
+             var ctx = document.getElementById("myChart").getContext('2d');
+              var myChart = new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                      labels: ["Presentes", "Ausente", "Retirado"],
+                      datasets: [{
+                          label: 'Alumnos',
+                          data: [data.presente, data.ausente, data.retirado],
+                          borderWidth: 1
+                      }]
+                  },
+                  options: {
+                      scales: {
+                          yAxes: [{
+                              ticks: {
+                                  beginAtZero:true
+                              }
+                          }]
+                      }
+                  }
+});
+         });
+      }
+    </script>
+
+
+</html>

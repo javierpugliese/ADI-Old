@@ -93,7 +93,24 @@ def traer_alumnos2(request):
         'ausente': cant_ausentes,
         'saliendo': cant_saliendo
     }
-    return render(request, 'preceptor/charts.html', data)
+    return JsonResponse(data)
+
+def prueba(request):
+    print "estoy"
+    cant_presente = 20
+    cant_ausentes = 5
+    cant_saliendo = 5
+    pepe = request.user
+    prec = Preceptor.objects.get(nombre_usuario=pepe)
+    #cant_presente = Curso.objects.filter(alumno__estado="Presente", preceptor=prec).count()
+    #cant_ausentes = Curso.objects.filter(alumno__estado="Ausente", preceptor=prec).count()
+    #cant_saliendo = Curso.objects.filter(alumno__estado="Saliendo", preceptor=prec).count()
+    data = {
+        'presente': cant_presente,
+        'ausente': cant_ausentes,
+        'saliendo': cant_saliendo
+    }
+    return JsonResponse(data)
 
 def crear_alumno(request):
     nombre = request.POST['nombre']
@@ -210,13 +227,15 @@ def datos_formulario(request, id_for):
 # Funciones de carga de template
 
 def preceptor(request):
-    return render(request, 'preceptor/prueba.html')
+    return render(request, 'preceptor/index.html')
 
 def cpreceptor(request):
     return render(request, 'admin/crear_preceptor.html')
 
 def index(request):
-    return render(request, 'inicio.html')
+    return render (request, "pie_charts.html")
+    #alumnos = Alumno.objects.filter(dni=42660371)
+    #return render(request, 'pie_charts.html', {'alumno':alumnos})
 
 def index_guardia(request):
     return render(request, 'guardia/index.html')
@@ -244,7 +263,7 @@ def f2(request):
     except:
         al = None
     return render(request,
-                 'preceptor/elegir_formulario.html',
+                 'preceptor/formularios/elegir_formulario.html',
                  {'todos_los_alumnos':al})
 
 def formularios(request):
@@ -263,7 +282,7 @@ def mis_alumnos_presentes(request):
     prec = Preceptor.objects.filter(nombre_usuario=pepe)
     al = Alumno.objects.filter(curso__preceptor=prec, estado="Presente")
     return render(request,
-                 'preceptor/mis_alumnos_presentes.html',
+                 'preceptor/alumnos/mis_alumnos_presentes.html',
                  {'todos_los_alumnos':al})
 
 def mis_alumnos(request):
@@ -271,7 +290,7 @@ def mis_alumnos(request):
     prec = Preceptor.objects.get(nombre_usuario=pepe)
     al = Alumno.objects.filter(curso__preceptor=prec)
     return render(request,
-                 'preceptor/mis_alumnos_presentes.html',
+                 'preceptor/alumnos/mis_alumnos_presentes.html',
                  {'todos_los_alumnos':al})
 
 def traer_alumnos(request):
@@ -287,4 +306,4 @@ def mis_formularios(request):
     except:
         forms2 = None
         forms3 = None
-    return render(request,'preceptor/mis_formularios.html',{'todos_los_f3':forms3, 'todos_los_f2':forms2})
+    return render(request,'preceptor/formularios/mis_formularios.html',{'todos_los_f3':forms3, 'todos_los_f2':forms2})
