@@ -20,12 +20,14 @@ urlpatterns = [
     url(r'^crearpreceptor/$', cpreceptor, name="cambio4"),
     url(r'^crearalumno/$', calumno, name="cambio5"),
     url(r'^cambiaralumno/$', chalumno, name="cambio6"),
+    url(r'^charts/$', ver_charts, name="cambio7"),
 
     #URL para pasar ID.
     url(r'^buscar_alumno/(\d+)$', buscar_alumno, name="buscar_alumno"),
     url(r'^crear_fm/(\d+)$', crear_fm, name="crear_fm"),
     url(r'^crear_f1/(\d+)$', crear_f1, name="crear_f1"),
     url(r'^crear_f2/(\d+)$', crear_f2, name="crear_f2"),
+    url(r'^datos_f2/(\d+)$', datos_f2, name="datos_f2"),
     url(r'^crear_f3/(\d+)$', crear_f3, name="crear_f3"),
     url(r'^asistencia/(\d+)$', asistencia, name="asistencia"),
     url(r'^aceptar_formulario/(\d+)$', aceptar_formulario, name="aceptar_formulario"),

@@ -44,6 +44,15 @@ def crear_f2(request, dni_alumno):
         new_f.save()
     return HttpResponse("Hecho")
 
+def datos_f2(request, id_for):
+    print id_for;
+    formi = Formulario.objects.get(id=id_for)
+    alum = formi.alumno
+    return render(request,
+                  'preceptor/formularios/datos_f2.html',
+                  {'forms2':formi})
+
+
 def crear_f3(request, dni_alumno):
     #Tomamos al usuario loggueado
     pepe = request.user
@@ -212,7 +221,7 @@ def volver(request, alum_t):
 def datos_alumnos(request, id_for):
     al = Alumno.objects.get(dni=id_for)
     print "aca estoy"
-    return render (request, 'preceptor/elegir_formulario.html', {'alumno':al})
+    return render (request, 'preceptor/formularios/elegir_formulario.html', {'alumno':al})
 
 def datos_formulario(request, id_for):
     print id_for;
@@ -233,9 +242,8 @@ def cpreceptor(request):
     return render(request, 'admin/crear_preceptor.html')
 
 def index(request):
-    return render (request, "pie_charts.html")
-    #alumnos = Alumno.objects.filter(dni=42660371)
-    #return render(request, 'pie_charts.html', {'alumno':alumnos})
+    return render (request, "inicio.html")
+    #return render (request, "preceptor/charts.html")
 
 def index_guardia(request):
     return render(request, 'guardia/index.html')
@@ -251,6 +259,9 @@ def guardia(request):
 
 def inicio(request):
   return render(request, 'index.html')
+
+def ver_charts(request):
+    return render(request, 'preceptor/charts.html')
 
 def login_p(request):
     return render(request, 'login.html')

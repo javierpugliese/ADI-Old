@@ -14,9 +14,9 @@
 		<!-- Agregamos un título a esta plantilla -->
 		<title>ADI</title>
 	</head>
-	<body style="background-color:#32237d">
+	<body style="background-color:#ff8000">
 		<!-- Navbar -->
-		<nav style="background-color: #32237d" role="navigation">
+		<nav style="background-color: #5c5c3d" role="navigation">
 			<div class="nav-wrapper z-depth-4">
 				<!-- Logo y título centrado -->
 				<a id="logo-container" href="/" class="brand-logo center">
@@ -29,7 +29,7 @@
 			<div class="parallax"><img src='{% static "img/background2.jpg" %}' alt="Unsplashed background img 1"></div>
 		</div>
 		<!-- Contenido intermedio -->
-		<div class="container z-depth-5" style="background-color:#3a2993">
+		<div class="container z-depth-5" style="background-color:#5c5c3d">
 			<!-- Sección de íconos de redirección -->
 			<div class="section">
 				<!-- Fila -->
@@ -43,7 +43,7 @@
 									<!-- Botón de redireccionamiento a view de alumnos -->
 									<a style="background-color:royalblue" class="btn waves-effect waves-light" href="{% url 'login_p' %}">Alumnos</a>
 									<p class="white-text" style="font-weight: bold;text-align: center;text-justify: inter-word">Incluye la función de revisión de inasistencias y estado de conducta, además de poder visualizar perfiles, los cuales incluyen los datos personales del alumno con la posibilidad de modificar éstos sólo en casos específicos.</p>
-									<p style="color:red;font-weight: bold;text-align: center">Espacio sólo para alumnos registrados</p>
+									<p style="font-weight: bold;text-align: center">Espacio sólo para alumnos registrados</p>
 								</center>
 						</div>
 					</div>
@@ -57,7 +57,7 @@
 									<!-- Botón de redireccionamiento a view del guardia -->
 									<a style="background-color:royalblue" class="btn waves-effect waves-light" href="{% url 'index_guardia' %}">Guardia</a>
 									<p class="white-text" style="font-weight: bold;text-align: center;text-justify: inter-word">Incluye la función de controlar de formularios que le serán entregados en un momento por los preceptores. Abarca la revisión de datos de los formularios para dar el alta a los alumnos que quisieran retirarse y están autorizados.</p>
-									<p style="color:red;font-weight: bold;text-align: center">Espacio sólo para guardias registrados</p>
+									<p style="font-weight: bold;text-align: center">Espacio sólo para guardias registrados</p>
 								</center>
 						</div>
 					</div>
@@ -71,7 +71,7 @@
 									<!-- Botón de redireccionamiento a view del preceptor -->
 									<a style="background-color:royalblue" class="btn waves-effect waves-light" href="{% url 'login_p' %}">Preceptores</a>
 									<p class="white-text" style="font-weight: bold;text-align: center;text-justify: inter-word">Incluye funciones de visualización de datos de los alumnos, como así la modificación de éstos. Además, se podrán cargar formularios de salida y aplicar observaciones de conducta o porcentajes de inasistencia.</p>
-									<p style="color:red;font-weight: bold;text-align: center">Espacio sólo para preceptores registrados</p>
+									<p style="font-weight: bold;text-align: center">Espacio sólo para preceptores registrados</p>
 								</center>
 						</div>
 					</div>
@@ -88,7 +88,7 @@
 									<!-- Botón de redireccionamiento a view del admin -->
 									<a style="background-color:royalblue" class="btn waves-effect waves-light" href="{% url 'admin:index' %}">Administración</a>
 									<p class="white-text" style="font-weight: bold;text-align: center;text-justify: inter-word">Incluye la completa creación, manipulación y consulta de datos y funciones que abarcará el sistema ADI. Nótese que el acceso a ésta sección queda bajo la responsabilidad de cada institución escolar.</p>
-									<p style="color:red;font-weight: bold;text-align: center">Espacio sólo para administradores</p>
+									<p style="font-weight: bold;text-align: center">Espacio sólo para administradores</p>
 								</center>
 						</div>
 					</div>
@@ -106,7 +106,7 @@
 			</div>
 		</div>
 		<!-- Footer -->
-		<footer class="page-footer z-depth-4" style="background-color: #32237d">
+		<footer class="page-footer z-depth-4" style="background-color: #5c5c3d">
 			<!-- Contenedor de información acerca de nosotros -->
 			<div class="container">
 				<div class="row">

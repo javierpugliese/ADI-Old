@@ -78,7 +78,7 @@
 				<ul class="tabs tabs-transparent">
           <li class="tab"><a id="open_cf" href="#f1">Crear Formulario</a></li>
 					<li class="tab"><a id="ver_formularios" href="#f1">Ver Formularios</a></li>
-          <li class="tab"><a id="mod_alumno" href="#perfiles">Modificar Alumnos</a></li>
+          <li class="tab"><a id="charts" href="#perfiles">Charts</a></li>
 				</ul>
 			</div>
 	    </nav>
@@ -86,9 +86,18 @@
     <div id="contenido"></div>
     <div id="contenido2"></div>
 
+    <!-- Modal para crear Formulario -->
+
     <div id="id01" class="w3-modal">
     	<div class="modal-dialog modal-sm" id="datos">
-    	</div>
+      </div>
+    </div>
+
+      <!-- Modal para los datos del F2 -->
+
+      <div id="id02" class="w3-modal">
+      	<div class="modal-dialog modal-sm" id="datos2">
+      	</div>
     </div>
 
     </body>
@@ -104,13 +113,12 @@
                   $("#contenido2")[0].innerHTML = data;
                 });
             });
-            $('#mod_alumno').click(function(){
+            $('#charts').click(function(){
               $.ajax({
                 method: "GET",
-                url: "/traer_alumnos2/",
+                url: "/charts/",
               })
                 .done(function(data){
-                  alert(data);
                   $("#contenido2")[0].innerHTML = data;
                 });
             });
@@ -204,6 +212,20 @@
                    alumnos_presentes()
                 });
             };
+
+            function datos_f2(url, formu) {
+             $.ajax({
+               method: "POST",
+               url: url,
+               data: {
+                 csrfmiddlewaretoken: '{{ csrf_token }}'
+               }
+             })
+               .done(function (data) {
+                 $("#datos2").html(data);
+                document.getElementById('id02').style.display='block';
+               });
+           };
 
             function crear_f3(url, alum) {
              $.ajax({
