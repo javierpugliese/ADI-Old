@@ -21,15 +21,24 @@
 				h4:hover {
 					color: royalblue;
 				}
-		</style>
+                #mydiv {
+                    position:fixed;
+                    top: 50%;
+                    left: 50%;
+                    width:30em;
+                    height:18em;
+                    margin-top: -9em; /*set to a negative number 1/2 of your height*/
+                    margin-left: -15em;
+            }
+        </style>
 	</head>
-	<body style="background-color: whitesmoke">
+	<body style="background-color: #80bfff">
 		<!-- Formulario para el Login-->
 		{% block content %}
-			<form method="POST">
+            <form method="POST">
 				{% csrf_token %}
 				<!-- Encerramos el contenido del formulario dentro de una carta -->
-				<div style="margin-left:15%; margin-right:15%; margin-top:4%; padding:10px 200px; height:100px;">
+				<div id="mydiv">
 					<div class="row">
 						<div class="container">
 							<div class="col s12">

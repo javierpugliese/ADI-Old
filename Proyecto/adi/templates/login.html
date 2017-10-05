@@ -66,7 +66,7 @@
 		<nav style="background-color: #32237d" role="navigation">
 			<div class="nav-wrapper z-depth-3">
 				<!-- Logo y título centrado -->
-				<a id="logo-container" href="{% url 'login_p' %}" class="brand-logo center">
+				<a id="logo-container" data-target="modal1" onclick="abrir_modal()" class="brand-logo center modal-trigger">
 					<i class="material-icons prefix" style="font-size: 45px">assignment</i> ADI - Log In
 				</a>
 			</div>
@@ -129,7 +129,7 @@
 			<div class="container">
 				<div class="row">
 					<h5 class="white-text">Bio de la empresa</h5>
-					<p class="grey-text text-lighten-4" style="text-align:justify;text-justify:inter-word">Somos un equipo de estudiantes del nivel secundario enfocado a la etapa de aprendizaje en desarrollo de aplicaciones web con Django. ADARIN busca virtualizar archivos institucionales, reduciendo el papeleo para así mejorar el rendimiento con respecto al manejo de tareas que lleva a cabo una institución escolar.</p>
+					<p class="grey-text text-lighten-4" style="text-align:justify;text-justify:inter-word">Somos un equipo de estudiantes del nivel secundario enfocado a la etapa de aprendizaje en desarrollo de aplicaciones web con Django. ADI busca virtualizar archivos institucionales, reduciendo el papeleo para así mejorar el rendimiento con respecto al manejo de tareas que lleva a cabo una institución escolar.</p>
 				</div>
 			<!-- Contenedor de créditos y copyright -->
 				<div class="footer-copyright z-depth-4" style="background-color:#3a2993">
@@ -139,8 +139,25 @@
 				</div>
 			</div>
 		</footer>
+        <div id="modal1" class="modal">
+		    <div class="modal-content">
+		      <h4>Log In</h4>
+		      <p>Para poder avanzar a la seccion de "Preceptor" hace falta pasar por el 
+                siguiente sistema de Log In que sirve para veriricar que el usuario que 
+                accede al sistema sea un Preceptor y no un Guardia entre otros.</p>
+		    </div>
+		    <div class="modal-footer">
+		      <a class="modal-action modal-close waves-effect waves-green btn-flat"><i class="material-icons prefix" style="font-size: 45px">done</i></a>
+		    </div>
+		  </div>
 		<!--Importar jQuery antes de materialize.js-->
 		<script type="text/javascript" src="{% static 'jquery/jquery-3.2.1.min.js' %}"></script>
 		<script type="text/javascript" src="{% static 'materialize/js/materialize.min.js' %}"></script>
 	</body>
+    <script>
+        
+        function abrir_modal(){
+            $('.modal').modal();
+        }
+    </script>
 </html>
