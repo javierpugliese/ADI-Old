@@ -44,13 +44,21 @@ def crear_f2(request, dni_alumno):
         new_f.save()
     return HttpResponse("Hecho")
 
-def datos_f2(request, id_for):
+def datos_formulario2(request, id_for):
     print id_for;
     formi = Formulario.objects.get(id=id_for)
     alum = formi.alumno
     return render(request,
                   'preceptor/formularios/datos_f2.html',
                   {'forms2':formi})
+
+def datos_formulario3(request, id_for):
+    print id_for;
+    formi = Formulario.objects.get(id=id_for)
+    alum = formi.alumno
+    return render(request,
+                  'preceptor/formularios/datos_f3.html',
+                  {'forms3':formi})
 
 
 def crear_f3(request, dni_alumno):
@@ -150,7 +158,7 @@ def crear_preceptor(request):
         preceptor = Preceptor(nombre_usuario=nombre_usuario,nombre=nombre, apellido=apellido, dni=dni)
         preceptor.save()
         #Creamos al usuario
-        user = User.objects.create_user(username=nombre_usuario, password=password)
+        user = User.objects.create_user(username=nombre_usuario, password=password, email="asdfaas@preceptor.com")
         user.save()
     return render(request, 'inicio.html')
 
@@ -223,7 +231,7 @@ def datos_alumnos(request, id_for):
     print "aca estoy"
     return render (request, 'preceptor/formularios/elegir_formulario.html', {'alumno':al})
 
-def datos_formulario(request, id_for):
+def datos_formulario_guardia(request, id_for):
     print id_for;
     formi = Formulario.objects.get(id=id_for)
     alum = formi.alumno
@@ -246,6 +254,9 @@ def index(request):
     #return render (request, "preceptor/charts.html")
 
 def index_guardia(request):
+    pepe = request.user
+    if pepe.email.endswith('@preceptor.com'):
+        return render(request, 'rechazado.html')
     return render(request, 'guardia/index.html')
 
 def chalumno(request):

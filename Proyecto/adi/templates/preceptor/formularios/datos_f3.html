@@ -1,0 +1,38 @@
+<div class="w3-modal-content w3-animate-top">
+  <div class="modal-dialog modal-sm">
+    <header class="w3-container w3-teal">
+      <span onclick="document.getElementById('id02').style.display='none'"
+        class="w3-button w3-large w3-display-topright">&times;</span>
+      <h2>Datos:</h2>
+    </header>
+    <div class="w3-container">
+        <div id= "primero">
+          <div class="section">
+            <div class="row center">
+                <div class="col s6">
+                  <div class="card hoverable">
+                    <!-- Contenido de la carta, info del f2 creado-->
+                    <div class="card-content">
+                      <!-- Titulo de la carta -->
+
+                      <span class="card-title center" class="only12px"><ins>AUTORIZACIÓN PARA RETIRO ANTICIPADO POR RAZONES PERSONALES </ins> <b>(F3)</b></span>
+                      <b class="only12px"><i>“Solo válido para alumnos de 5°- 6° y 7° año” (Reglamento Institucional)</i></b>
+                      <br><br>
+                      <p class="toRight12px">Córdoba,______de__________________________de {% now "Y" %}</p>
+                      <br>
+                      <p class="toLeft12px">Sra. Directora del Instituto Técnico Salesiano “Villada”</p>
+                      <br>
+                      <p class="toLeft12px">Prof. Adriana Zarza</p>
+                      <p class="toLeft12px">S-----------------------/------------------------D</p>
+                      <p class="justify12px" style="text-indent: 278px">Me dirijo a Ud. a los efectos de autorizar, en el día de la fecha, al alumno {{forms3.alumno.nombre|title}} {{forms3.alumno.apellido|title}}, curso: {{forms3.alumno.curso}}, a retirarse del Establecimiento por sus propios medios debido a Problemas Personales.</p>
+                      <br>
+                      <p class="toRight12px">Sin otro particular le saludo atte.</p>
+                      Sra. Directora del Instituto Técnico Salesiano “Villada”
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>

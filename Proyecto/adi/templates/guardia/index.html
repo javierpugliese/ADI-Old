@@ -111,7 +111,7 @@
         $( "#segundo" ).load(window.location.href + " #segundo" );
       }
 
-      function aceptar_f2(url, alum) {
+      function aceptar_formulario(url, alum) {
        //alert("soquetes");
        $.ajax({
          method: "POST",
@@ -126,7 +126,7 @@
          });
      };
 
-     function aceptar_f3(url, alum) {
+     function rechazar_formulario(url, alum) {
       //alert("soquetes");
       $.ajax({
         method: "POST",
@@ -136,42 +136,11 @@
         }
       })
         .done(function (data) {
-          Materialize.toast(data.estado, 4000, 'green')
+          Materialize.toast(data.estado, 4000, 'red')
           updateDiv2()
         });
     };
-
-    function rechazar_f2(url, alum) {
-     //alert("soquetes");
-     $.ajax({
-       method: "POST",
-       url: url,
-       data: {
-         csrfmiddlewaretoken: '{{ csrf_token }}'
-       }
-     })
-       .done(function (data) {
-         Materialize.toast(data.estado, 4000, 'red')
-         updateDiv()
-       });
-    };
-
-    function rechazar_f3(url, alum) {
-    //alert("soquetes");
-    $.ajax({
-      method: "POST",
-      url: url,
-      data: {
-        csrfmiddlewaretoken: '{{ csrf_token }}'
-      }
-    })
-      .done(function (data) {
-        Materialize.toast(data.estado, 4000, 'red')
-        updateDiv2()
-      });
-    };
-
-    function datos_f2(url, alum) {
+    function datos_formulario_guardia(url, alum) {
       //alert("soquetes");
       $.ajax({
        method: "POST",
@@ -183,23 +152,7 @@
        .done(function (data) {
           $("#datos").html(data);
           document.getElementById('id01').style.display='block';
-     });
-    };
-
-    function datos_f3(url, alum) {
-      //alert("soquetes");
-      $.ajax({
-       method: "POST",
-       url: url,
-       data: {
-         csrfmiddlewaretoken: '{{ csrf_token }}'
-       }
-      })
-       .done(function (data) {
-          $("#datos").html(data);
-          document.getElementById('id01').style.display='block';
-     });
-};
-
+        });
+      };
   </script>
 </html>

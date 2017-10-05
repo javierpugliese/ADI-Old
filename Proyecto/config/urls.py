@@ -27,13 +27,14 @@ urlpatterns = [
     url(r'^crear_fm/(\d+)$', crear_fm, name="crear_fm"),
     url(r'^crear_f1/(\d+)$', crear_f1, name="crear_f1"),
     url(r'^crear_f2/(\d+)$', crear_f2, name="crear_f2"),
-    url(r'^datos_f2/(\d+)$', datos_f2, name="datos_f2"),
+    url(r'^datos_formulario2/(\d+)$', datos_formulario2, name="datos_formulario2"),
+    url(r'^datos_formulario3/(\d+)$', datos_formulario3, name="datos_formulario3"),
     url(r'^crear_f3/(\d+)$', crear_f3, name="crear_f3"),
     url(r'^asistencia/(\d+)$', asistencia, name="asistencia"),
     url(r'^aceptar_formulario/(\d+)$', aceptar_formulario, name="aceptar_formulario"),
     url(r'^rechazar_formulario/(\d+)$', rechazar_formulario, name="rechazar_formulario"),
     url(r'^datos_alumnos/(\d+)$', datos_alumnos, name="datos_alumnos"),
-    url(r'^datos_formulario/(\d+)$', datos_formulario, name="datos_formulario"),
+    url(r'^datos_formulario_guardia/(\d+)$', datos_formulario_guardia, name="datos_formulario_guardia"),
     url(r'^volver/(\d+)$', volver, name="volver"),
 
 

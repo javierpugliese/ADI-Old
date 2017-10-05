@@ -13,13 +13,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8"/>
 		<!-- Agregamos un título a esta plantilla -->
 		<title>ADI</title>
+
 	</head>
-	<body style="background-color:#ff8000">
+	<body style="background-color:#cc7a00">
 		<!-- Navbar -->
 		<nav style="background-color: #5c5c3d" role="navigation">
 			<div class="nav-wrapper z-depth-4">
 				<!-- Logo y título centrado -->
-				<a id="logo-container" href="/" class="brand-logo center">
+				<a id="logo-container" href="/" onclick="mostrar_modal()" class="brand-logo center">
 					<i class="material-icons prefix" style="font-size: 45px">assignment</i> ADI
 				</a>
 			</div>
@@ -29,6 +30,7 @@
 			<div class="parallax"><img src='{% static "img/background2.jpg" %}' alt="Unsplashed background img 1"></div>
 		</div>
 		<!-- Contenido intermedio -->
+		<br>
 		<div class="container z-depth-5" style="background-color:#5c5c3d">
 			<!-- Sección de íconos de redirección -->
 			<div class="section">
@@ -99,6 +101,7 @@
 				</div>
 			</div>
 		</div>
+		<br>
 		<!-- Parallax 2 -->
 		<div class="parallax-container valign-wrapper z-depth-4">
 			<div class="parallax">
@@ -124,6 +127,7 @@
 				</div>
 			</div>
 		</footer>
+	</body>
 		<!-- Inicializamos parallax -->
 		<script>
 			$(document).ready(function(){

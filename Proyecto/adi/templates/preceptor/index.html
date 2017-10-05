@@ -17,14 +17,14 @@
       </style>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
       <!-- Compiled and minified JavaScript -->
-  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-      <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-          crossorigin="anonymous"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
-  		<meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
+        <!--Let browser know website is optimized for mobile-->
       <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
 	  <title>Preceptor</title>
     </head>
@@ -120,8 +120,61 @@
               })
                 .done(function(data){
                   $("#contenido2")[0].innerHTML = data;
+                  arranca();
                 });
             });
+            function arranca(){
+              $.ajax({
+                 method: "GET",
+                 url: '/prueba/estoy',
+               })
+                 .done(function(datos){
+                   new Chart(document.getElementById("bar-chart-horizontal"), {
+                      type: 'horizontalBar',
+                      data: {
+                        labels: ["Presentes", "Ausentes", "Retirados"],
+                        datasets: [
+                          {
+                            label: "Cantidad",
+                            backgroundColor: ["#3e95cd", "#ff6347","#585858"],
+                            data: [datos.presente,datos.ausente,datos.saliendo],
+                          }
+                        ]
+                      },
+                      options: {
+                        responsive: true,
+                        legend: { display: false },
+                        title: {
+                          fontSize: 80,
+                          display: true,
+                          text: 'Alumnos'
+                        }
+                      }
+                      });
+                  new Chart(document.getElementById("doughnut-chart"), {
+                  type: 'doughnut',
+                  data: {
+                    labels: ["Presentes", "Ausentes", "Retirados"],
+                    datasets: [
+                      {
+                        label: "Cantidad",
+                        backgroundColor: ["#3e95cd", "#ff6347","#585858"],
+                        data: [datos.presente,datos.ausente,datos.saliendo]
+                      }
+                    ]
+                  },
+                  options: {
+                    legend: { display: false },
+                    title: {
+                      fontSize: 40,
+                      display: true,
+                      text: 'Alumnos'
+                    }
+                  }
+
+                });
+              });
+            }
             $('#open_cf').click(function(){
               $.ajax({
                 method: "GET",
@@ -213,7 +266,7 @@
                 });
             };
 
-            function datos_f2(url, formu) {
+            function datos_formulario2(url, formu) {
              $.ajax({
                method: "POST",
                url: url,
@@ -226,6 +279,20 @@
                 document.getElementById('id02').style.display='block';
                });
            };
+
+           function datos_formulario3(url, formu) {
+            $.ajax({
+              method: "POST",
+              url: url,
+              data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+              }
+            })
+              .done(function (data) {
+                $("#datos2").html(data);
+               document.getElementById('id02').style.display='block';
+              });
+          };
 
             function crear_f3(url, alum) {
              $.ajax({
