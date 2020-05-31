@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login
-from django.core.urlresolvers import reverse
-from django.shortcuts import render_to_response, render, redirect
+#from django.core.urlresolvers import reverse
+#from django.shortcuts import render_to_response, render, redirect  OLD IMPORT
+from django.shortcuts import render, redirect
 from django.template import RequestContext
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponse
@@ -46,7 +47,7 @@ def crear_f2(request, dni_alumno):
     return HttpResponse("Hecho")
 
 def datos_formulario2(request, id_for):
-    print id_for;
+    print(id_for);
     formi = Formulario.objects.get(id=id_for)
     alum = formi.alumno
     return render(request,
@@ -54,7 +55,7 @@ def datos_formulario2(request, id_for):
                   {'forms2':formi})
 
 def datos_formulario3(request, id_for):
-    print id_for;
+    print(id_for);
     formi = Formulario.objects.get(id=id_for)
     alum = formi.alumno
     return render(request,
@@ -81,8 +82,8 @@ def crear_f3(request, dni_alumno):
     return HttpResponse('FUNCIONO')
 
 def buscar_alumno(request, dni_alumno):
-    al = Alumno.objects.get(dni=dni_alumno)
     global al
+    al = Alumno.objects.get(dni=dni_alumno)    
     return render(request, 'admin/modificar_alumno.html', {'alumno':al})
 
 def mod_alumno(request):
@@ -91,7 +92,7 @@ def mod_alumno(request):
     al.nombre=nombre2
     al.apellido=apellido2
     al.save()
-    print al.apellido
+    print(al.apellido)
     data = {
         'estado': al.apellido + " actualizado"
     }
@@ -114,7 +115,7 @@ def traer_alumnos2(request):
     return JsonResponse(data)
 
 def prueba(request):
-    print "estoy"
+    print("estoy")
     cant_presente = 20
     cant_ausentes = 5
     cant_saliendo = 5
@@ -142,14 +143,14 @@ def crear_alumno(request):
         al = Alumno(nombre=nombre, apellido=apellido, dni=dni, estado="Indefinido", curso=cur, faltas=0)
         al.save()
     else:
-        print "HOla"
+        print("HOla")
 
     return HttpResponse('FUNCIONO')
 
 
 def crear_preceptor(request):
     if request.method == 'POST':
-        print "llega"
+        print("llega")
         nombre_usuario = request.POST['nombre_usuario']
         password = request.POST['password']
         nombre = request.POST['nombre']
@@ -179,12 +180,12 @@ def aceptar_formulario(request, alum_t):
         data = {
             'estado':"La operación falló"
         }
-    print al.padre.email
+    print(al.padre.email)
     #subject = 'Retiro de ' + al.nombre
     #message = 'Le notificamos que su hijo ' + al.apellido + " " + al.nombre + " se ha retirado de la escuela "
     #from_email = 'gonzamirandab2000@gmail.com'
     #send_mail(subject, None, from_email, ['al.padre.email'])
-    print "llegamos2"
+    print("llegamos2")
     return JsonResponse(data, safe=False)
 
 def rechazar_formulario(request, alum_t):
@@ -229,11 +230,11 @@ def volver(request, alum_t):
 
 def datos_alumnos(request, id_for):
     al = Alumno.objects.get(dni=id_for)
-    print "aca estoy"
+    print("aca estoy")
     return render (request, 'preceptor/formularios/elegir_formulario.html', {'alumno':al})
 
 def datos_formulario_guardia(request, id_for):
-    print id_for;
+    print(id_for);
     formi = Formulario.objects.get(id=id_for)
     alum = formi.alumno
     return render(request,
@@ -258,8 +259,8 @@ def formularios(request):
     except:
         forms2 = None
         forms3 = None
-    print forms2
-    print forms3
+    print(forms2)
+    print(forms3)
     return render(request,'guardia/formularios.html',{'todos_los_f3':forms3, 'todos_los_f2':forms2})
 
 def mis_alumnos_presentes(request):

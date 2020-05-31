@@ -34,7 +34,7 @@ class Curso(models.Model):
     year = models.PositiveSmallIntegerField(default=1)
     division = models.CharField(max_length=1)
     numero = models.IntegerField(primary_key=True)
-    preceptor = models.ForeignKey(Preceptor)
+    preceptor = models.ForeignKey('Preceptor', on_delete=models.CASCADE)
     def __str__(self):
         return ' {} - {} / {}'.format(self.year, self.division, self.numero)
 
@@ -42,8 +42,8 @@ class Alumno(models.Model):
     nombre = models.CharField(max_length=20)
     apellido = models.CharField(max_length=20)
     dni = models.IntegerField(null=False)
-    padre = models.ForeignKey(Padre_Tutor)
-    curso = models.ForeignKey(Curso)
+    padre = models.ForeignKey('Padre_Tutor', on_delete=models.CASCADE)
+    curso = models.ForeignKey('Curso', on_delete=models.CASCADE)
     faltas = models.FloatField(null=False)
     estado = models.CharField(max_length=14)
 
@@ -55,8 +55,8 @@ class Alumno(models.Model):
 #        return Like.objects.filter(tweet=self).count()
 
 class Formulario(models.Model):
-    preceptor = models.ForeignKey(Preceptor)
-    alumno = models.ForeignKey(Alumno)
+    preceptor = models.ForeignKey('Preceptor', on_delete=models.CASCADE)
+    alumno = models.ForeignKey('Alumno', on_delete=models.CASCADE)
     fecha = models.DateTimeField(default=timezone.now)
     estado = models.CharField(max_length=11)
     # El estado de tipo determina el tipo de Formulario, True = F2, False = F3

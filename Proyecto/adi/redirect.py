@@ -1,4 +1,5 @@
-from django.shortcuts import render_to_response, render, redirect
+#from django.shortcuts import render_to_response, render, redirect
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import AnonymousUser, User
